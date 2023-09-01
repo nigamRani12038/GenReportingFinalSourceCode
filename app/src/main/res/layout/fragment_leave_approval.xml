@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.LeaveApprovalFragment">
+    <include layout="@layout/calender_layout" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:background="@drawable/background"
+
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_40sdp"
+           android:orientation="vertical"
+            android:layout_marginBottom="@dimen/_100sdp">
+
+          <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/comimg_req_admin"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/_10sdp"
+
+                android:layout_height="match_parent"/>
+           <!-- <include layout="@layout/meetings_view"/>
+            <include layout="@layout/meetings_view"/>
+            <include layout="@layout/meetings_view"/>-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

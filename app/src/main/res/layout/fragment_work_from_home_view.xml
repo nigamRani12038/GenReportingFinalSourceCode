@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.WorkFromHomeViewFragment">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:gravity="center"
+        android:background="@drawable/background"
+        android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_40sdp"
+
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Work From Home Details"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/txtcolor"
+                    android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Select Months"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:textColor="@color/txtcolor"
+                android:layout_height="wrap_content"/>
+                <Spinner
+                    android:id="@+id/date_spin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please Select Month"
+                    android:background="@drawable/ractangleshape"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:textSize="@dimen/_11sdp"
+                    android:textColor="@color/txt"
+                    android:textColorHint="@color/txt"/>
+
+                <Spinner
+                    android:id="@+id/approved_type_wfh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@drawable/ractangleshape"
+                    android:padding="@dimen/_8sdp"
+                    android:text="Please Select Approved Type"
+                    android:textColor="@color/txt"
+                    android:textColorHint="@color/txt"
+                    android:textSize="@dimen/_11sdp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/wfh_view"
+                    android:layout_marginBottom="@dimen/_60sdp"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/_128sdp"
+        android:layout_marginBottom="30dp"
+        app:fabSize="normal"
+        android:backgroundTint="@color/txtcolor"
+        app:elevation="20dp"
+        app:borderWidth="0dp"
+        app:maxImageSize="40dp"
+        fab:fab_icon="@drawable/newadd"
+        android:src="@drawable/newadd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+       />
+
+    <!-- Floating action button for add alarm -->
+    <!-- Make sure that you are constraining this
+         button to the parent button -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        >
+
+        <!--  android:background="@drawable/btnapplyefh"
+          app:srcCompat="@drawable/btnapplyefh" />-->
+
+        <!-- Action name text for the add alarm button -->
+        <!-- Make sure that you are constraining this Text to
+             the add Alarm FAB button -->
+
+
+        <!-- Floating action button for add person -->
+        <!-- Make sure that you are constraining this
+             button to the add Alarm FAB button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/apply_leve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/_120sdp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ale"
+            app:borderWidth="0dp"
+            app:elevation="20dp"
+            app:fabSize="normal"
+                android:layout_marginBottom="@dimen/_60sdp"
+            app:maxImageSize="40dp"
+            fab:fab_icon="@drawable/ale" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/apply_wfm_float"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_35sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/aw"
+            android:layout_marginRight="@dimen/_5sdp"
+            app:borderWidth="0dp"
+            app:elevation="20dp"
+            app:maxImageSize="40dp"
+            fab:fab_icon="@drawable/aw" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/expense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_85sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/icon"
+            app:borderWidth="0dp"
+            app:elevation="20dp"
+            app:fabSize="normal"
+            app:maxImageSize="40dp"
+            fab:fab_icon="@drawable/icon" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/aply_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_120sdp"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/al"
+            app:borderWidth="0dp"
+            app:elevation="20dp"
+            app:fabSize="normal"
+            app:maxImageSize="40dp"
+            fab:fab_icon="@drawable/al" />
+    </RelativeLayout>
+
+    <!-- Action name text for the add person button -->
+    <!-- Make sure that you are constraining this Text
+         to the add Person FAB button -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

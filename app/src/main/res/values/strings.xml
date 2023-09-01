@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GenReporting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="complete"><u>12</u></string>
+    <string name="not_start"><u>10</u></string>
+    <string name="in_progress"><u>10</u></string>
+    <string name="delay"><u>12</u></string>
+    <string name="assign"><u>12</u></string>
+    <string name="not_assign"><u>12</u></string>
+</resources>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include layout="@layout/calender_layout"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:background="@drawable/background"
+        android:orientation="vertical">
+ <ScrollView
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_width="match_parent"
+     android:layout_marginBottom="@dimen/_60sdp"
+
+     android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/remain_wfh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:text="Remaining WFH Leaves : 05"
+            android:textColor="@color/txtcolor"
+            android:textSize="@dimen/_14sdp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_height="5dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/dotedlineblue"
+                    android:layerType="software" />
+
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/calendar_view_range"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    app:mcv_selectionMode="range"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_height="5dp"
+                    android:src="@drawable/dotedlineblue"
+                    android:layerType="software" />
+
+       <!-- <TextView
+            android:id="@+id/date_from_wfh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/ractangleshape"
+            android:drawableRight="@drawable/dateicon"
+            android:padding="@dimen/_10sdp"
+            android:text="Date From"
+            android:textColor="@color/txt"
+            android:textSize="@dimen/_11sdp" />
+
+        <TextView
+            android:id="@+id/date_to_wfh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/ractangleshape"
+            android:drawableRight="@drawable/dateicon"
+            android:padding="@dimen/_10sdp"
+            android:text="Date To"
+            android:textColor="@color/txt"
+            android:textSize="@dimen/_11sdp" />
+-->
+
+        <EditText
+            android:id="@+id/wfh_purpose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/ractangleshape"
+            android:hint="Purpose"
+            android:singleLine="true"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_11sdp"
+            android:textColor="@color/txt"
+            android:textColorHint="@color/txt" />
+
+        <Button
+            android:id="@+id/aply_wfh_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_margin="@dimen/_20sdp"
+            android:background="@drawable/edittext_background1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Apply WFH"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
+            </LinearLayout>
+ </ScrollView>
+
+    </LinearLayout>
+
+
+</FrameLayout>

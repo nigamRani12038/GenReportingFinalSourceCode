@@ -1,0 +1,102 @@
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable-v24/ripple_effect.xml" value="0.26197916666666665" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable-xxhdpi/my_selector.xml" value="0.25833333333333336" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/add_icon.xml" value="0.24722222222222223" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/bottom_icon_color.xml" value="0.26614583333333336" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/circle.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/dotedline.xml" value="0.2490740740740741" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/dotedlineblue.xml" value="0.24074074074074073" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/edittext_background1.xml" value="0.2518518518518518" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/ractangle.xml" value="0.2537037037037037" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/ractangleshape.xml" value="0.240625" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/ractanglewhiteshape.xml" value="0.24166666666666667" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/rctanglegrayline.xml" value="0.24074074074074073" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/tab_rounded_background.xml" value="0.26205128205128203" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/drawable/tab_selected_background.xml" value="0.1287037037037037" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/font/poppins.xml" value="0.2601851851851852" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_admin.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_finance.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_forgot_password.xml" value="0.2296875" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_home.xml" value="0.176" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_hr.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/admin_menu.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/all_employee_current_status_item.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/below_header.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/calender_layout.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/employees_current_request_view.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/employees_current_status_view.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/finance_menu.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/floating_button_popup.xml" value="0.264" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_add__show__event_.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_add__show__meeting.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_add_event.xml" value="0.24615384615384617" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_admin_tab_layout.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_all_assign_task.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_all_my_project.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_apply_leave.xml" value="0.22447916666666667" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_approval_reject_and_approve.xml" value="0.24615384615384617" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_attendance.xml" value="0.20416666666666666" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_attendanceshow.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_coming_for_admin.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_current_meeting.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_employee_currentstatus.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_employee_request.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_event.xml" value="0.2453125" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_expence.xml" value="0.20416666666666666" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_expense.xml" value="0.24479166666666666" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_expense2.xml" value="0.23711340206185566" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_expense_view.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_finance_tablayout.xml" value="0.24615384615384617" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_holiday.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_home.xml" value="0.152" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_hr_tablayout.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_info.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_layout_expense_header.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_leave_approval.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_leave_home.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_leave_status_for_admin.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_leave_status_for_hr.xml" value="0.24615384615384617" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_leave_view.xml" value="0.176" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_loan.xml" value="0.20353982300884957" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_meeting.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_my_profile.xml" value="0.24479166666666666" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_my_task.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_project_fragments.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_request_pending_for_admin.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_salary.xml" value="0.20416666666666666" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_submit_meeting.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_tablayout.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_task_submit.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_wfh_approval.xml" value="0.234375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_work_from_home.xml" value="0.22552083333333334" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_work_from_home2.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/fragment_work_from_home_view.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/genereporting_menu.xml" value="0.264" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/header.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/holiday_list_item.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/hr_menu.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/meetings_view.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/my_task_layout.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/name_with_check_box.xml" value="0.2359375" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/profile_header.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/recycler_expense_view_item.xml" value="0.23177083333333334" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/recycler_leave_view_item.xml" value="0.24583333333333332" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/recycler_wfhview_item.xml" value="0.23177083333333334" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/layout/view_pager_item.xml" value="0.23125" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/menu/bottom_menu.xml" value="0.25" />
+        <entry key="..\:/Latest_Source_Code/GenReporting/app/src/main/res/menu/my_options_menu.xml" value="0.24583333333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

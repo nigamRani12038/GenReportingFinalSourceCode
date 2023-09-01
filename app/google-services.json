@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "670619327870",
+    "project_id": "genreporting-5b545",
+    "storage_bucket": "genreporting-5b545.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670619327870:android:e960c122fe8aeac321e72f",
+        "android_client_info": {
+          "package_name": "com.ossi.genreporting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670619327870-unue0757cg7513ahuecgp21lqqr32t20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmqvHOaOdE1vfrt6xYmU7hXABrhx0J0j8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670619327870-unue0757cg7513ahuecgp21lqqr32t20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

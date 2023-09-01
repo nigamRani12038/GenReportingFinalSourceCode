@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+
+        android:background="@drawable/ractangleshape"
+
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp"
+        android:weightSum="2">
+
+         <LinearLayout
+             android:layout_weight="1"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/emp_name_req"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_gravity="center"
+            android:text="Employee Name"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+             <TextView
+                 android:id="@+id/req_type"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="@dimen/_8sdp"
+                 android:layout_gravity="center"
+                 android:text="Request Type"
+                 android:textAllCaps="false"
+                 android:textColor="@color/black"
+                 android:textSize="@dimen/_11sdp"
+                 android:textStyle="bold" />
+         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/icon_open"
+            android:layout_weight="1"
+            android:background="@drawable/ractanglewhiteshape"
+            android:layout_width="@dimen/_80sdp"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_height="@dimen/_20sdp">
+
+       <!-- <ImageView
+
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@drawable/eye"
+           />-->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:lottie_rawRes="@raw/viewone"
+                app:lottie_loop="true"
+                app:lottie_speed=".5" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:color="?attr/colorControlHighlight"
+    tools:targetApi="lollipop"
+    tools:ignore="NewApi">
+
+    <!-- ripple mask -->
+    <item android:id="@+id/mask">
+        <color android:color="@android:color/white"/>
+    </item>
+
+    <!-- background shape or color -->
+    </ripple>
+
