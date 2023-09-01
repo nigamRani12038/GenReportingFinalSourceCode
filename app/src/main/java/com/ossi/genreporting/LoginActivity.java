@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if (pass_str.equalsIgnoreCase("")) {
                     Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(this)) {
                         loginRetrofit2Api(user_str, pass_str);
                     } else {
                         Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -265,10 +265,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 
 
     @SuppressLint("MissingPermission")
