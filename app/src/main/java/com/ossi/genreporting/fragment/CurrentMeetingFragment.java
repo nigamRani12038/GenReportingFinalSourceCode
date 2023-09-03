@@ -24,6 +24,7 @@ import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.MeetingListAdapter;
 import com.ossi.genreporting.Adapter.ShowAllEventAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.AllEventsShow;
@@ -76,7 +77,7 @@ View view;
         text_for_select.setText("");
 
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_meeting_list();
         } else {
             Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -177,15 +178,4 @@ View view;
         });
     }
 
-
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.commit();
-    }
-
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }}
+}

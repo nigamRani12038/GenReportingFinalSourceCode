@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.MeetingListAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ShowMeetingListResponse;
@@ -73,7 +74,7 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
         text_for_select.setText("");
 
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
              get_meeting_list();
         } else {
             Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -200,8 +201,5 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

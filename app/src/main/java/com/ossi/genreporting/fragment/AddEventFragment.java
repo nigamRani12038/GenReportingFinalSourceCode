@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ApplyLeaveResponseItem;
@@ -39,16 +41,17 @@ import retrofit2.Response;
 
 public class AddEventFragment extends Fragment implements View.OnClickListener {
     View view;
-    EditText header_event, description_event;
+    EditText header_event, description_event,locationEvent,organiserName;
     TextView date_event;
     Button add_event_btn;
     private APIInterface apiInterface;
     private ProgressDialog mProgressDialog;
-    String heading, description, date, res;
+    String heading, description, date, res,organiser,eventLocation,venueEvent;
     TextView text_header1, employee_name,text_for_select;
     TextView login_time;
     RecyclerView event_list_rv;
     private String user_id;
+    private String day_,month_;
     RoundedImageView img_profile;
     Spinner venue;
 
@@ -87,6 +90,27 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         venue.setAdapter(arrayAdapter1);
 
+        venue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(venue.getSelectedItem().equals("Office")){
+                    locationEvent.setVisibility(View.VISIBLE);
+                    locationEvent.setHint("Enter Room No");
+
+                }else if(venue.getSelectedItem().equals("Outside")){
+                    locationEvent.setHint("Enter Location");
+                    locationEvent.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         return view;
     }
 
@@ -102,6 +126,8 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         img_profile = view.findViewById(R.id.img_profile);
         text_for_select=view.findViewById(R.id.text_for_select);
         venue=view.findViewById(R.id.venue);
+        locationEvent=view.findViewById(R.id.locationEvent);
+        organiserName=view.findViewById(R.id.organiserName);
 
     }
 
@@ -117,7 +143,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
        // date="04/05/2023";
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.submit_event(heading, date, description);
+        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.submit_event(user_id,heading, date, description,venueEvent,organiser,eventLocation);
         call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
             @Override
             public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
@@ -134,7 +160,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                         res = applyLeaveResponseItem.get(i).getResponse();
 
                         if (res.equalsIgnoreCase("success")) {
-                            Toast.makeText(getActivity(), "success add event", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Event Created SuccessFully", Toast.LENGTH_SHORT).show();
                             AddShowEventFragment addShowEventFragment = new AddShowEventFragment();
                             openFragment(addShowEventFragment);
                         } else {
@@ -170,10 +196,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 
     @Override
     public void onClick(View v) {
@@ -182,14 +205,25 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                 heading = header_event.getText().toString();
                 description = description_event.getText().toString();
                 date = date_event.getText().toString();
+                venueEvent=venue.getSelectedItem().toString();
+                organiser=organiserName.getText().toString();
+                eventLocation=locationEvent.getText().toString();
+
                 if (heading.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Event Heading", Toast.LENGTH_SHORT).show();
                 } else if (description.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Description", Toast.LENGTH_SHORT).show();
-                } else if (date.equalsIgnoreCase("")) {
+                }else if (organiser.equalsIgnoreCase("")) {
+                    Toast.makeText(getActivity(), "Please Enter Description", Toast.LENGTH_SHORT).show();
+                }
+                else if (date.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Select Date", Toast.LENGTH_SHORT).show();
+                } else if (venue.getSelectedItem().toString().equalsIgnoreCase("Select Venue")) {
+                    Toast.makeText(getActivity(), "Please Select Venue", Toast.LENGTH_SHORT).show();
+                }else if (locationEvent.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(getActivity(), "Please Enter location / Room No", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(getActivity())) {
                         add_new_event();
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -202,31 +236,34 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
             case R.id.date_event:
 
                 final Calendar c = Calendar.getInstance();
-
-                // on below line we are getting
-                // our day, month and year.
                 int year = c.get(Calendar.YEAR);
                 int month = c.get(Calendar.MONTH);
                 int day = c.get(Calendar.DAY_OF_MONTH);
 
-                // on below line we are creating a variable for date picker dialog.
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        // on below line we are passing context.
-                        getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
-                                // on below line we are setting date to our edit text.
-                                date_event.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // on below line we are setting date to our edit text.
 
-                            }
-                        },
-                        // on below line we are passing year,
-                        // month and day for selected date in our date picker.
+                        day_ = "" + dayOfMonth;
+                        month_=""+monthOfYear;
+                        if (dayOfMonth < 10) {
+                            day_ = "0" + dayOfMonth;
+                        }
+                        if (monthOfYear < 10) {
+                            int i=monthOfYear+1;
+                            month_ = "0" + i ;
+                        }
+                        date_event.setText(day_ + "-" + (month_) + "-" + year);
+                        // date_from.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+
+
+                    }
+                },
+
                         year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
+
                 datePickerDialog.show();
                 break;
 

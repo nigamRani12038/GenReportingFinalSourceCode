@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ProfileDetailsResponseItem;
@@ -77,8 +78,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-    /*    RelativeLayout homeHeaderLayout = getActivity().findViewById(R.id.homeHeader);
-        homeHeaderLayout.setVisibility(View.GONE);*/
         find_view_by_id(view);
         set_on_click();
         personal_detail.setVisibility(View.VISIBLE);
@@ -92,7 +91,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
 
 
             emp_name1.setText(user_NAme);
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_all_profile_detail(user_id);
         } else {
             Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -164,7 +163,7 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
                 }
 
 
-                   else if (isNetworkAvailable()) {
+                   else if (Util.isNetworkAvailable(getActivity())) {
                         update_profile_(user_id, Mobile, Marital_status,Password);
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -314,11 +313,6 @@ public class MyProfileFragment extends Fragment implements View.OnClickListener 
         });
     }
 
-
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 
     private void selectImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};

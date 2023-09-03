@@ -96,7 +96,6 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
                 } else {
                     Get_leave_data_();
                 }
-                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -170,9 +169,7 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
     }
 
     public void find_view_by_id(View view) {
-
-        //apply_leave_ = view.findViewById(R.id.apply_leave_);
-        leave_spin = view.findViewById(R.id.leave_spin);
+   leave_spin = view.findViewById(R.id.leave_spin);
         leave_rv = view.findViewById(R.id.leave_rv);
         leave_approve_type = view.findViewById(R.id.leave_approve_type);
         leave_typ = view.findViewById(R.id.leave_typ);
@@ -180,50 +177,17 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
     }
 
     public void set_on_click_litioner() {
-        //apply_leave_.setOnClickListener(this);
-        //leave_spin.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-           /* case R.id.apply_leave_:
 
-                ApplyLeaveFragment applyLeaveFragment = new ApplyLeaveFragment();
-                openFragment(applyLeaveFragment);
-                break;*/
-
-           /* case R.id.leave_spin:
-                onDateSet();
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                leave_spin.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-
-                                String date_set=leave_spin.getText().toString();
-                                if(!date_set.equalsIgnoreCase("Please Select Month")) {
-                                    // Toast.makeText(getActivity(), "Please Select Month First ", Toast.LENGTH_SHORT).show();
-                                    String date = date_set;
-                                    String[] dateParts = date.split("/");
-                                    year1 = dateParts[0];
-                                    month1 = dateParts[1];
-                                    date1 = dateParts[1];
-                                    Get_wfh_data_();
-                                }
-                            }
-                        }, year, month, day);
-                picker.show();
-                break;*/
         }
     }
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-        // transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.commit();
-    }
+
 
     private void Get_leave_data_() {
         apiInterface = APIClient.getClient().create(APIInterface.class);

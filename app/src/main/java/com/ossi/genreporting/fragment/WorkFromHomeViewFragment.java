@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.ossi.genreporting.Adapter.ExpenseViewAdapter;
 import com.ossi.genreporting.Adapter.WfhViewAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ViewWorkFromHomeResponse;
@@ -119,7 +120,7 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
             arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             approved_type_wfh.setAdapter(arrayAdapter1);
 
-            if(isNetworkAvailable()) {
+            if(Util.isNetworkAvailable(getActivity())) {
                 Get_wfh_data_();
             }else {
                 Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -148,7 +149,7 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
                 } else if (approved_type_wfh.getSelectedItem().equals("Select Approved Type")) {
                     Toast.makeText(getActivity(), "Please Select Approved Type", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(isNetworkAvailable()) {
+                    if(Util.isNetworkAvailable(getActivity())) {
                         Get_wfh_data_();
                     }else {
                         Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -189,7 +190,7 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
                 } else if (approved_type_wfh.getSelectedItem().equals("Select Approved Type")) {
                     Toast.makeText(getActivity(), "Please Select Approved Type", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(isNetworkAvailable()) {
+                    if(Util.isNetworkAvailable(getActivity())) {
                         Get_wfh_data_();
                     }else {
                         Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -331,8 +332,5 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

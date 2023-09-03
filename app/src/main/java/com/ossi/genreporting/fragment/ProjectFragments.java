@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
@@ -96,7 +97,7 @@ public class ProjectFragments extends Fragment implements View.OnClickListener, 
 
         text_header1.setText("Assigned Task");
         text_for_select.setText("Select Duration");
-        if(isNetworkAvailable()){
+        if(Util.isNetworkAvailable(getActivity())){
             //get_employees();
             get_ProjectList();
         }else {
@@ -199,11 +200,6 @@ public class ProjectFragments extends Fragment implements View.OnClickListener, 
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -231,7 +227,7 @@ public class ProjectFragments extends Fragment implements View.OnClickListener, 
                     Toast.makeText(getActivity(), "Please Select Name For Task Assigned", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(getActivity())) {
                         Assigned_Task_By_Me();
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();

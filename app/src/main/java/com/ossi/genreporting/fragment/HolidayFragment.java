@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.ossi.genreporting.Adapter.ExpenseViewAdapter;
 import com.ossi.genreporting.Adapter.HolidayAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ExpenseViewResponse;
@@ -50,7 +51,7 @@ public class HolidayFragment extends Fragment {
         view= inflater.inflate(R.layout.fragment_holiday, container, false);
         holiday_recyclerview=view.findViewById(R.id.holiday_recyclerview);
 
-          if (isNetworkAvailable()){
+          if (Util.isNetworkAvailable(getActivity())){
               get_holiday_list();
           }
          else {
@@ -119,8 +120,5 @@ public class HolidayFragment extends Fragment {
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
@@ -137,7 +138,7 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
                         Toast.makeText(getActivity(), "Please Enter Purpose", Toast.LENGTH_SHORT).show();
                     } else {
 
-                        if (isNetworkAvailable()) {
+                        if (Util.isNetworkAvailable(getActivity())) {
                            // Log.e("start", wfh_date_from);
                            // Log.e("end", wfh_date_to);
                             if (range.getSelectedDates().size() > 1) {
@@ -253,10 +254,6 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 
     public void onDateSet() {
         final Calendar cldr = Calendar.getInstance();

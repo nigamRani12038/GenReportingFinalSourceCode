@@ -1,5 +1,7 @@
 package com.ossi.genreporting.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class DepartmentEmployeeListResponse {
@@ -15,6 +17,17 @@ public class DepartmentEmployeeListResponse {
 
     @SerializedName("id")
     private String id;
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    @SerializedName("response")
+    private String response;
 
     public String getEmpName() {
         return EmpName;
@@ -38,6 +51,17 @@ public class DepartmentEmployeeListResponse {
     @SerializedName("JobProfile")
     private String JobProfile;
 
+    public String getSno() {
+        return Sno;
+    }
+
+    public void setSno(String sno) {
+        Sno = sno;
+    }
+
+    @SerializedName("Sno")
+    private String Sno;
+
     public boolean isSelected() {
         return selected;
     }
@@ -45,4 +69,6 @@ public class DepartmentEmployeeListResponse {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+
 }

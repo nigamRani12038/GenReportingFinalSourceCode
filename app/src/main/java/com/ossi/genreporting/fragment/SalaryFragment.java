@@ -187,15 +187,5 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-        // transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.commit();
-    }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 }

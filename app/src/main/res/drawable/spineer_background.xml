@@ -9,10 +9,10 @@
         android:right="10dp"
         android:top="10dp"/>
     <corners
-        android:bottomLeftRadius="10dp"
-        android:bottomRightRadius="10dp"
-        android:topLeftRadius="10dp"
-        android:topRightRadius="10dp"/>
+        android:bottomLeftRadius="5dp"
+        android:bottomRightRadius="5dp"
+        android:topLeftRadius="5dp"
+        android:topRightRadius="5dp"/>
     <stroke
         android:width="@dimen/_1sdp"
         android:color="@color/gray_color"/>

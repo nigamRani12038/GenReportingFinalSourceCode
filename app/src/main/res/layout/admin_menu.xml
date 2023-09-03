@@ -200,14 +200,14 @@
             android:alpha="30"
             android:background="@color/linecolor"/>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/holiday_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
 
             android:paddingBottom="10dp"
-            android:text="holiday_list"
+            android:text="Holiday List"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -215,7 +215,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="30"
-            android:background="@color/linecolor"/>
+            android:background="@color/linecolor"/>-->
         <TextView
             android:id="@+id/setting"
             android:layout_width="match_parent"

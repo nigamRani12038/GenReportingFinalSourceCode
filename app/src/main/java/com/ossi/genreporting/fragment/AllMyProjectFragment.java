@@ -20,6 +20,7 @@ import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.MyTaskAdapter;
 import com.ossi.genreporting.Adapter.ProjectAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.MyProjectListResponse;
@@ -35,9 +36,6 @@ import retrofit2.Response;
 public class AllMyProjectFragment extends Fragment {
 
     View view;
-   /* TextView text_header1, employee_name, text_for_select;
-    TextView login_time;
-    RoundedImageView img_profile;*/
     RecyclerView my_project_list_list;
     private String user_id;
     private APIInterface apiInterface;
@@ -58,20 +56,8 @@ public class AllMyProjectFragment extends Fragment {
 
         user_id = pref.getString("user_id", null);
 
-        String login_Time = pref.getString("login_time", " ");
-        String Employee_Name = pref.getString("User_name", " ");
-        String img_profile1 = pref.getString("img_url", " ");
 
-       /* if (img_profile1 != null) {
-            Glide.with(this).load(img_profile1).into(img_profile);
-        }
-        employee_name.setText(Employee_Name);
-        login_time.setText("Login Time: " + login_Time);
-
-        text_for_select.setText("");
-        text_header1.setText("My Task");*/
-
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_my_project_list();
         } else {
             Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -82,12 +68,7 @@ public class AllMyProjectFragment extends Fragment {
     }
 
     public void find_view_by_id() {
-        //text_for_select = view.findViewById(R.id.text_for_select);
-        //text_header1 = view.findViewById(R.id.text_header1);
-        //employee_name = view.findViewById(R.id.employee_name);
-        // login_time = view.findViewById(R.id.login_time);
-        //  img_profile=view.findViewById(R.id.img_profile);
-        my_project_list_list = view.findViewById(R.id.my_project_list_list);
+          my_project_list_list = view.findViewById(R.id.my_project_list_list);
     }
 
     public void set_on_click_litioner() {
@@ -157,8 +138,5 @@ public class AllMyProjectFragment extends Fragment {
         });
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

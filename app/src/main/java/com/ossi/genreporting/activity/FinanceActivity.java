@@ -35,6 +35,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.ossi.genreporting.LoginActivity;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.fragment.AllAssignTaskFragment;
@@ -62,7 +63,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
     private DrawerLayout mDrawerLayout;
     private SharedPreferences pref;
     private NavigationView navigationView;
-    private TextView dashBoard,applyLeave,workhome,attendance_frag,expense_frag,setting,my_profile,info,salary;
+    private TextView dashBoard,applyLeave,workhome,expense_frag,setting,my_profile,info,salary;
     // TextView salary_frag;
     TextView employee_name;
     private SharedPreferences.Editor editor;
@@ -83,8 +84,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance);
         if (savedInstanceState == null) {
-           /* HomeFragment homeFragment = new HomeFragment();
-            openFragment1(homeFragment);*/
 
             FinanceTablayoutFragment tabLayoutFragment = new FinanceTablayoutFragment();
             openFragment(tabLayoutFragment);
@@ -92,33 +91,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
 
         find_view_by_id();
         set_on_click();
-
-/*
-
-        tabLayout.addTab(tabLayout.newTab().setText("Leave"));
-        tabLayout.addTab(tabLayout.newTab().setText("WFH"));
-        tabLayout.addTab(tabLayout.newTab().setText("Loan"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-       MyAdapter pagerAdapter = new MyAdapter(this.getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
-*/
-
-
 
 
         pref = getSharedPreferences("my_pref", MODE_PRIVATE);
@@ -135,7 +107,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
             if(img_profile1!=null){
                 Glide.with(this).load(img_profile1).into(img_profile);
             }
-            if (isNetworkAvailable()) {
+            if (Util.isNetworkAvailable(this)) {
                 get_calculate_hour(user_id);
             }else {
                  login_time.setText("Login Time: "+login_Time);
@@ -156,7 +128,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
         applyLeave=findViewById(R.id.applyLeave);
         workhome=findViewById(R.id.workhome);
 
-        attendance_frag=findViewById(R.id.attendance_frag);
+       // attendance_frag=findViewById(R.id.attendance_frag);
         // salary_frag=findViewById(R.id.salary_frag);
         expense_frag=findViewById(R.id.expense_frag);
         setting=findViewById(R.id.setting);
@@ -188,8 +160,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
         isAllFabsVisible = false;
         text_header1 =findViewById(R.id.text_header1);
         text_for_select=findViewById(R.id.text_for_select);
-        //add_fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.add));
-        //add_fab.setImageResource(R.drawable.add);
+
 
     }
 
@@ -198,7 +169,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
         dashBoard.setOnClickListener(this);
         applyLeave.setOnClickListener(this);
         workhome.setOnClickListener(this);
-        attendance_frag.setOnClickListener(this);
+       // attendance_frag.setOnClickListener(this);
         // salary_frag.setOnClickListener(this);
         expense_frag.setOnClickListener(this);
         setting.setOnClickListener(this);
@@ -248,8 +219,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.dashBoard:
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 text_header1.setText("DashBoard");
-                /*HomeFragment homeFragment = new HomeFragment();
-                openFragment(homeFragment);*/
 
 
                 FinanceTablayoutFragment tabLayoutFragment = new FinanceTablayoutFragment();
@@ -267,12 +236,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
                 text_header1.setText("Apply Work From Home");
                 ApplyWorkFromHomeFragment applyWorkFromHomeFragment = new ApplyWorkFromHomeFragment();
                 openFragment(applyWorkFromHomeFragment);
-                break;
-            case R.id.attendance_frag:
-                mDrawerLayout.closeDrawer(Gravity.RIGHT);
-                text_header1.setText("Attendance");
-                AttendanceFragment attendanceFragment = new AttendanceFragment();
-                openFragment(attendanceFragment);
                 break;
             case R.id.salary:
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
@@ -373,9 +336,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
                     aply_loan.hide();
                     add_fab.setImageResource(R.drawable.newadd);
                 }
-                /*text_header1.setText("Apply Loan");
-                LoanFragment loanFragment = new LoanFragment();
-                openFragment(loanFragment);*/
                 break;
         }
     }
@@ -427,42 +387,11 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
 
 
 
-      /*  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FinanceActivity.this);
-        alertDialogBuilder.setTitle("Are You sure want to Logout");
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-
-                        logoutMethod();
-
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();*/
     }
     @Override
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
-           /* new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure you want to exit App?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    }).setNegativeButton("No", null).show();*/
 
             Button button1=new Button(this);
             button1.setText("No");
@@ -518,13 +447,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
             expense.hide();
             aply_loan.hide();
             add_fab.setImageResource(R.drawable.newadd);
-            /* if (isAllFabsVisible) {
-                    apply_leve.hide();
-                    apply_wfm_float.hide();
-                    expense.hide();
-                    aply_loan.hide();
-                    add_fab.setImageResource(R.drawable.newadd);
-                }*/
         }
         else {
             super.onBackPressed();
@@ -688,10 +610,6 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
                     mProgressDialog.dismiss();
             }
         });
-    }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 }

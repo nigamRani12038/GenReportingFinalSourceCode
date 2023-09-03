@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.DetailsResponseItem;
@@ -77,7 +78,7 @@ public class LeaveFragmentHome extends Fragment implements View.OnClickListener 
              leave_pending.setText(Leave_Pending);
          }
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_all_detail(user_id);
 
         } else {
@@ -289,8 +290,5 @@ public class LeaveFragmentHome extends Fragment implements View.OnClickListener 
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
         transaction.commit();
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

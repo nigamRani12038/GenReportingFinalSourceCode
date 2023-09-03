@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ossi.genreporting.Adapter.RequestAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.AllRequestResponse;
@@ -56,7 +57,7 @@ public class ComingRequestForAdmin extends Fragment {
         user_id = pref.getString("user_id", " ");
            find_view_by_id();
 
-        if (isNetworkAvailable()){
+        if (Util.isNetworkAvailable(getActivity())){
             get_my_request_list();
         }
         else {
@@ -165,8 +166,5 @@ public class ComingRequestForAdmin extends Fragment {
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

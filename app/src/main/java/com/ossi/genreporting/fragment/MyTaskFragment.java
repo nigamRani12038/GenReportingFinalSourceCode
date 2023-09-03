@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.MyTaskAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
@@ -80,7 +81,7 @@ public class MyTaskFragment extends Fragment {
         text_for_select.setText("");
         text_header1.setText("My Task");
 
-        if (isNetworkAvailable()){
+        if (Util.isNetworkAvailable(getActivity())){
             get_my_task_list();
         }
         else {
@@ -178,8 +179,5 @@ public class MyTaskFragment extends Fragment {
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

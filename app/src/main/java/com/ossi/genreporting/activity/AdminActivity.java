@@ -149,12 +149,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         transaction.commit();
     }
 
-    /* private void openFragment(Fragment fragment) {
-         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-         transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-         // transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-         transaction.commit();
-     }*/
     public void find_view_by_id() {
         img_slide_gen = (ImageView) findViewById(R.id.img_slide_gen);
         mDrawerLayout = findViewById(R.id.drawerLayout);
@@ -322,9 +316,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.apply_leve:
-               /* text_header1.setText("Apply Leave");
-               ApplyLeaveFragment applyLeaveFragment1 = new ApplyLeaveFragment();
-                openFragment(applyLeaveFragment1);*/
 
                 text_header1.setText("Request History");
                 ApprovedRequestHistoryFragment approvedRequestHistoryFragment = new ApprovedRequestHistoryFragment();
@@ -336,7 +327,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                     aply_loan.hide();
                     add_fab.setImageResource(R.drawable.newadd);
                 }
-                //  Toast.makeText(this, "Approved and Rejected Request History", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.apply_wfm_float:
@@ -344,7 +334,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 text_header1.setText("Payroll System");
                 PayrollFragment payrollFragment = new PayrollFragment();
                 openFragment(payrollFragment);
-                //Toast.makeText(this, "Payroll under Construction", Toast.LENGTH_SHORT).show();
 
 
                 if (isAllFabsVisible) {
@@ -359,7 +348,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 text_header1.setText("Payroll History");
                 SalaryHistoryFragment salaryHistoryFragment = new SalaryHistoryFragment();
                 openFragment(salaryHistoryFragment);
-                //Toast.makeText(this, "Under construction Payroll History", Toast.LENGTH_SHORT).show();
 
                 if (isAllFabsVisible) {
                     apply_leve.hide();
@@ -377,15 +365,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                     aply_loan.hide();
                     add_fab.setImageResource(R.drawable.newadd);
                 }
-                //.makeText(this, "Under construction Recruitment", Toast.LENGTH_SHORT).show();
 
                 Toast toast2 = Toast.makeText(AdminActivity.this, "Under construction Recruitment", Toast.LENGTH_LONG);
                 toast2.setGravity(Gravity.CENTER, 0, 0);
                 toast2.show();
-               /* text_header.setText("Apply Loan");
-                LoanFragment loanFragment = new LoanFragment();
-                openFragment(loanFragment);
-               */
                 break;
 
         }
@@ -397,15 +380,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         if (fragments == 1) {
 
 
-           /* new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure you want to exit App?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    }).setNegativeButton("No", null).show();
-            */
 
             Button button1 = new Button(this);
             button1.setText("No");
@@ -507,29 +481,6 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
 
 
-       /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(AdminActivity.this);
-        alertDialogBuilder.setTitle("Are You sure want to Logout");
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-
-                        logoutMethod();
-
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();*/
     }
 
     private void logoutMethod() {

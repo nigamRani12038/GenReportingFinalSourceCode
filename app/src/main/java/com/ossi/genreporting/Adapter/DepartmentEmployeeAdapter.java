@@ -27,13 +27,14 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
     private DepartmentEmployeeAdapter DepartmentEmployeeAdapter;
     private boolean isFromView = false;
     private Departmentinterface departmentinterface;
+   ViewHolderSelectedView mviewHolderSelectedView;
 
-    public DepartmentEmployeeAdapter(Context context, int resource, List<DepartmentEmployeeListResponse> objects,Departmentinterface departmentinterface) {
+    public DepartmentEmployeeAdapter(Context context, int resource, List<DepartmentEmployeeListResponse> objects, Departmentinterface departmentinterface) {
         super(context, resource, objects);
         this.mContext = context;
         this.listState = (ArrayList<DepartmentEmployeeListResponse>) objects;
         this.DepartmentEmployeeAdapter = this;
-        this.departmentinterface=departmentinterface;
+        this.departmentinterface = departmentinterface;
 
     }
 
@@ -45,7 +46,17 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
+        if (convertView == null) {
+            LayoutInflater layoutInflator = LayoutInflater.from(mContext);
+            convertView = layoutInflator.inflate(android.R.layout.simple_spinner_dropdown_item, null);
+            mviewHolderSelectedView = new ViewHolderSelectedView();
+            mviewHolderSelectedView.mSelectedTextView = (TextView) convertView
+                    .findViewById(android.R.id.text1);
+            convertView.setTag(mviewHolderSelectedView);
+        } else {
+            mviewHolderSelectedView = (ViewHolderSelectedView) convertView.getTag();
+        }
+        return convertView;
     }
 
     public View getCustomView(final int position, View convertView,
@@ -64,7 +75,7 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
                     .findViewById(R.id.selectAll);
             holder.okayButton = (Button) convertView
                     .findViewById(R.id.okayButton);
-            holder.dialog_selected_with_ok_button=(LinearLayout) convertView.findViewById(R.id.dialog_selected_with_ok_button);
+            holder.dialog_selected_with_ok_button = (LinearLayout) convertView.findViewById(R.id.dialog_selected_with_ok_button);
 
             convertView.setTag(holder);
         } else {
@@ -77,14 +88,14 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
 
             }
         });
-        if(position==0){
+        if (position == 0) {
             holder.selectAllCheckBox.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.selectAllCheckBox.setVisibility(View.GONE);
         }
-        if(position==listState.size()-1){
+        if (position == listState.size() - 1) {
             holder.okayButton.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.okayButton.setVisibility(View.GONE);
         }
 
@@ -121,7 +132,8 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
             @Override
             public void onClick(View view) {
                 getSelectedData();
-               // holder.dialog_selected_with_ok_button.setVisibility(View.INVISIBLE);
+                mviewHolderSelectedView.mSelectedTextView.setText(getSelectedFirstItem());
+                // holder.dialog_selected_with_ok_button.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -137,33 +149,57 @@ public class DepartmentEmployeeAdapter extends ArrayAdapter<DepartmentEmployeeLi
         private LinearLayout dialog_selected_with_ok_button;
     }
 
-    private void setAllCheckBox(Boolean isTrue){
-        for(int i=0;i<listState.size();i++){
+    private class ViewHolderSelectedView {
+        private TextView mSelectedTextView;
+    }
+
+    private void setAllCheckBox(Boolean isTrue) {
+        for (int i = 0; i < listState.size(); i++) {
             listState.get(i).setSelected(isTrue);
         }
         notifyDataSetChanged();
     }
-    private void getSelectedData(){
-        String name="";
-        String id="";
-        for(int i=0;i<listState.size();i++){
-            if(listState.get(i).isSelected()){
-                name=name+","+listState.get(i).getEmpName();
-                id=id+","+listState.get(i).getId();
+
+    private void getSelectedData() {
+        String name = "";
+        String id = "";
+        for (int i = 0; i < listState.size(); i++) {
+            if (listState.get(i).isSelected()) {
+                name = name + "," + listState.get(i).getEmpName();
+                id = id + "," + listState.get(i).getSno();
             }
         }
-        name=name.replaceFirst(",","");
-        Log.i("size","name size:: "+listState.size());
-        Log.i("selectedName","name:: "+name);
+        name = name.replaceFirst(",", "");
+        Log.i("size", "name size:: " + listState.size());
+        Log.i("selectedName", "name:: " + name);
 
-        id=id.replaceFirst(",","");
-        Log.i("size","id size:: "+listState.size());
-        Log.i("Id","id:: "+id);
+        id = id.replaceFirst(",", "");
+        Log.i("size", "id size:: " + listState.size());
+        Log.i("Id", "id:: " + id);
         departmentinterface.clickCallback(name, id);
 
     }
 
-    public interface Departmentinterface{
-         void clickCallback(String key, String Value);}
+
+    private String getSelectedFirstItem() {
+        Log.i("getSelectedFirstItem", "getSelectedFirstItem:: ");
+        String name = "";
+        String id="";
+        for (int i = 0; i < listState.size(); i++) {
+            if (listState.get(i).isSelected()) {
+                name = listState.get(i).getEmpName();
+                id=listState.get(i).getSno();
+                break;
+            }
+        }
+        Log.i("getSelectedFirstItem", "getSelectedFirstItem name:: " + name);
+        return name;
+
+    }
+
+
+    public interface Departmentinterface {
+        void clickCallback(String key, String Value);
+    }
 
 }

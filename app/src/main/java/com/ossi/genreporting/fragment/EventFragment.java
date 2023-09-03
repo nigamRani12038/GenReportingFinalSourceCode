@@ -50,12 +50,6 @@ public class EventFragment extends Fragment {
         get_event();
 
 
-       /* TextView v = new TextView(getActivity());
-        v.setGravity(Gravity.CENTER);
-        v.setTextSize(40);
-        v.setTextColor(Color.BLACK);
-        v.setBackgroundColor(colour);
-        v.setText("Fragment ID: " + identifier);*/
 
         return v;
 

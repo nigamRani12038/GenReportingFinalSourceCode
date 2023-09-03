@@ -59,7 +59,7 @@
                                 android:hint="Enter Event Heading"
                                 android:textColorHint="@color/txtcolor"
                                 android:textColor="@color/txtcolor"
-                                android:textSize="@dimen/_15sdp" />
+                                android:textSize="@dimen/_13sdp" />
 
 
                             <EditText
@@ -69,6 +69,7 @@
                                 android:layout_height="@dimen/_100sdp"
                                 android:padding="@dimen/_10sdp"
                                 android:textColorHint="@color/black"
+                                android:textSize="@dimen/_13sdp"
                                 android:background="@drawable/rctanglegrayline"
                                 android:hint="Description Text Here" />
 
@@ -77,6 +78,7 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <EditText
+                    android:id="@+id/organiserName"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:hint="Enter Organiser Name"
                     android:textColorHint="@color/black"
@@ -84,23 +86,20 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:layout_width="match_parent"
+                    android:textSize="@dimen/_13sdp"
                     android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:text="Event Date"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+
                 <TextView
                     android:id="@+id/date_event"
-                    android:text="Select Date"
+                    android:text="Select Event Date"
                     android:textColor="@color/black"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/ractangleshape"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:layout_width="match_parent"
+                    android:textSize="@dimen/_13sdp"
                     android:layout_height="wrap_content"/>
 
 
@@ -114,6 +113,19 @@
                     android:text="Select Venue"
                     android:textColorHint="@color/gray_color"
                     android:textColor="@color/gray_color"
+                    android:textSize="@dimen/_10sdp"
+                    android:background="@drawable/ractangleshape"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/locationEvent"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:hint="Enter Location"
+                    android:textSize="@dimen/_13sdp"
+                    android:textColorHint="@color/black"
                     android:background="@drawable/ractangleshape"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
@@ -136,7 +148,7 @@
                     android:text="Create New Events"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp" />
+                    android:textSize="@dimen/_12sdp" />
 
             </LinearLayout>
 

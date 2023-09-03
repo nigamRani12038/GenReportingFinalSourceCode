@@ -20,10 +20,6 @@ View view;
         find_view_by_id();
         set_on_click_litioner();
 
-
-       // text_header1.setText("Assigned Task");
-
-
         return view;
     }
     public void find_view_by_id(){

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.LoginResponse;
@@ -70,7 +71,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                 } else if (Create_New_pass.equalsIgnoreCase("")) {
                     Toast.makeText(this, "Please Enter New Password", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(this)) {
                         forgot_pass(Forgot_Email_id, Create_New_pass);
                     } else {
                         Toast.makeText(this, "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -144,12 +145,6 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
                     mProgressDialog.dismiss();
             }
         });
-    }
-
-
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 

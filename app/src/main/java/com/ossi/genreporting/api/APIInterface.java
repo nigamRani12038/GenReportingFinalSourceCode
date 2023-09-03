@@ -219,9 +219,13 @@ public interface APIInterface {
                                                                     @Query("status_type") String status_type);
 
     @GET("add_Event")
-    Call<List<ApplyLeaveResponseItem>> submit_event(@Query("Heading") String Heading,
+    Call<List<ApplyLeaveResponseItem>> submit_event(@Query("user_id") String user_id,
+                                                    @Query("Heading") String Heading,
                                                     @Query("EventDate") String EventDate,
-                                                    @Query("Description") String Description);
+                                                    @Query("Description") String Description,
+                                                    @Query("Venue") String Venue,
+                                                    @Query("Organiser") String Organiser,
+                                                    @Query("Location") String Location);
 
 
     @GET("view_Event_list")

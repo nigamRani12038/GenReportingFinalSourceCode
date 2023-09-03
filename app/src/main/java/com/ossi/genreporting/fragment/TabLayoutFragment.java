@@ -32,6 +32,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.ossi.genreporting.Adapter.EventAdapter;
 import com.ossi.genreporting.Adapter.MyTaskAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.DetailsResponseItem;
@@ -85,7 +86,7 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
         }
 */
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
            // get_event();
 
              get_all_detail(user_id);
@@ -375,17 +376,6 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
     }
 
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-        //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.commit();
-    }
-
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 
     private void openFragment1(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -394,13 +384,6 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
         transaction.commit();
     }
 
-   /* public void onBackPressed() {
-        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            getActivity().finish();
-        } else {
-            getActivity().getSupportFragmentManager().popBackStackImmediate();
-        }
-    }*/
 
 
 

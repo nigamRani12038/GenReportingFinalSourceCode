@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ApplyExpenseResponseItem;
@@ -131,7 +132,7 @@ public class ApplyExpenseFragment extends Fragment implements View.OnClickListen
                     Toast.makeText(getActivity(), "Please Select Reciept", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(getActivity())) {
                         Expense_data_submit(user_id, AMOUNT, Reason, ExpenseImage);
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -197,10 +198,7 @@ public class ApplyExpenseFragment extends Fragment implements View.OnClickListen
         });
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 
     private void selectImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};

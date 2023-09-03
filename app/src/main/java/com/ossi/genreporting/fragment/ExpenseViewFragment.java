@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.ossi.genreporting.Adapter.ExpenseViewAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ExpenseViewResponse;
@@ -62,7 +63,7 @@ public class ExpenseViewFragment extends Fragment implements View.OnClickListene
         if (bundle != null) {
              approve_type_exp = bundle.getString("expense approve type");
             //Toast.makeText(getActivity(), ""+approve_type_exp, Toast.LENGTH_SHORT).show();
-            if(isNetworkAvailable()) {
+            if(Util.isNetworkAvailable(getActivity())) {
                 Get_Expense_data_(user_id, approve_type_exp);
             }else {
                 Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -93,7 +94,7 @@ public class ExpenseViewFragment extends Fragment implements View.OnClickListene
                     if (select_expense.getSelectedItem().equals("Select Expense Type")) {
                         Toast.makeText(getActivity(), "Please Select Expense Type", Toast.LENGTH_SHORT).show();
                     } else {
-                      if (isNetworkAvailable()) {
+                      if (Util.isNetworkAvailable(getActivity())) {
                           Get_Expense_data_(user_id, str);
                       }else {
                           Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -214,14 +215,4 @@ public class ExpenseViewFragment extends Fragment implements View.OnClickListene
     }
 
 
-    private void openFragment(Fragment fragment) {
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
-        //transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.commit();
-    }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 }

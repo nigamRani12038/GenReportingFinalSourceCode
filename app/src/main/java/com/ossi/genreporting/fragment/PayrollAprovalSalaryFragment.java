@@ -25,6 +25,7 @@ import com.github.siyamed.shapeimageview.RoundedImageView;
 
 import com.ossi.genreporting.Adapter.SalaryApprovalShowAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.PayrollSalaryShowResponse;
@@ -81,7 +82,7 @@ public class PayrollAprovalSalaryFragment extends Fragment {
 
         text_header1.setText("Request For Approval");
         text_for_select.setText("");
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             Request_approval_show_salary();
         }else {
             Toast.makeText(getActivity(), "Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -91,7 +92,7 @@ public class PayrollAprovalSalaryFragment extends Fragment {
         salary_approved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isNetworkAvailable()) {
+                if (Util.isNetworkAvailable(getActivity())) {
                     Approved_Salary();
                 }else {
                     Toast.makeText(getActivity(), "Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -121,10 +122,7 @@ public class PayrollAprovalSalaryFragment extends Fragment {
 
 
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 
     public void set_on_click_litioner() {
 

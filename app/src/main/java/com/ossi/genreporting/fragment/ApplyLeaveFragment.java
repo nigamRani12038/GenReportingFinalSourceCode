@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
@@ -133,8 +134,8 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
         arrayList.add("Casual Leave");
         arrayList.add("Sick Leave");
         arrayList.add("Earned Leave");
-        arrayList.add("Short Leave");
-        arrayList.add("Half Day");
+       /* arrayList.add("Short Leave");
+        arrayList.add("Half Day");*/
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,7 +144,6 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Spin_Name = parent.getItemAtPosition(position).toString();
-               // Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {
@@ -152,8 +152,7 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
     }
 
     public void set_on_click_litioner(){
-        //date_from_leave_aply.setOnClickListener(this);
-       // date_to_aply_leave.setOnClickListener(this);
+
         aply_leave.setOnClickListener(this);
     }
 
@@ -170,58 +169,28 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-          /*  case R.id.date_from_leave_aply:
-                onDateSet();
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                date_from_leave_aply.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-                break;
-
-            case R.id.date_to_aply_leave:
-                onDateSet();
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                date_to_aply_leave.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-                break;
-*/
             case R.id.aply_leave:
-               // date_from = date_from_leave_aply.getText().toString();
-               // date_to = date_to_aply_leave.getText().toString();
+
                 Log.i("date", "selectedDate::" + range.getSelectedDates().toString());
                 leave_purpose = purpose_leave.getText().toString();
                 type_leave = leave_type.getSelectedItem().toString();
 
                 if (range.getSelectedDates().size()==0) {
                     Toast.makeText(getActivity(), "Please Select Date", Toast.LENGTH_SHORT).show();
-                } /*else if (date_to==null) {
-                    Toast.makeText(getActivity(), "Please Select Date From and To", Toast.LENGTH_SHORT).show();
-                } */else if (leave_purpose.equalsIgnoreCase("")) {
+                } else if (leave_purpose.equalsIgnoreCase("")) {
                 Toast.makeText(getActivity(), "Please Enter Purpose", Toast.LENGTH_SHORT).show();
             } else if (type_leave.equalsIgnoreCase("Leave Type")) {
                 Toast.makeText(getActivity(), "Please Select Leave Type", Toast.LENGTH_SHORT).show();
             }  else {
 
-                    if (isNetworkAvailable()) {
-                       // Log.e("start", date_from);
-                       // Log.e("end", date_to);
+                    if (Util.isNetworkAvailable(getActivity())) {
+
                         if (range.getSelectedDates().size() > 1) {
                             CalendarDay cal1=range.getSelectedDates().get(0);
                             date_from = cal1.getYear() + "-" + cal1.getMonth() + "-" + cal1.getDay();
 
                             CalendarDay cal2=range.getSelectedDates().get(range.getSelectedDates().size()-1);
                             date_to=cal2.getYear() + "-" + cal2.getMonth() + "-" + cal2.getDay();
-
-                           //picker.getDatePicker().setMinDate(c.getTime().getTime());
 
 
 
@@ -239,11 +208,6 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                     }
 
-                   /* if (isNetworkAvailable()) {
-                        Apply_leave_method(user_id, date_from, date_to,type_leave, leave_purpose);
-                    } else {
-                        Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
-                    }*/
                 }
                 break;
         }
@@ -276,23 +240,7 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
                             Toast.makeText(getActivity(), " Apply Leave Success", Toast.LENGTH_SHORT).show();
                             TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
                             openFragment(tabLayoutFragment);
-                        }/*else if(res.equalsIgnoreCase("2")){
-                            Toast.makeText(getActivity(), "Can Not Apply Leave Before one year", Toast.LENGTH_SHORT).show();
-                            HomeFragment homeFragment = new HomeFragment();
-                            openFragment(homeFragment);
-                        }else if(res.equalsIgnoreCase("3")){
-                            Toast.makeText(getActivity(), "You Already Used All leave", Toast.LENGTH_SHORT).show();
-                            HomeFragment homeFragment = new HomeFragment();
-                            openFragment(homeFragment);
-                        }else if(res.equalsIgnoreCase("4")){
-                            Toast.makeText(getActivity(), "Please Check Remaining leave", Toast.LENGTH_SHORT).show();
-                            HomeFragment homeFragment = new HomeFragment();
-                            openFragment(homeFragment);
-                        }else if(res.equalsIgnoreCase("5")){
-                            Toast.makeText(getActivity(), "Can Not Apply Leave Before six Months", Toast.LENGTH_SHORT).show();
-                            HomeFragment homeFragment = new HomeFragment();
-                            openFragment(homeFragment);
-                        }*/
+                        }
                         else {
                             Toast.makeText(getActivity(), ""+res, Toast.LENGTH_SHORT).show();
                             TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
@@ -325,10 +273,6 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
         transaction.isAddToBackStackAllowed();
         transaction.commit();
-    }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 
 

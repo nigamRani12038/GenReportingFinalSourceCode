@@ -11,4 +11,5 @@ object Util {
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!
             .isConnected
     }
+    
 }

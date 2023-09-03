@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.ShowAllEventAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.AllEventsShow;
@@ -68,7 +69,7 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
         text_for_select.setText("");
 
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_all_event_list();
         } else {
             Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -181,8 +182,5 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
         transaction.commit();
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

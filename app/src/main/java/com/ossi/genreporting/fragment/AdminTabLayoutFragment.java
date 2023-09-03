@@ -101,14 +101,9 @@ View mView;
         super.onStart();
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Request"));
-       // fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("History"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Meeting"));
-//        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Approval"));
-       // fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Holiday"));
-
-        PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
+     PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
         tabPager1.setAdapter(pagerAdapter);
-  //   tabPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(fragmentTabLayout));
 
 
 
@@ -120,9 +115,6 @@ View mView;
                 case 1:
                     tab.setText("Request");
                     break;
-                /*case 2:
-                    tab.setText("History");
-                    break;*/
                 case 2:
                     tab.setText("Meeting");
                     break;
@@ -145,7 +137,6 @@ View mView;
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-       // tabPager1.setCurrentItem(1);
     }
 
     @Override
@@ -176,26 +167,9 @@ View mView;
                 case 1:
                     ComingRequestForAdmin comingRequestForAdmin = new ComingRequestForAdmin();
                     return comingRequestForAdmin;
-                /*case 2:
-                    ApprovedRequestHistoryFragment approvedRequestHistoryFragment =new ApprovedRequestHistoryFragment();
-                    return approvedRequestHistoryFragment;
-                 Toast.makeText(getActivity(), "approved", Toast.LENGTH_SHORT).show();*/
                 case 2:
                     MeetingFragment meetingFragment = new MeetingFragment();
                     return meetingFragment;
-                    /*CurrentMeetingFragment meetingFragment=new CurrentMeetingFragment();
-                    return meetingFragment;
-*/
-                /*case 2:
-                    ExpenseFragment expenseFragment = new ExpenseFragment();
-                    return expenseFragment;
-                case 3:
-                    LoanFragment loanFragment = new LoanFragment();
-                    return loanFragment;
-                case 4:
-                    ApplyWorkFromHomeFragment applyWorkFromHomeFragment3 = new ApplyWorkFromHomeFragment();
-                    return applyWorkFromHomeFragment3;
-*/
                 default:
                     return null;
             }
@@ -285,10 +259,6 @@ View mView;
 
     private void get_total_previous_week_hour() {
         apiInterface = APIClient.getClient().create(APIInterface.class);
-       /* mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Please wait...");
-        mProgressDialog.show();*/
 
 
         Call<List<PresentStatusItem>> call1 = apiInterface.get_previous_week_hour_list(user_id);
@@ -296,8 +266,6 @@ View mView;
             @Override
             public void onResponse(Call<List<PresentStatusItem>> call, Response<List<PresentStatusItem>> response) {
                 List<PresentStatusItem> applyLeaveResponseItem = response.body();
-              /*  if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();*/
                 if (applyLeaveResponseItem != null && applyLeaveResponseItem.size() > 0) {
 
                        total_week_hour_list = new ArrayList<>();
@@ -325,27 +293,6 @@ View mView;
                     previousWeekHourAdapter = new PreviousWeekHourAdapter(total_week_hour_list, getActivity());
                     rv_total_weekly_hour_.setAdapter(previousWeekHourAdapter);
                     rv_total_weekly_hour_.setLayoutManager(new LinearLayoutManager(getActivity()));
-                  /*  if (mProgressDialog.isShowing())
-                        mProgressDialog.dismiss();*/
-                  /*  search.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        }
-
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                            // TODO Auto-generated method stub
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            filter_present(s.toString());
-                        }
-                    });
-
-*/
                 }
 
             }

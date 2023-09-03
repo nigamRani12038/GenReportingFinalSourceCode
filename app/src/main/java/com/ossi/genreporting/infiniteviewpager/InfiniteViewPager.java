@@ -13,6 +13,8 @@ import androidx.viewpager.widget.ViewPager;
  */
 public class InfiniteViewPager extends ViewPager {
 
+
+
     public InfiniteViewPager(Context context) {
         super(context);
     }

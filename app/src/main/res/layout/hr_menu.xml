@@ -134,7 +134,7 @@
              android:alpha="30"
              android:background="@color/linecolor" />-->
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/attendance_frag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="30"
-            android:background="@color/linecolor" />
+            android:background="@color/linecolor" />-->
 
         <TextView
             android:id="@+id/expense_frag"

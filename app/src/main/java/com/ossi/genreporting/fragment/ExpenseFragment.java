@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.DetailsResponseItem;
@@ -68,7 +69,7 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
             total_expense_bill.setText(Total_Expense_bill);
         }
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(getActivity())) {
             get_all_detail(user_id);
 
         } else {
@@ -278,8 +279,5 @@ public class ExpenseFragment extends Fragment implements View.OnClickListener {
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

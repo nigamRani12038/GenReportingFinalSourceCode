@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.MeetingListAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ShowMeetingListResponse;
@@ -36,8 +37,7 @@ import retrofit2.Response;
 
 public class MeetingFragment extends Fragment {
     View view;
-   // TextView text_header1, employee_name, text_for_select;
-    //TextView login_time;
+
     RecyclerView meeting_list_rv;
     LinearLayout view_all_eeting;
     private String user_id;
@@ -59,11 +59,9 @@ public class MeetingFragment extends Fragment {
 
         user_id = pref.getString("user_id", null);
 
-        String login_Time = pref.getString("login_time", " ");
-        String Employee_Name = pref.getString("User_name", " ");
-        String img_profile1 = pref.getString("img_url", " ");
 
-        if (isNetworkAvailable()) {
+
+        if (Util.isNetworkAvailable(getActivity())) {
             get_meeting_list();
         } else {
             Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -180,8 +178,4 @@ public class MeetingFragment extends Fragment {
        transaction.isAddToBackStackAllowed();
         transaction.commit();
     }
-
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }}
+}

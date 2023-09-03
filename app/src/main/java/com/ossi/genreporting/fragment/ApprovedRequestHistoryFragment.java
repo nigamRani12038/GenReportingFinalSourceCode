@@ -115,9 +115,7 @@ public class ApprovedRequestHistoryFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                  Request_type=requ_typ.getSelectedItem().toString();
                 if (!requ_typ.getSelectedItem().equals(" ")) {
-                   // Toast.makeText(getActivity(), "Please Select Department", Toast.LENGTH_SHORT).show();
-                    //call api
-                   // get_my_request_history_list();
+
                 }
 
             }
@@ -156,12 +154,6 @@ public class ApprovedRequestHistoryFragment extends Fragment {
 
 
 
-       /* if (isNetworkAvailable()){
-            get_my_request_history_list();
-        }
-        else {
-            Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
-        }*/
 
         date_from.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,19 +175,13 @@ public class ApprovedRequestHistoryFragment extends Fragment {
     }
 
    public void date_dialog(){
-       final Calendar c = Calendar.getInstance();
 
-       // on below line we are getting
-       // our day, month and year.
+       final Calendar c = Calendar.getInstance();
        int year = c.get(Calendar.YEAR);
        int month = c.get(Calendar.MONTH);
        int day = c.get(Calendar.DAY_OF_MONTH);
 
-       // on below line we are creating a variable for date picker dialog.
-       DatePickerDialog datePickerDialog = new DatePickerDialog(
-               // on below line we are passing context.
-               getActivity(),
-               new DatePickerDialog.OnDateSetListener() {
+       DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                    @Override
                    public void onDateSet(DatePicker view, int year,
                                          int monthOfYear, int dayOfMonth) {
@@ -216,11 +202,9 @@ public class ApprovedRequestHistoryFragment extends Fragment {
 
                    }
                },
-               // on below line we are passing year,
-               // month and day for selected date in our date picker.
+
                year, month, day);
-       // at last we are calling show to
-       // display our date picker dialog.
+
        datePickerDialog.show();
     }
 

@@ -35,6 +35,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.ossi.genreporting.LoginActivity;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.fragment.AddShowEventFragment;
@@ -43,7 +44,6 @@ import com.ossi.genreporting.fragment.ApplyExpenseFragment;
 import com.ossi.genreporting.fragment.ApplyLeaveFragment;
 import com.ossi.genreporting.fragment.ApplyWorkFromHomeFragment;
 import com.ossi.genreporting.fragment.ApprovedRequestHistoryFragment;
-import com.ossi.genreporting.fragment.AttendanceFragment;
 import com.ossi.genreporting.fragment.CurrentMeetingFragment;
 import com.ossi.genreporting.fragment.EmployeeRequestFragment;
 import com.ossi.genreporting.fragment.HrTablayoutFragment;
@@ -64,7 +64,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
     private DrawerLayout mDrawerLayout;
     private SharedPreferences pref;
     private NavigationView navigationView;
-    private TextView dashBoard, applyLeave, workhome, attendance_frag, expense_frag, setting, my_profile, info,salary;
+    private TextView dashBoard, applyLeave, workhome, expense_frag, setting, my_profile, info,salary;
     TextView hr_events, meetings;
     TextView employee_name;
     TextView login_time;
@@ -111,7 +111,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
             if (img_profile1 != null) {
                 Glide.with(this).load(img_profile1).into(img_profile);
             }
-            if (isNetworkAvailable()) {
+            if (Util.isNetworkAvailable(this)) {
                 get_calculate_hour(user_id);
             }
             employee_name.setText(Employee_Name);
@@ -144,7 +144,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
         applyLeave = findViewById(R.id.applyLeave);
         workhome = findViewById(R.id.workhome);
 
-        attendance_frag = findViewById(R.id.attendance_frag);
+       // attendance_frag = findViewById(R.id.attendance_frag);
         // salary_frag=findViewById(R.id.salary_frag);
         expense_frag = findViewById(R.id.expense_frag);
         setting = findViewById(R.id.setting);
@@ -192,7 +192,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
         dashBoard.setOnClickListener(this);
         applyLeave.setOnClickListener(this);
         workhome.setOnClickListener(this);
-        attendance_frag.setOnClickListener(this);
+        //attendance_frag.setOnClickListener(this);
         // salary_frag.setOnClickListener(this);
         expense_frag.setOnClickListener(this);
         setting.setOnClickListener(this);
@@ -268,12 +268,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
                 ApplyWorkFromHomeFragment applyWorkFromHomeFragment = new ApplyWorkFromHomeFragment();
                 openFragment1(applyWorkFromHomeFragment);
                 break;
-            case R.id.attendance_frag:
-                mDrawerLayout.closeDrawer(Gravity.RIGHT);
-                text_header1.setText("Attendance");
-                AttendanceFragment attendanceFragment = new AttendanceFragment();
-                openFragment1(attendanceFragment);
-                break;
+
             case R.id.salary:
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 text_header1.setText("Salary Slip");
@@ -408,9 +403,6 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
                     aply_loan.hide();
                     add_fab.setImageResource(R.drawable.newadd);
                 }
-                /*text_header1.setText("Apply Loan");
-                LoanFragment loanFragment = new LoanFragment();
-                openFragment(loanFragment);*/
                 break;
 
         }
@@ -465,29 +457,6 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
 
 
 
-       /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HrActivity.this);
-        alertDialogBuilder.setTitle("Are You sure want to Logout");
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-
-                        logoutMethod();
-
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();*/
     }
 
     @Override
@@ -707,8 +676,5 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

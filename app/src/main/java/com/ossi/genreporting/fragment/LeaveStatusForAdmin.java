@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.ossi.genreporting.Adapter.HolidayAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ApplyLeaveResponseItem;
@@ -50,7 +51,7 @@ public class LeaveStatusForAdmin extends Fragment implements View.OnClickListene
         view = inflater.inflate(R.layout.fragment_leave_status_for_admin, container, false);
         find_view_by_id();
         set_on_click_litioner();
-         if(isNetworkAvailable()) {
+         if(Util.isNetworkAvailable(getActivity())) {
              get_attendance_list();
          }else {
              Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -237,8 +238,5 @@ public void set_on_click_litioner(){
             }
         });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

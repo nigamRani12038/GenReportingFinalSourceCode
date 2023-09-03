@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -29,11 +31,13 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.Adapter.DepartmentEmployeeAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.ApplyLeaveResponseItem;
 import com.ossi.genreporting.model.DepartmentEmployeeListResponse;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -48,10 +52,10 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     View view;
 
     TextView text_header1, employee_name, text_for_select;
-    String heading,detail,date,time,name,meeting_mode,assign_by;
+    String heading, detail, date, time, name, meeting_mode, assign_by;
     TextView login_time;
     EditText meet_detail, meet_heading;
-    TextView meet_time,meet_date;
+    TextView meet_time, meet_date;
     private String user_id;
     RoundedImageView img_profile;
     private APIInterface apiInterface;
@@ -64,8 +68,9 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     private ArrayList<DepartmentEmployeeListResponse> department_list;
     TimePickerDialog picker;
     EditText meet_url_description;
-     String name_employe,employee_id;
-    private String day_,month_;
+    String name_employe, employee_id;
+    private String day_, month_;
+    RelativeLayout nameSpinLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,34 +88,37 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         String img_profile1 = pref.getString("img_url", " ");
         Bundle bundle = getArguments();
         if (bundle != null) {
-             heading = bundle.getString("heading");
+            heading = bundle.getString("heading");
             String res = bundle.getString("res");
-             date = bundle.getString("date");
+            date = bundle.getString("date");
             time = bundle.getString("time");
-             name = bundle.getString("emp");
-             department = bundle.getString("department");
-             detail = bundle.getString("details");
-             meeting_mode = bundle.getString("mode");
+            name = bundle.getString("emp");
+            department = bundle.getString("department");
+            detail = bundle.getString("details");
+            meeting_mode = bundle.getString("mode");
             assign_by = bundle.getString("assign_by");
-            if(heading.equalsIgnoreCase("")){
+            if (heading.equalsIgnoreCase("")) {
                 create_meet_btn.setVisibility(View.VISIBLE);
 
 
-            }else{
+            } else {
                 create_meet_btn.setVisibility(View.GONE);
+                nameSpinLayout.setVisibility(View.GONE);
                 meet_detail.setText(name);
-                meet_heading.setText("Heading: "+heading);
-                meet_time.setText("Time: "+time);
-                meet_date.setText("Date: "+date);
-                department_spin.setPrompt(department);
-              //  meeting_mod_spin.setSelection(meeting_mode);
-
-                ArrayList<String> arrayList1 = new ArrayList<>();
+                meet_heading.setText("Heading: " + heading);
+                meet_time.setText("Time: " + time);
+                meet_date.setText("Date: " + date);
+                meet_url_description.setText("Meeting Room:"+detail);
+                //department_spin.setPrompt(department);
+                //  meeting_mod_spin.setSelection(meeting_mode);
+                String[] items = new String[]{department};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+                department_spin.setAdapter(adapter);
+                /*ArrayList<String> arrayList1 = new ArrayList<>();
                 arrayList1.add(department);
                 ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
                 arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                department_spin.setAdapter(arrayAdapter1);
-
+                department_spin.setAdapter(arrayAdapter1);*/
 
 
                 ArrayList<String> arrayList2 = new ArrayList<>();
@@ -125,8 +133,6 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         }
 
 
-
-
         if (img_profile1 != null) {
             Glide.with(this).load(img_profile1).into(img_profile);
         }
@@ -138,32 +144,46 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         text_for_select.setText("");
 
 
-
         ArrayList<String> arrayList1 = new ArrayList<>();
         arrayList1.add("Meeting Mode");
         arrayList1.add("Offline");
         arrayList1.add("Online");
-          ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
+        ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         meeting_mod_spin.setAdapter(arrayAdapter1);
 
 
-       // Get_department();
+        // Get_department();
 
         ArrayList<String> arrayList2 = new ArrayList<>();
         arrayList2.add("Select Department");
         arrayList2.add("All");
+        arrayList2.add("SAP ABAP CONSULTANT");
+        arrayList2.add("ANDROID DEVELOPER");
+        arrayList2.add("SENIOR EXECUTIVE ACCOUNTS");
+        arrayList2.add("SOFTWARE ENGINEER");
+        arrayList2.add("PRODUCT HEAD");
+        arrayList2.add("PROJECT HEAD");
+        arrayList2.add("SR SOFTWARE ENGINEER");
+        arrayList2.add("PROJECT ADMINISTRATOR");
+        arrayList2.add("WEB DESIGNER");
+        arrayList2.add("Chief Executive Officer (CEO)");
+        arrayList2.add("EMBEDDED ENGINEER");
+        arrayList2.add("HR GENERALIST");
+        arrayList2.add("FINANCE HEAD");
+        arrayList2.add("WEB DESIGNER");
+
+
         ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList2);
         arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         department_spin.setAdapter(arrayAdapter2);
         department_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                department=department_spin.getSelectedItem().toString();
+                department = department_spin.getSelectedItem().toString();
                 if (department_spin.getSelectedItem().equals("Select Department")) {
                     Toast.makeText(getActivity(), "Please Select Department", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Get_employee_departmentwise();
                 }
             }
@@ -186,14 +206,15 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         img_profile = view.findViewById(R.id.img_profile);
         text_for_select = view.findViewById(R.id.text_for_select);
 
-        spinner_name=view.findViewById(R.id.spinner_name);
+        spinner_name = view.findViewById(R.id.spinner_name);
+        nameSpinLayout=view.findViewById(R.id.nameSpinLayout);
 
 
         meet_detail = view.findViewById(R.id.meet_detail);
         meet_heading = view.findViewById(R.id.meet_heading);
         meet_date = view.findViewById(R.id.meet_date);
         meet_time = view.findViewById(R.id.meet_time);
-        meet_url_description=view.findViewById(R.id.meet_url_description);
+        meet_url_description = view.findViewById(R.id.meet_url_description);
     }
 
     public void set_on_click_litioner() {
@@ -206,33 +227,31 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.create_meet_btn:
-                heading=meet_heading.getText().toString();
-                date=meet_date.getText().toString();
-                time=meet_time.getText().toString();
-                detail=meet_detail.getText().toString();
+                heading = meet_heading.getText().toString();
+                date = meet_date.getText().toString();
+                time = meet_time.getText().toString();
+                detail = meet_detail.getText().toString();
                 //name=spinner_name.getSelectedItem().toString();
-                meeting_mode=meeting_mod_spin.getSelectedItem().toString();
-                if(heading.equalsIgnoreCase("")){
+                meeting_mode = meeting_mod_spin.getSelectedItem().toString();
+                if (heading.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Meeting Heading", Toast.LENGTH_SHORT).show();
-                }
-               else if(department_spin.getSelectedItem().equals("Select Department")){
+                } else if (department_spin.getSelectedItem().equals("Select Department")) {
                     Toast.makeText(getActivity(), "Please Select Department First", Toast.LENGTH_SHORT).show();
-                }else if(spinner_name.getSelectedItem().equals("")){
+                } else if (spinner_name.getSelectedItem().equals("")) {
                     Toast.makeText(getActivity(), "Please Select Name First", Toast.LENGTH_SHORT).show();
-                }else if(detail.equalsIgnoreCase("")){
+                } else if (detail.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Meeting Details", Toast.LENGTH_SHORT).show();
-                }else if(date.equalsIgnoreCase("")){
+                } else if (date.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Select Date First", Toast.LENGTH_SHORT).show();
-                }else if(time.equalsIgnoreCase("")){
+                } else if (time.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Select Time First", Toast.LENGTH_SHORT).show();
-                }else if (meeting_mod_spin.getSelectedItem().equals("Meeting Mode")){
+                } else if (meeting_mod_spin.getSelectedItem().equals("Meeting Mode")) {
                     Toast.makeText(getActivity(), "Please Select Meeting Mode First", Toast.LENGTH_SHORT).show();
-                }else if(meet_url_description.getText().toString().equalsIgnoreCase("")){
+                } else if (meet_url_description.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Description or url", Toast.LENGTH_SHORT).show();
 
-                }
-               else {
-                    if (isNetworkAvailable()) {
+                } else {
+                    if (Util.isNetworkAvailable(getActivity())) {
                         add_meeting();
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -241,7 +260,6 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                 break;
             case R.id.meet_time:
-
 
 
                 final Calendar cldr = Calendar.getInstance();
@@ -266,12 +284,11 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                                 else if (datetime.get(Calendar.AM_PM) == Calendar.PM)
                                     am_pm = "PM";
 
-                                meet_time.setText(sHour + ":" + sMinute+" "+am_pm);
+                                meet_time.setText(sHour + ":" + sMinute + " " + am_pm);
 
                             }
                         }, hour, minutes, false);
                 picker.show();
-
 
 
                 break;
@@ -295,13 +312,13 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                                                   int monthOfYear, int dayOfMonth) {
 
                                 day_ = "" + dayOfMonth;
-                                month_=""+monthOfYear;
+                                month_ = "" + monthOfYear;
                                 if (dayOfMonth < 10) {
                                     day_ = "0" + dayOfMonth;
                                 }
                                 if (monthOfYear < 10) {
-                                    int i=monthOfYear+1;
-                                    month_ = "0" + i ;
+                                    int i = monthOfYear + 1;
+                                    month_ = "0" + i;
                                 }
                                 meet_date.setText(day_ + "-" + (month_) + "-" + year);
 
@@ -342,13 +359,14 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                     for (int i = 0; i < DepartmentEmployeeListResponse.size(); i++) {
                         String res = DepartmentEmployeeListResponse.get(i).getEmpName();
-                        DepartmentEmployeeListResponse  model = new DepartmentEmployeeListResponse();
+                        Log.e("hr","hr:"+res);
+                        DepartmentEmployeeListResponse model = new DepartmentEmployeeListResponse();
                         if (!res.equalsIgnoreCase("")) {
                             String Name = DepartmentEmployeeListResponse.get(i).getEmpName();
-                            String id = DepartmentEmployeeListResponse.get(i).getId();
+                            String id = DepartmentEmployeeListResponse.get(i).getSno();
 
                             model.setEmpName(Name);
-                            model.setId(id);
+                            model.setSno(id);
                             model.setSelected(false);
                             emp_list.add(model);
 
@@ -359,7 +377,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
 
                     }
-                    departmentEmployeeAdapter = new DepartmentEmployeeAdapter(getActivity(), 0, emp_list,SubmitMeetingFragment.this);
+                    departmentEmployeeAdapter = new DepartmentEmployeeAdapter(getActivity(), 0, emp_list, SubmitMeetingFragment.this);
                     spinner_name.setAdapter(departmentEmployeeAdapter);
 
 
@@ -403,10 +421,10 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                     for (int i = 0; i < DepartmentEmployeeListResponse.size(); i++) {
                         String res = DepartmentEmployeeListResponse.get(i).getJobProfile();
-                        DepartmentEmployeeListResponse  model = new DepartmentEmployeeListResponse();
+                        DepartmentEmployeeListResponse model = new DepartmentEmployeeListResponse();
                         if (!res.equalsIgnoreCase("")) {
                             String department = DepartmentEmployeeListResponse.get(i).getJobProfile();
-                           // String id = DepartmentEmployeeListResponse.get(i).getId();
+                            // String id = DepartmentEmployeeListResponse.get(i).getId();
 
                             model.setJobProfile(department);
                             //model.setId(id);
@@ -426,11 +444,10 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                     department_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            department=department_spin.getSelectedItem().toString();
+                            department = department_spin.getSelectedItem().toString();
                             if (department_spin.getSelectedItem().equals("Select Department")) {
                                 Toast.makeText(getActivity(), "Please Select Department", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 Get_employee_departmentwise();
                             }
                         }
@@ -465,13 +482,13 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
-        if(meeting_mode.equalsIgnoreCase("Offline")){
-            meeting_mode="2";
-        }else if(meeting_mode.equalsIgnoreCase("Online")){
-            meeting_mode="1";
+        if (meeting_mode.equalsIgnoreCase("Offline")) {
+            meeting_mode = "2";
+        } else if (meeting_mode.equalsIgnoreCase("Online")) {
+            meeting_mode = "1";
         }
 
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.add_meeting(user_id, heading, date,time,department,meeting_mode,employee_id,detail,meet_url_description.getText().toString());
+        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.add_meeting(user_id, heading, date, time, department, meeting_mode, employee_id, detail, meet_url_description.getText().toString());
         call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
             @Override
             public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
@@ -485,7 +502,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                         mProgressDialog.dismiss();
 
                     for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
-                      String res = applyLeaveResponseItem.get(i).getResponse();
+                        String res = applyLeaveResponseItem.get(i).getResponse();
 
                         if (res.equalsIgnoreCase("Success")) {
                             Toast.makeText(getActivity(), "Meeting added successfully", Toast.LENGTH_SHORT).show();
@@ -516,6 +533,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
             }
         });
     }
+
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
@@ -523,19 +541,22 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 
     @Override
     public void clickCallback(String key, String Value) {
-
-        name_employe=key;
-        employee_id=Value;
+        name_employe = key;
+        employee_id = Value;
         //Toast.makeText(getActivity(),"Okay button called "+employee_id,Toast.LENGTH_SHORT).show();
-        spinner_name.clearFocus();
+        hideSpinnerDropDown(spinner_name);
 
-
+    }
+    public static void hideSpinnerDropDown(Spinner spinner) {
+        try {
+            Method method = Spinner.class.getDeclaredMethod("onDetachedFromWindow");
+            method.setAccessible(true);
+            method.invoke(spinner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

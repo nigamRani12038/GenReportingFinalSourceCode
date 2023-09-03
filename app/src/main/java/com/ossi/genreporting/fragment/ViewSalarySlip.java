@@ -31,6 +31,7 @@ import com.gkemon.XMLtoPDF.PdfGeneratorListener;
 import com.gkemon.XMLtoPDF.model.FailureResponse;
 import com.gkemon.XMLtoPDF.model.SuccessResponse;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 
 public class ViewSalarySlip extends AppCompatActivity implements View.OnClickListener {
     WebView view_salary;
@@ -62,7 +63,7 @@ public class ViewSalarySlip extends AppCompatActivity implements View.OnClickLis
         view_salary = findViewById(R.id.view_salary);
         download=findViewById(R.id.download);
 
-        if (isNetworkAvailable()) {
+        if (Util.isNetworkAvailable(this)) {
             Uri.Builder builder = new Uri.Builder();
             builder.scheme("https")
                     .authority("genesiscloudapps.com")
@@ -139,8 +140,5 @@ public class ViewSalarySlip extends AppCompatActivity implements View.OnClickLis
                     }
                 });
     }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 }

@@ -22,6 +22,7 @@ import com.ossi.genreporting.Adapter.EmployeeLeaveAdapter;
 import com.ossi.genreporting.Adapter.EmployeeWFHAdapter;
 import com.ossi.genreporting.Adapter.HolidayAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.AbsentStatusResponse;
@@ -82,7 +83,7 @@ EditText search;
             field=bundle.getString("field");
 
             //Toast.makeText(getActivity(), ""+approve_type_exp, Toast.LENGTH_SHORT).show();
-            if (isNetworkAvailable()) {
+            if (Util.isNetworkAvailable(getActivity())) {
                 if (type_status.equalsIgnoreCase("present")) {
                     get_Total_present_list();
                     ofc_count.setText("Office: "+biometric +", Field: "+field);
@@ -130,10 +131,6 @@ EditText search;
 
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
 
     private void get_Total_present_list() {
         apiInterface = APIClient.getClient().create(APIInterface.class);

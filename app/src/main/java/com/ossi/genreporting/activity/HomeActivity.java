@@ -36,6 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.ossi.genreporting.LoginActivity;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.fragment.AddShowMeeting;
@@ -68,7 +69,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout mDrawerLayout;
     private SharedPreferences pref;
     private NavigationView navigationView;
-    private TextView dashBoard, applyLeave, workhome, attendance_frag, expense_frag, setting, my_profile, info, salary;
+    private TextView dashBoard, applyLeave, workhome, expense_frag, setting, my_profile, info, salary;
+    //TextView attendance_frag;
     TextView assign_task, approval_leave, approval_wfh, tender, meetings;
     TextView employee_name;
     TextView login_time;
@@ -84,16 +86,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     String login_type;
     TextView text_header1, text_for_select;
     TextView product;
-    /*TabLayout tabLayout;
-    ViewPager viewPager;*/
       String Current_weekly_hour,Login_time_biometric,previous_weekly_hour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
-           /* HomeFragment homeFragment = new HomeFragment();
-            openFragment1(homeFragment);*/
 
             TabLayoutFragment tabLayoutFragment = new TabLayoutFragment();
             openFragment1Tab(tabLayoutFragment);
@@ -118,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             if (img_profile1 != null) {
                 Glide.with(this).load(img_profile1).into(img_profile);
             }
-            if (isNetworkAvailable()) {
+            if (Util.isNetworkAvailable(this)) {
                 get_calculate_hour(user_id);
             }
             employee_name.setText(Employee_Name);
@@ -163,7 +161,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         applyLeave = findViewById(R.id.applyLeave);
         workhome = findViewById(R.id.workhome);
 
-        attendance_frag = findViewById(R.id.attendance_frag);
+        //attendance_frag = findViewById(R.id.attendance_frag);
         // salary_frag=findViewById(R.id.salary_frag);
         expense_frag = findViewById(R.id.expense_frag);
         setting = findViewById(R.id.setting);
@@ -213,7 +211,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         dashBoard.setOnClickListener(this);
         applyLeave.setOnClickListener(this);
         workhome.setOnClickListener(this);
-        attendance_frag.setOnClickListener(this);
+        //attendance_frag.setOnClickListener(this);
         // salary_frag.setOnClickListener(this);
         expense_frag.setOnClickListener(this);
         setting.setOnClickListener(this);
@@ -289,12 +287,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 ApplyWorkFromHomeFragment applyWorkFromHomeFragment = new ApplyWorkFromHomeFragment();
                 openFragment1(applyWorkFromHomeFragment);
                 break;
-            case R.id.attendance_frag:
+            /*case R.id.attendance_frag:
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 text_header1.setText("Attendance");
                 AttendanceFragment attendanceFragment = new AttendanceFragment();
                 openFragment1(attendanceFragment);
-                break;
+                break;*/
             case R.id.salary:
                 mDrawerLayout.closeDrawer(Gravity.RIGHT);
                 text_header1.setText("Salary Slip");
@@ -489,44 +487,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-       /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(HomeActivity.this);
-        alertDialogBuilder.setTitle("Are You sure want to Logout");
-
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        
-                        logoutMethod();
-                        
-
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();*/
     }
 
     @Override
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
-           /* new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                    .setMessage("Are you sure you want to exit App?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    }).setNegativeButton("No", null).show();
-*/
 
             Button button1 = new Button(this);
             button1.setText("No");
@@ -581,13 +547,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             expense.hide();
             aply_loan.hide();
             add_fab.setImageResource(R.drawable.newadd);
-            /* if (isAllFabsVisible) {
-                    apply_leve.hide();
-                    apply_wfm_float.hide();
-                    expense.hide();
-                    aply_loan.hide();
-                    add_fab.setImageResource(R.drawable.newadd);
-                }*/
         } else {
             super.onBackPressed();
             mDrawerLayout.closeDrawer(Gravity.RIGHT);
@@ -748,9 +707,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     mProgressDialog.dismiss();
             }
         });
-    }
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
 }

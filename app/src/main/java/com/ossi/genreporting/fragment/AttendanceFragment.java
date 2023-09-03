@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.ossi.genreporting.LoginActivity;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.activity.HomeActivity;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
@@ -153,33 +154,8 @@ RoundedImageView img_profile;
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-           /* case R.id.attendance_date_open:
-                onDateSet();
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                attendance_date_open.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-                break;
-
-            case R.id.attendance_date_to:
-                onDateSet();
-                picker = new DatePickerDialog(getActivity(),
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                attendance_date_to.setText(year + "/" + (monthOfYear + 1) + "/" + dayOfMonth);
-                            }
-                        }, year, month, day);
-                picker.show();
-                break;*/
 
             case R.id.view_attend:
-            // String date_from= attendance_date_open.getText().toString();
-              //  String date_to= attendance_date_to.getText().toString();
                 if(date_from==null){
                     Toast.makeText(getActivity(), "Please select Date from and to", Toast.LENGTH_SHORT).show();
 
@@ -190,7 +166,7 @@ RoundedImageView img_profile;
                     Toast.makeText(getActivity(), "Please Select Attendance Type", Toast.LENGTH_SHORT).show();
 
                 }else {
-                    if (isNetworkAvailable()) {
+                    if (Util.isNetworkAvailable(getActivity())) {
                         Attendance_view_method(user_id, date_from, date_to, attend_type);
                     }else {
                         Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -210,10 +186,7 @@ RoundedImageView img_profile;
         transaction.commit();
     }
 
-    public boolean isNetworkAvailable() {
-        final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+
 
     public void onDateSet() {
         final Calendar cldr = Calendar.getInstance();

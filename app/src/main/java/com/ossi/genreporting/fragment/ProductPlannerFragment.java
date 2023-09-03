@@ -38,6 +38,7 @@ import com.ossi.genreporting.Adapter.AllProductListAdapter;
 import com.ossi.genreporting.Adapter.AssignTaskAdapter;
 import com.ossi.genreporting.Adapter.SalaryApprovalShowAdapter;
 import com.ossi.genreporting.R;
+import com.ossi.genreporting.Util;
 import com.ossi.genreporting.activity.HomeActivity;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIClientProduct;
@@ -87,9 +88,11 @@ public class ProductPlannerFragment extends Fragment implements View.OnClickList
 
         user_id = pref.getString("user_id", null);
 
-
-        get_all_products(user_id);
-
+       if(Util.isNetworkAvailable(getActivity())) {
+           get_all_products(user_id);
+       }else {
+           Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+       }
         return view;
     }
 
