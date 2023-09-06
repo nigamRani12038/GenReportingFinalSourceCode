@@ -45,11 +45,14 @@ import com.ossi.genreporting.fragment.ApplyWorkFromHomeFragment;
 import com.ossi.genreporting.fragment.ApprovedRequestHistoryFragment;
 import com.ossi.genreporting.fragment.CurrentMeetingFragment;
 import com.ossi.genreporting.fragment.EmployeeRequestFragment;
+import com.ossi.genreporting.fragment.ExpenseViewFragment;
+import com.ossi.genreporting.fragment.LeaveViewFragment;
 import com.ossi.genreporting.fragment.MyProfileFragment;
 import com.ossi.genreporting.fragment.PayrollFragment;
 import com.ossi.genreporting.fragment.SalaryFragment;
 import com.ossi.genreporting.fragment.SalaryHistoryFragment;
 import com.ossi.genreporting.fragment.TabLayoutFragment;
+import com.ossi.genreporting.fragment.WorkFromHomeViewFragment;
 import com.ossi.genreporting.model.LoginResponse;
 
 import java.util.List;
@@ -77,6 +80,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
     Boolean isAllFabsVisible;
     private String img_profile1;
     TextView apply_expense, apply_leave, apply_wfh;
+    TextView statusLeave,statusWfh,statusExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +187,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         apply_leave = findViewById(R.id.apply_leave);
         apply_expense = findViewById(R.id.apply_expense);
 
+        statusLeave = findViewById(R.id.statusLeave);
+        statusWfh = findViewById(R.id.statusWfh);
+        statusExpense = findViewById(R.id.statusExpense);
+
         apply_leve.setVisibility(View.GONE);
         apply_wfm_float.setVisibility(View.GONE);
         expense.setVisibility(View.GONE);
@@ -212,6 +220,10 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         apply_leave.setOnClickListener(this);
         apply_expense.setOnClickListener(this);
         apply_wfh.setOnClickListener(this);
+
+        statusLeave.setOnClickListener(this);
+        statusExpense.setOnClickListener(this);
+        statusWfh.setOnClickListener(this);
     }
 
     @Override
@@ -290,6 +302,27 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
                 text_header1.setText("Apply WFH");
                 ApplyWorkFromHomeFragment applyWorkFromHomeFragment = new ApplyWorkFromHomeFragment();
                 openFragment1(applyWorkFromHomeFragment);
+                break;
+
+            case R.id.statusLeave:
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                text_header1.setText("Leave Status");
+                LeaveViewFragment leaveViewFragment = new LeaveViewFragment();
+                openFragment1(leaveViewFragment);
+                break;
+
+            case R.id.statusWfh:
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                text_header1.setText("WFH Status");
+                WorkFromHomeViewFragment workFromHomeViewFragment = new WorkFromHomeViewFragment();
+                openFragment1(workFromHomeViewFragment);
+                break;
+
+            case R.id.statusExpense:
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+                text_header1.setText("Expense Status");
+                ExpenseViewFragment expenseViewFragment = new ExpenseViewFragment();
+                openFragment1(expenseViewFragment);
                 break;
 
 
@@ -379,7 +412,7 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
 
-
+            mDrawerLayout.closeDrawer(Gravity.RIGHT);
 
             Button button1 = new Button(this);
             button1.setText("No");

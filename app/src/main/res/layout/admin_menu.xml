@@ -15,7 +15,18 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
         android:orientation="vertical">
-
+        <ScrollView
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +48,7 @@
                 android:gravity="center"
                 android:text="GenReporting"
                 android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textSize="25dp" />
 
 
         </LinearLayout>
@@ -199,6 +210,51 @@
             android:layout_height="1dp"
             android:alpha="30"
             android:background="@color/linecolor"/>
+        <TextView
+            android:id="@+id/statusLeave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Leave Status"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="30"
+            android:background="@color/linecolor"/>
+        <TextView
+            android:id="@+id/statusWfh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="WFH Status"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="30"
+            android:background="@color/linecolor"/>
+        <TextView
+            android:id="@+id/statusExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Expense Status"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="30"
+            android:background="@color/linecolor"/>
 
        <!-- <TextView
             android:id="@+id/holiday_list"
@@ -232,9 +288,9 @@
             android:alpha="30"
             android:background="@color/linecolor"/>
 
+            </LinearLayout>
 
-
-
+</ScrollView>
     </LinearLayout>
 
 
@@ -242,19 +298,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="POWERED BY"
         android:textColor="@color/white"
-        android:textSize="@dimen/_15sdp" />
+        android:textSize="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/genesislogo" />
-
 
 </RelativeLayout>

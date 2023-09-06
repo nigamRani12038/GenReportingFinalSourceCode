@@ -56,6 +56,7 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
     Spinner leave_type;
     EditText purpose_leave;
     View view;
+    String month_first,month_last,month_day,day_last,day_first;
     private String Spin_Name;
     TextView remain_leave;
     int day;
@@ -76,6 +77,8 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
     MaterialCalendarView range;
     private RangeDayDecorator decorator;
     RoundedImageView img_profile;
+    Spinner halfDaySelect,shortLeaveSelect;
+    String shortOrHalfType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -125,17 +128,24 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
         purpose_leave=view.findViewById(R.id.purpose_leave);
         text_header1=view.findViewById(R.id.text_header1);
         range=view.findViewById(R.id.calendar_view_range);
+        shortLeaveSelect=view.findViewById(R.id.shortLeaveSelect);
+        halfDaySelect=view.findViewById(R.id.halfDaySelect);
+
         range.setOnDateChangedListener(this);
         range.setOnRangeSelectedListener(this);
         range.addDecorator(decorator);
+
+
+
+
 
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Leave Type");
         arrayList.add("Casual Leave");
         arrayList.add("Sick Leave");
         arrayList.add("Earned Leave");
-       /* arrayList.add("Short Leave");
-        arrayList.add("Half Day");*/
+        arrayList.add("Short Leave");
+        arrayList.add("Halfday Leave");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -143,12 +153,44 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
         leave_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 Spin_Name = parent.getItemAtPosition(position).toString();
+                if(Spin_Name.equalsIgnoreCase("Short Leave")){
+                    shortLeaveSelect.setVisibility(View.VISIBLE);
+                    halfDaySelect.setVisibility(View.GONE);
+
+
+                }else if(Spin_Name.equalsIgnoreCase("Halfday Leave")){
+                    halfDaySelect.setVisibility(View.VISIBLE);
+                    shortLeaveSelect.setVisibility(View.GONE);
+                }
+
+
+
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {
             }
         });
+
+        ArrayList<String> shortLeave = new ArrayList<>();
+        shortLeave.add("Select Time");
+        shortLeave.add("10.00AM-12.00PM");
+        shortLeave.add("12.00PM-02.00PM");
+        shortLeave.add("02.00PM-04.00PM");
+        shortLeave.add("04.00PM-06.00PM");
+        ArrayAdapter<String> shortLeaveAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, shortLeave);
+        shortLeaveAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        shortLeaveSelect.setAdapter(shortLeaveAdapter);
+
+
+        ArrayList<String> halfDayLeave = new ArrayList<>();
+        halfDayLeave.add("Select Halfday Leave");
+        halfDayLeave.add("1st Halfday");
+        halfDayLeave.add("2nd Halfday");
+        ArrayAdapter<String> halfDayLeaveAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item, halfDayLeave);
+        halfDayLeaveAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        halfDaySelect.setAdapter(halfDayLeaveAdapter);
     }
 
     public void set_on_click_litioner(){
@@ -174,6 +216,9 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
                 Log.i("date", "selectedDate::" + range.getSelectedDates().toString());
                 leave_purpose = purpose_leave.getText().toString();
                 type_leave = leave_type.getSelectedItem().toString();
+                String short_leave=shortLeaveSelect.getSelectedItem().toString();
+                String half_leave=halfDaySelect.getSelectedItem().toString();
+
 
                 if (range.getSelectedDates().size()==0) {
                     Toast.makeText(getActivity(), "Please Select Date", Toast.LENGTH_SHORT).show();
@@ -181,28 +226,63 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
                 Toast.makeText(getActivity(), "Please Enter Purpose", Toast.LENGTH_SHORT).show();
             } else if (type_leave.equalsIgnoreCase("Leave Type")) {
                 Toast.makeText(getActivity(), "Please Select Leave Type", Toast.LENGTH_SHORT).show();
-            }  else {
+            } else if (shortLeaveSelect.getVisibility()==View.VISIBLE && short_leave.equalsIgnoreCase("Select Time")) {
+                    Toast.makeText(getActivity(), "Please Select Time Slot", Toast.LENGTH_SHORT).show();
+                } else if (halfDaySelect.getVisibility()==View.VISIBLE && half_leave.equalsIgnoreCase("Select Halfday Leave")) {
+                    Toast.makeText(getActivity(), "Please Select Half Day Type", Toast.LENGTH_SHORT).show();
+                }  else {
 
                     if (Util.isNetworkAvailable(getActivity())) {
+                        if (shortLeaveSelect.getVisibility()==View.VISIBLE){
+                            shortOrHalfType=shortLeaveSelect.getSelectedItem().toString() ;
+                        }else if(halfDaySelect.getVisibility()==View.VISIBLE){
+                            shortOrHalfType=halfDaySelect.getSelectedItem().toString();
+                        }else {
+                            shortOrHalfType="";
+                        }
+
 
                         if (range.getSelectedDates().size() > 1) {
                             CalendarDay cal1=range.getSelectedDates().get(0);
-                            date_from = cal1.getYear() + "-" + cal1.getMonth() + "-" + cal1.getDay();
+                            if(cal1.getDay()<10){
+                                day_first ="0"+cal1.getDay();
+                            }
+                             if(cal1.getMonth()<10){
+                              month_first ="0"+cal1.getMonth();
+                             }
+
+
+
+                            date_from = cal1.getYear() + "-" + month_first + "-" + day_first;
 
                             CalendarDay cal2=range.getSelectedDates().get(range.getSelectedDates().size()-1);
-                            date_to=cal2.getYear() + "-" + cal2.getMonth() + "-" + cal2.getDay();
+                            if(cal2.getDay()<10){
+                                day_last="0"+cal2.getDay();
+                            }
+                            if(cal2.getMonth()<10){
+                                month_last="0"+cal2.getMonth();
+                            }
+
+                            date_to=cal2.getYear() + "-" + month_last + "-" + day_last;
 
 
 
                             Log.i("date::", "date_from::" +date_from);
                             Log.i("date::", "date_to::" +date_to);
-                            Apply_leave_method(user_id, date_from, date_to,type_leave, leave_purpose);
+                            Apply_leave_method(user_id, date_from, date_to,type_leave, leave_purpose,shortOrHalfType);
                         } else if (range.getSelectedDates().size() > 0 && range.getSelectedDates().size() == 1) {
                             CalendarDay cal1=range.getSelectedDates().get(0);
-                            date_from = cal1.getYear() + "-" + cal1.getMonth() + "-" + cal1.getDay();
+                            if(cal1.getDay()<10){
+                                month_day ="0"+cal1.getDay();
+                            }
+                            if(cal1.getMonth()<10){
+                                month_first ="0"+cal1.getMonth();
+                            }
+
+                            date_from = cal1.getYear() + "-" + month_first + "-" +month_day ;
 
                             Log.i("date::", "date_from::" +date_from);
-                            Apply_leave_method(user_id, date_from, date_from,type_leave, leave_purpose);
+                            Apply_leave_method(user_id, date_from, date_from,type_leave, leave_purpose,shortOrHalfType);
                         }
                     }else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
@@ -213,14 +293,14 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void Apply_leave_method(String userid, String fdate, String tdate, String type_leave,String purpose) {
+    private void Apply_leave_method(String userid, String fdate, String tdate, String type_leave,String purpose,String type) {
         apiInterface = APIClient.getClient().create(APIInterface.class);
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.ApplyLeave_submit(userid, fdate, tdate, type_leave,purpose);
+        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.ApplyLeave_submit(userid, fdate, tdate, type_leave,purpose,type);
         call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
             @Override
             public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
@@ -290,10 +370,19 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
 
 
         if (dates.size() > 0) {
+
             CalendarDay calendarDay=  dates.get(0);
             CalendarDay calendarDay2=  dates.get(dates.size() - 1);
-            date_from=calendarDay.getYear()+"-"+calendarDay.getMonth()+"-"+calendarDay.getDay();
-            date_to=calendarDay2.getYear()+"-"+calendarDay2.getMonth()+"-"+calendarDay2.getDay();
+                if (calendarDay.getMonth() < 10) {
+                    month_first = "0" + calendarDay.getMonth();
+                    day_first="0"+calendarDay.getDay();
+                }
+                if(calendarDay2.getMonth()<10){
+                    month_last="0"+calendarDay2.getMonth();
+                    day_last="0"+calendarDay2.getDay();
+                }
+            date_from=calendarDay.getYear()+"-"+month_first+"-"+day_first;
+            date_to=calendarDay2.getYear()+"-"+month_last+"-"+day_last;
            // Toast.makeText(getActivity(), "start date:: "+date_from+" end date:: "+date_to, Toast.LENGTH_SHORT).show();
             Log.i("Datest","start date:: "+dates.get(0));
             Log.i("Datest","end date:: "+dates.get(dates.size() - 1));

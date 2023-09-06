@@ -88,7 +88,7 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 month1 = leave_spin.getSelectedItem().toString();
                 if (leave_spin.getSelectedItem().equals("Select Months")) {
-                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
                 } else if (leave_approve_type.getSelectedItem().equals("Select Approved Type")) {
                     Toast.makeText(getActivity(), "Please Select Approved Type", Toast.LENGTH_SHORT).show();
                 } else if (leave_typ.getSelectedItem().equals("Select Leave Type")) {
@@ -118,7 +118,7 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 approved_type = leave_approve_type.getSelectedItem().toString();
                 if (leave_spin.getSelectedItem().equals("Select Months")) {
-                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
                 } else if (leave_approve_type.getSelectedItem().equals("Select Approved Type")) {
                     Toast.makeText(getActivity(), "Please Select Approved Type", Toast.LENGTH_SHORT).show();
                 } else if (leave_typ.getSelectedItem().equals("Select Leave Type")) {
@@ -139,6 +139,8 @@ public class LeaveViewFragment extends Fragment implements View.OnClickListener 
         arrayList2.add("Casual Leave");
         arrayList2.add("Earned Leave");
         arrayList2.add("Sick Leave");
+        arrayList2.add("Short Leave");
+        arrayList2.add("Halfday Leave");
 
 
         ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList2);

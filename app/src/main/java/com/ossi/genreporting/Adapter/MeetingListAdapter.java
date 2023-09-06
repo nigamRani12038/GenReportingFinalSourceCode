@@ -67,6 +67,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
         String sno = exp.getSno();
         String time = exp.getMettime();
         String assign_by = exp.getAssign_By_Name();
+        String meeting_id=exp.getMeetingID();
 
 
 
@@ -90,6 +91,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
                 bundle.putString("mode", mode);
                 bundle.putString("sno", sno);
                 bundle.putString("assign_by", assign_by);
+                bundle.putString("meeting_id",meeting_id);
                 submitMeetingFragment.setArguments(bundle);
                 openFragment1(submitMeetingFragment);
             }

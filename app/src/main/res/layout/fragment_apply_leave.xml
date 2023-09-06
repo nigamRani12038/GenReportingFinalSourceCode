@@ -14,7 +14,6 @@
         android:layout_marginTop="@dimen/_70sdp"
         android:background="@drawable/background"
         android:gravity="center"
-
         android:orientation="vertical">
 
         <ScrollView
@@ -81,6 +80,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
+                    android:background="@drawable/ractangleshape"
+                    android:drawableRight="@drawable/dateicon"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/txt"
+                    android:textColorHint="@color/txt"
+                    android:textSize="@dimen/_11sdp" />
+
+                <Spinner
+                    android:id="@+id/halfDaySelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
+                    android:background="@drawable/ractangleshape"
+                    android:drawableRight="@drawable/dateicon"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/txt"
+                    android:textColorHint="@color/txt"
+                    android:textSize="@dimen/_11sdp" />
+                <Spinner
+                    android:id="@+id/shortLeaveSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:visibility="gone"
                     android:background="@drawable/ractangleshape"
                     android:drawableRight="@drawable/dateicon"
                     android:padding="@dimen/_8sdp"

@@ -45,7 +45,7 @@ public class HistoryRequestAdapter extends RecyclerView.Adapter<HistoryRequestAd
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView emp_name_req, total_day_count,from,to,status_approv_reject,approved_by;
+        public TextView emp_name_req, total_day_count,from,to,status_approv_reject,approved_by,leaveType,leaveStatus;
 
         LinearLayout icon_open;
 
@@ -57,6 +57,8 @@ public class HistoryRequestAdapter extends RecyclerView.Adapter<HistoryRequestAd
             to = view.findViewById(R.id.to);
             status_approv_reject = view.findViewById(R.id.status_approv_reject);
             approved_by = view.findViewById(R.id.approved_by);
+            leaveType = view.findViewById(R.id.leaveType);
+            leaveStatus = view.findViewById(R.id.leaveStatus);
 
 
         }
@@ -80,6 +82,7 @@ public class HistoryRequestAdapter extends RecyclerView.Adapter<HistoryRequestAd
         String status_approved_rejected = exp.getStatus();
         String fdate = exp.getFromDate();
         String tdate = exp.getToDate();
+        String res=exp.getResponse();
 
         holder.emp_name_req.setText(Emp_Name);
         holder.total_day_count.setText("Total Days: "+total_day_count);
@@ -87,6 +90,23 @@ public class HistoryRequestAdapter extends RecyclerView.Adapter<HistoryRequestAd
         holder.status_approv_reject.setText("Status: "+status_approved_rejected);
         holder.from.setText("From: "+fdate);
         holder.to.setText("To: "+tdate);
+        if (res.equalsIgnoreCase("Leave")){
+            holder.leaveType.setVisibility(View.VISIBLE);
+
+            String leave_Type=exp.getTypeLeave();
+            String time_Status=exp.getLeaveTime();
+            holder.leaveType.setText("Leave Type :  "+leave_Type);
+            if(leave_Type.equalsIgnoreCase("Short Leave")){
+                holder.leaveStatus.setVisibility(View.VISIBLE);
+                holder.leaveStatus.setText("Time Slot:   "+time_Status);
+            }else  if(leave_Type.equalsIgnoreCase("Halfday Leave")){
+                holder.leaveStatus.setText("Half Day: "+time_Status);
+                holder.leaveStatus.setVisibility(View.VISIBLE);
+            }else {
+                holder.leaveStatus.setVisibility(View.GONE);
+            }
+
+        }
     }
 
     @Override

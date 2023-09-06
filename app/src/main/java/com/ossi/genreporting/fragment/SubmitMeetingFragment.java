@@ -2,9 +2,11 @@ package com.ossi.genreporting.fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,8 +36,10 @@ import com.ossi.genreporting.R;
 import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
+import com.ossi.genreporting.model.AllEventsShow;
 import com.ossi.genreporting.model.ApplyLeaveResponseItem;
 import com.ossi.genreporting.model.DepartmentEmployeeListResponse;
+import com.ossi.genreporting.model.ShowMeetingListResponse;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -48,7 +52,7 @@ import retrofit2.Response;
 
 public class SubmitMeetingFragment extends Fragment implements View.OnClickListener, DepartmentEmployeeAdapter.Departmentinterface {
     Spinner department_spin, meeting_mod_spin;
-    Button create_meet_btn;
+    Button create_meet_btn, deleteMeeting;
     View view;
 
     TextView text_header1, employee_name, text_for_select;
@@ -60,7 +64,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     RoundedImageView img_profile;
     private APIInterface apiInterface;
     private ProgressDialog mProgressDialog;
-    String department;
+    String department, meeting_id;
     Spinner spinner_name;
     DepartmentEmployeeAdapter departmentEmployeeAdapter;
     private ArrayList<DepartmentEmployeeListResponse> emp_list;
@@ -71,6 +75,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     String name_employe, employee_id;
     private String day_, month_;
     RelativeLayout nameSpinLayout;
+    String time_edit,date_edit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,25 +95,30 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         if (bundle != null) {
             heading = bundle.getString("heading");
             String res = bundle.getString("res");
-            date = bundle.getString("date");
-            time = bundle.getString("time");
+            date_edit = bundle.getString("date");
+            time_edit = bundle.getString("time");
             name = bundle.getString("emp");
             department = bundle.getString("department");
             detail = bundle.getString("details");
             meeting_mode = bundle.getString("mode");
             assign_by = bundle.getString("assign_by");
+            meeting_id = bundle.getString("meeting_id");
             if (heading.equalsIgnoreCase("")) {
                 create_meet_btn.setVisibility(View.VISIBLE);
-
+                deleteMeeting.setVisibility(View.GONE);
+                create_meet_btn.setText("Create New Meeting");
 
             } else {
-                create_meet_btn.setVisibility(View.GONE);
-                nameSpinLayout.setVisibility(View.GONE);
+                // create_meet_btn.setVisibility(View.GONE);
+                //nameSpinLayout.setVisibility(View.GONE);
+                create_meet_btn.setVisibility(View.VISIBLE);
+                deleteMeeting.setVisibility(View.VISIBLE);
+                create_meet_btn.setText("Edit Meeting");
                 meet_detail.setText(name);
                 meet_heading.setText("Heading: " + heading);
-                meet_time.setText("Time: " + time);
-                meet_date.setText("Date: " + date);
-                meet_url_description.setText("Meeting Room:"+detail);
+                meet_time.setText("Time: " + time_edit);
+                meet_date.setText("Date: " + date_edit);
+                meet_url_description.setText("Meeting Room:" + detail);
                 //department_spin.setPrompt(department);
                 //  meeting_mod_spin.setSelection(meeting_mode);
                 String[] items = new String[]{department};
@@ -207,7 +217,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         text_for_select = view.findViewById(R.id.text_for_select);
 
         spinner_name = view.findViewById(R.id.spinner_name);
-        nameSpinLayout=view.findViewById(R.id.nameSpinLayout);
+        nameSpinLayout = view.findViewById(R.id.nameSpinLayout);
 
 
         meet_detail = view.findViewById(R.id.meet_detail);
@@ -215,12 +225,15 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         meet_date = view.findViewById(R.id.meet_date);
         meet_time = view.findViewById(R.id.meet_time);
         meet_url_description = view.findViewById(R.id.meet_url_description);
+        deleteMeeting = view.findViewById(R.id.deleteMeeting);
+
     }
 
     public void set_on_click_litioner() {
         create_meet_btn.setOnClickListener(this);
         meet_time.setOnClickListener(this);
         meet_date.setOnClickListener(this);
+        deleteMeeting.setOnClickListener(this);
     }
 
     @Override
@@ -252,7 +265,12 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                 } else {
                     if (Util.isNetworkAvailable(getActivity())) {
-                        add_meeting();
+                        if (!meeting_id.equalsIgnoreCase("")) {
+                            edit_meeting();
+                        } else if (meeting_id.equalsIgnoreCase("")) {
+                            add_meeting();
+
+                        }
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                     }
@@ -320,7 +338,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                                     int i = monthOfYear + 1;
                                     month_ = "0" + i;
                                 }
-                                meet_date.setText(day_ + "-" + (month_) + "-" + year);
+                                meet_date.setText(year + "-" + (month_) + "-" + day_);
 
 
                             }
@@ -331,6 +349,38 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
                 // at last we are calling show to
                 // display our date picker dialog.
                 datePickerDialog.show();
+                break;
+            case R.id.deleteMeeting:
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
+                builder1.setMessage("Are You sure You want to Delete This Meeting");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (Util.isNetworkAvailable(getActivity())) {
+                                    deleteMeeting(user_id, meeting_id);
+                                } else {
+                                    Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
+                                }
+                                dialog.cancel();
+
+                            }
+                        });
+
+                builder1.setNegativeButton(
+                        "No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+
                 break;
         }
     }
@@ -359,7 +409,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                     for (int i = 0; i < DepartmentEmployeeListResponse.size(); i++) {
                         String res = DepartmentEmployeeListResponse.get(i).getEmpName();
-                        Log.e("hr","hr:"+res);
+                        Log.e("hr", "hr:" + res);
                         DepartmentEmployeeListResponse model = new DepartmentEmployeeListResponse();
                         if (!res.equalsIgnoreCase("")) {
                             String Name = DepartmentEmployeeListResponse.get(i).getEmpName();
@@ -488,21 +538,21 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
             meeting_mode = "1";
         }
 
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.add_meeting(user_id, heading, date, time, department, meeting_mode, employee_id, detail, meet_url_description.getText().toString());
-        call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
+        Call<List<ShowMeetingListResponse>> call1 = apiInterface.add_meeting(user_id, heading, date, time, department, meeting_mode, employee_id, detail, meet_url_description.getText().toString());
+        call1.enqueue(new Callback<List<ShowMeetingListResponse>>() {
             @Override
-            public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
-                List<ApplyLeaveResponseItem> applyLeaveResponseItem = response.body();
+            public void onResponse(Call<List<ShowMeetingListResponse>> call, Response<List<ShowMeetingListResponse>> response) {
+                List<ShowMeetingListResponse> showMeetingListResponse = response.body();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
 
-                if (applyLeaveResponseItem != null && applyLeaveResponseItem.size() > 0) {
+                if (showMeetingListResponse != null && showMeetingListResponse.size() > 0) {
                     if (mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
 
-                    for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
-                        String res = applyLeaveResponseItem.get(i).getResponse();
+                    for (int i = 0; i < showMeetingListResponse.size(); i++) {
+                        String res = showMeetingListResponse.get(i).getResponse();
 
                         if (res.equalsIgnoreCase("Success")) {
                             Toast.makeText(getActivity(), "Meeting added successfully", Toast.LENGTH_SHORT).show();
@@ -525,7 +575,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
             }
 
             @Override
-            public void onFailure(Call<List<ApplyLeaveResponseItem>> call, Throwable t) {
+            public void onFailure(Call<List<ShowMeetingListResponse>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
                 call.cancel();
                 if (mProgressDialog.isShowing())
@@ -533,6 +583,124 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
             }
         });
     }
+
+    private void edit_meeting() {
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.show();
+        if (meeting_mode.equalsIgnoreCase("Offline")) {
+            meeting_mode = "2";
+        } else if (meeting_mode.equalsIgnoreCase("Online")) {
+            meeting_mode = "1";
+        }
+
+        Call<List<ShowMeetingListResponse>> call1 = apiInterface.edit_meeting(user_id, meeting_id, heading, date_edit, time_edit, department, meeting_mode, employee_id, detail, meet_url_description.getText().toString());
+        call1.enqueue(new Callback<List<ShowMeetingListResponse>>() {
+            @Override
+            public void onResponse(Call<List<ShowMeetingListResponse>> call, Response<List<ShowMeetingListResponse>> response) {
+                List<ShowMeetingListResponse> showMeetingListResponse = response.body();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+
+                if (showMeetingListResponse != null && showMeetingListResponse.size() > 0) {
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    for (int i = 0; i < showMeetingListResponse.size(); i++) {
+                        String res = showMeetingListResponse.get(i).getResponse();
+
+                        if (res.equalsIgnoreCase("success")) {
+                            Toast.makeText(getActivity(), "Meeting Update successfully", Toast.LENGTH_SHORT).show();
+                            AddShowMeeting addShowMeeting = new AddShowMeeting();
+                            openFragment(addShowMeeting);
+                        } else {
+                            Toast.makeText(getActivity(), "" + res, Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ShowMeetingListResponse>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
+                call.cancel();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
+
+    private void deleteMeeting(String userId, String meetingId) {
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.show();
+
+        Call<List<ShowMeetingListResponse>> call1 = apiInterface.delete_meeting(userId, meetingId);
+        call1.enqueue(new Callback<List<ShowMeetingListResponse>>() {
+            @Override
+            public void onResponse(Call<List<ShowMeetingListResponse>> call, Response<List<ShowMeetingListResponse>> response) {
+                List<ShowMeetingListResponse> showMeetingListResponse = response.body();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+
+                if (showMeetingListResponse != null && showMeetingListResponse.size() > 0) {
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    for (int i = 0; i < showMeetingListResponse.size(); i++) {
+                        if (mProgressDialog.isShowing())
+                            mProgressDialog.dismiss();
+
+                        String res_success = showMeetingListResponse.get(i).getResponse();
+                        if (res_success.equalsIgnoreCase("Delete Successfully")) {
+                            Toast.makeText(getActivity(), "Delete Meeting successfully", Toast.LENGTH_SHORT).show();
+                            AddShowMeeting addShowMeeting = new AddShowMeeting();
+                            openFragment(addShowMeeting);
+                        } else if (res_success.equalsIgnoreCase("MEETINGS id Not Exit")) {
+                            Toast.makeText(getActivity(), "MEETINGS id Not Exit", Toast.LENGTH_SHORT).show();
+                        }else if (res_success.equalsIgnoreCase("Employee Sno Not Exit")) {
+                            Toast.makeText(getActivity(), "Employee Sno Not Exit", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getActivity(), "Server Error", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ShowMeetingListResponse>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Server Not Responde", Toast.LENGTH_SHORT).show();
+                call.cancel();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
 
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -550,6 +718,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
         hideSpinnerDropDown(spinner_name);
 
     }
+
     public static void hideSpinnerDropDown(Spinner spinner) {
         try {
             Method method = Spinner.class.getDeclaredMethod("onDetachedFromWindow");

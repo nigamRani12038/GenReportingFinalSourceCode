@@ -27,6 +27,17 @@ public class ShowMeetingListResponse {
     @SerializedName("Metdate")
     private String Metdate;
 
+    public String getMeetingID() {
+        return MeetingID;
+    }
+
+    public void setMeetingID(String meetingID) {
+        MeetingID = meetingID;
+    }
+
+    @SerializedName("MeetingID")
+    private String MeetingID;
+
 
     public String getAssign_By_Name() {
         return Assign_By_Name;

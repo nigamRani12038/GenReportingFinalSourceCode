@@ -392,7 +392,7 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
-
+            mDrawerLayout.closeDrawer(Gravity.RIGHT);
             Button button1=new Button(this);
             button1.setText("No");
             button1.setTextColor(Color.WHITE);
@@ -543,6 +543,12 @@ public class FinanceActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
     }
 
     private void openFragment2(Fragment fragment) {

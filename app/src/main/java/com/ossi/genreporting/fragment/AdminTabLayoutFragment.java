@@ -46,29 +46,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AdminTabLayoutFragment extends Fragment implements View.OnClickListener {
-View mView;
+    View mView;
     private TabLayout fragmentTabLayout;
     private ViewPager2 tabPager1;
     private String user_id, prof_img;
     ImageView open_holidaylist;
-    RecyclerView event_get_horizon,rv_total_weekly_hour_;
+    RecyclerView event_get_horizon, rv_total_weekly_hour_;
     private EventAdapter event_adapter;
     String Total_Expense_bill, Expense_Approved, Expense_Decline, Expense_Pending, WFH_Used, WFH_Approved, WFH_Decline, WFH_Pending, Loan_Ammoun, Loan_Status, EL, CL, SL, Remaining_WFH_leave;
     private String apply_leave, aply_leave_status;
-    String Leave_Approved,Leave_Decline,Leave_Pending;
-    String total_el,total_cl,total_sl,total_all;
+    String Leave_Approved, Leave_Decline, Leave_Pending;
+    String total_el, total_cl, total_sl, total_all;
     private ArrayList<EventResponse> event_list;
-    String Emp_Name,Emp_Event;
+
     private APIInterface apiInterface;
     private ProgressDialog mProgressDialog;
     private SharedPreferences.Editor editor;
     private ArrayList<PresentStatusItem> total_week_hour_list;
     PreviousWeekHourAdapter previousWeekHourAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView= inflater.inflate(R.layout.fragment_admin_tab_layout, container, false);
+        mView = inflater.inflate(R.layout.fragment_admin_tab_layout, container, false);
 
         SharedPreferences pref = getActivity().getSharedPreferences("my_pref", MODE_PRIVATE);
 
@@ -76,16 +77,52 @@ View mView;
         prof_img = pref.getString("img_url", null);
         find_view_by_id();
         setOnClick();
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Request"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Meeting"));
+        PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
+        tabPager1.setAdapter(pagerAdapter);
+
+
+        new TabLayoutMediator(fragmentTabLayout, tabPager1, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Employees");
+                    break;
+                case 1:
+                    tab.setText("Request");
+                    break;
+                case 2:
+                    tab.setText("Meeting");
+                    break;
+
+            }
+        }).attach();
+
+        fragmentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabPager1.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         if (isNetworkAvailable()) {
             //get_event();
             get_all_detail(user_id);
-           // get_total_previous_week_hour();
+            // get_total_previous_week_hour();
 
         } else {
             Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
         }
-
 
 
         return mView;
@@ -99,7 +136,7 @@ View mView;
     @Override
     public void onStart() {
         super.onStart();
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
+        /*fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Request"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Meeting"));
      PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
@@ -136,12 +173,12 @@ View mView;
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
-        });
+        });*/
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.open_holidaylist:
                 HolidayFragment holidayFragment = new HolidayFragment();
                 openFragment1(holidayFragment);
@@ -187,12 +224,12 @@ View mView;
         tabPager1 = mView.findViewById(R.id.tabPager);
         open_holidaylist = mView.findViewById(R.id.open_holidaylist);
         event_get_horizon = mView.findViewById(R.id.event_get_horizon);
-        rv_total_weekly_hour_=mView.findViewById(R.id.rv_total_weekly_hour_);
+        rv_total_weekly_hour_ = mView.findViewById(R.id.rv_total_weekly_hour_);
 
     }
 
     public void setOnClick() {
-       open_holidaylist.setOnClickListener(this);
+        open_holidaylist.setOnClickListener(this);
 
     }
 
@@ -221,11 +258,22 @@ View mView;
                         if (mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
 
-                        Emp_Name = EventResponseItem.get(i).getEmpName();
-                        Emp_Event = EventResponseItem.get(i).getEvent();
-                        EventResponse model=new EventResponse();
+                        String Emp_Name = EventResponseItem.get(i).getEmpName();
+                        String eventType = EventResponseItem.get(i).getEventType();
+                        String organiser = EventResponseItem.get(i).getOrganiser();
+                        String eventDescription = EventResponseItem.get(i).getEventDescription();
+                        String eventVenu = EventResponseItem.get(i).getVenue();
+                        String eventLocation = EventResponseItem.get(i).getLocation();
+                        String res=EventResponseItem.get(i).getResponse();
+
+                        EventResponse model = new EventResponse();
                         model.setEmpName(Emp_Name);
-                        model.setEvent(Emp_Event);
+                        model.setEventType(eventType);
+                        model.setEventDescription(eventDescription);
+                        model.setVenue(eventVenu);
+                        model.setLocation(eventLocation);
+                        model.setOrganiser(organiser);
+                        model.setResponse(res);
 
                         event_list.add(model);
 
@@ -235,7 +283,6 @@ View mView;
                     event_get_horizon.setLayoutManager(new LinearLayoutManager(getActivity(),
                             LinearLayoutManager.HORIZONTAL,
                             false));
-
 
 
                     if (mProgressDialog.isShowing())
@@ -268,13 +315,13 @@ View mView;
                 List<PresentStatusItem> applyLeaveResponseItem = response.body();
                 if (applyLeaveResponseItem != null && applyLeaveResponseItem.size() > 0) {
 
-                       total_week_hour_list = new ArrayList<>();
+                    total_week_hour_list = new ArrayList<>();
                     for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
                         String res = applyLeaveResponseItem.get(i).getResponse();
 
 
                         if (res.equalsIgnoreCase("success")) {
-                            PresentStatusItem   model=new PresentStatusItem();
+                            PresentStatusItem model = new PresentStatusItem();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
                             String Employee_image = applyLeaveResponseItem.get(i).getImage();
@@ -312,6 +359,7 @@ View mView;
         final android.net.ConnectivityManager connectivityManager = ((android.net.ConnectivityManager) getActivity().getSystemService(android.content.Context.CONNECTIVITY_SERVICE));
         return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
     }
+
     private void openFragment1(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_layout, fragment); // give your fragment container id in first parameter
@@ -358,18 +406,17 @@ View mView;
                         prof_img = DetailsResponseItem.get(i).getImage();
                         apply_leave = DetailsResponseItem.get(i).getApply();
                         aply_leave_status = DetailsResponseItem.get(i).getStatus();
-                        Leave_Approved=DetailsResponseItem.get(i).getApprovedLeave();
-                        Leave_Decline=DetailsResponseItem.get(i).getRejectLeave();
-                        Leave_Pending=DetailsResponseItem.get(i).getPendingLeave();
+                        Leave_Approved = DetailsResponseItem.get(i).getApprovedLeave();
+                        Leave_Decline = DetailsResponseItem.get(i).getRejectLeave();
+                        Leave_Pending = DetailsResponseItem.get(i).getPendingLeave();
                         total_cl = DetailsResponseItem.get(i).getTotal_CL();
-                        total_el=DetailsResponseItem.get(i).getTotal_EL();
-                        total_sl=DetailsResponseItem.get(i).getTotal_SL();
+                        total_el = DetailsResponseItem.get(i).getTotal_EL();
+                        total_sl = DetailsResponseItem.get(i).getTotal_SL();
 
-                        total_all=" CL: "+total_cl+" EL: "+total_el+" SL: "+total_sl;
+                        total_all = " CL: " + total_cl + " EL: " + total_el + " SL: " + total_sl;
 
 
                         String remaining_leave = " CL: " + CL + " EL: " + EL + " SL: " + SL;
-
 
 
                         editor = getActivity().getSharedPreferences("my_pref", MODE_PRIVATE).edit();

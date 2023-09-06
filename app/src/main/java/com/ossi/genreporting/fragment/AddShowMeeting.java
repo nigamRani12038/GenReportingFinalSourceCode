@@ -107,6 +107,7 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
                 SubmitMeetingFragment submitMeetingFragment = new SubmitMeetingFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("heading", heading);
+                bundle.putString("meeting_id", "");
                 submitMeetingFragment.setArguments(bundle);
                 openFragment(submitMeetingFragment);
 
@@ -125,31 +126,32 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
         call1.enqueue(new Callback<List<ShowMeetingListResponse>>() {
             @Override
             public void onResponse(Call<List<ShowMeetingListResponse>> call, Response<List<ShowMeetingListResponse>> response) {
-                List<ShowMeetingListResponse> my_task_res = response.body();
+                List<ShowMeetingListResponse> showMeetingListResponse = response.body();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
 
-                if (my_task_res != null && my_task_res.size() > 0) {
+                if (showMeetingListResponse != null && showMeetingListResponse.size() > 0) {
                     if (mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
                     meeting_list = new ArrayList<>();
-                    for (int i = 0; i < my_task_res.size(); i++) {
+                    for (int i = 0; i < showMeetingListResponse.size(); i++) {
                         if (mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
                         ShowMeetingListResponse   model=new ShowMeetingListResponse();
 
-                       String res = my_task_res.get(i).getResponse();
+                       String res = showMeetingListResponse.get(i).getResponse();
                        if(res.equalsIgnoreCase("All Assigned to Upcoming meeting show")) {
-                           String date = my_task_res.get(i).getMetdate();
-                           String department = my_task_res.get(i).getMetDepament();
-                           String heading = my_task_res.get(i).getMethead();
-                           String details = my_task_res.get(i).getMetDetails();
-                           String mode = my_task_res.get(i).getMetmode();
-                           String sno = my_task_res.get(i).getSno();
-                           String emp = my_task_res.get(i).getMetEmp();
-                           String time = my_task_res.get(i).getMettime();
-                            assign_by=my_task_res.get(i).getAssign_By_Name();
+                           String date = showMeetingListResponse.get(i).getMetdate();
+                           String department = showMeetingListResponse.get(i).getMetDepament();
+                           String heading = showMeetingListResponse.get(i).getMethead();
+                           String details = showMeetingListResponse.get(i).getMetDetails();
+                           String mode = showMeetingListResponse.get(i).getMetmode();
+                           String sno = showMeetingListResponse.get(i).getSno();
+                           String emp = showMeetingListResponse.get(i).getMetEmp();
+                           String time = showMeetingListResponse.get(i).getMettime();
+                            assign_by=showMeetingListResponse.get(i).getAssign_By_Name();
+                            String meeting_id=showMeetingListResponse.get(i).getMeetingID();
 
 
                            model.setResponse(res);
@@ -162,6 +164,8 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
                            model.setMetEmp(emp);
                            model.setMettime(time);
                            model.setAssign_By_Name(assign_by);
+                           model.setMeetingID(meeting_id);
+
                            meeting_list.add(model);
 
                        }else {

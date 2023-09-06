@@ -439,7 +439,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // Toast.makeText(this, "onRestart", Toast.LENGTH_SHORT).show();
+    }
     public void get_logout_method() {
 
         Button button = new Button(this);
@@ -493,7 +497,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
-
+            mDrawerLayout.closeDrawer(Gravity.RIGHT);
             Button button1 = new Button(this);
             button1.setText("No");
             button1.setTextColor(Color.WHITE);

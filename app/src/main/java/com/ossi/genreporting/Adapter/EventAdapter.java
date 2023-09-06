@@ -39,17 +39,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView event, wish;
-        ImageView add_event;
+        ImageView delete,edit;
         LinearLayout lin_event;
 
         public MyViewHolder(View view) {
             super(view);
             event = view.findViewById(R.id.event);
             wish = view.findViewById(R.id.wish);
-            add_event = view.findViewById(R.id.add_event);
+            delete = view.findViewById(R.id.delete);
             lin_event=view.findViewById(R.id.lin_event);
+            edit=view.findViewById(R.id.edit);
 
         }
     }
@@ -70,47 +71,43 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
     @Override
     public void onBindViewHolder(EventAdapter.MyViewHolder holder, int position) {
         exp = object.get(position);
-        String Emp_Event = exp.getEvent();
+        String eventType = exp.getEventType();
         String event_name = exp.getEmpName();
-        String res=exp.getResponse();
+        String description = exp.getEventDescription();
+        String venue = exp.getVenue();
+        String location = exp.getLocation();
+        String organiser = exp.getOrganiser();
+        String res = exp.getResponse();
 
-        if (Emp_Event.equalsIgnoreCase("DOB")) {
-            holder.event.setText("It is " + event_name + " Birthday Today");
-            holder.wish.setText("write best wishes on his wall");
-            //It is Utkarsh's Birthday Today
-        } else if (Emp_Event.equalsIgnoreCase("Married")) {
-            holder.event.setText("It is " + event_name + " Work Aniversary Today");
-            holder.wish.setText("write best wishes on his wall");
-        } else if (Emp_Event.equalsIgnoreCase("HoliDay")) {
+        if (res.equalsIgnoreCase("success")){
+            if (eventType.equalsIgnoreCase("DOB")) {
+                holder.event.setText("It is " + event_name + " Birthday Today");
+                holder.wish.setText("write best wishes on his wall");
+                //It is Utkarsh's Birthday Today
+            } else if (eventType.equalsIgnoreCase("Married")) {
+                holder.event.setText("It is " + event_name + " Work Aniversary Today");
+                holder.wish.setText("write best wishes on his wall");
+            } else if (eventType.equalsIgnoreCase("HoliDay")) {
 
-            String[] dateParts = event_name.split(",");
+           /* String[] dateParts = event_name.split(",");
             String eventname = dateParts[0];
-            String date = dateParts[1];
-            holder.event.setText("It is " + eventname + " You have a Holiday on the " + date);
-            holder.wish.setText("Today your Enjoy day");
-        }
+            String date = dateParts[1];*/
+                holder.event.setText("You have a Holiday on the " + description);
+                holder.wish.setText("Today your Enjoy day");
+            } else {
+                //holder.event.setText("Event Name: " + eventType);
+                holder.event.setText("Event Name: " + eventType + "\n" + "Event Details: " + description + "\n" + "Venue: " + venue + "\n" + "Location: " + location);
+                holder.wish.setText("  Organiser: " + organiser);
 
-        else if(event_name.equalsIgnoreCase("fail")){
+
+            }
+
+
+        holder.edit.setVisibility(View.GONE);
+        holder.delete.setVisibility(View.GONE);
+    }else if(res.equalsIgnoreCase("Fail")){
             holder.lin_event.setVisibility(View.VISIBLE);
         }
-
-
-        if (login_type.equalsIgnoreCase("1")) {
-            holder.add_event.setVisibility(View.VISIBLE);
-
-        } else if (login_type.equalsIgnoreCase("2")) {
-            holder.add_event.setVisibility(View.VISIBLE);
-        } else {
-            holder.add_event.setVisibility(View.GONE);
-        }
-
-        holder.add_event.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddEventFragment addEventFragment = new AddEventFragment();
-                openFragment1(addEventFragment);
-            }
-        });
 
     }
 

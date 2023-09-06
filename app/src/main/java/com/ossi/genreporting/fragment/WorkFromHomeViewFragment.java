@@ -145,7 +145,7 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
                 month1 = date_spin.getSelectedItem().toString();
 
                 if (date_spin.getSelectedItem().equals("Select Months")) {
-                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
                 } else if (approved_type_wfh.getSelectedItem().equals("Select Approved Type")) {
                     Toast.makeText(getActivity(), "Please Select Approved Type", Toast.LENGTH_SHORT).show();
                 } else {

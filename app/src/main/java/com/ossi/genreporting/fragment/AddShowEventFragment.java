@@ -98,6 +98,9 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
         switch (v.getId()){
             case R.id.add_new_event_btn:
                 AddEventFragment addEventFragment = new AddEventFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("Edit_event","Add_event");
+                addEventFragment.setArguments(bundle);
                 openFragment(addEventFragment);
                 break;
         }
@@ -110,7 +113,7 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<AllEventsShow>> call1 = apiInterface.get_all_events_lists();
+        Call<List<AllEventsShow>> call1 = apiInterface.get_all_events_lists(user_id);
         call1.enqueue(new Callback<List<AllEventsShow>>() {
             @Override
             public void onResponse(Call<List<AllEventsShow>> call, Response<List<AllEventsShow>> response) {
@@ -129,14 +132,16 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
                         AllEventsShow model = new AllEventsShow();
 
                         res_success = my_task_res.get(i).getResponse();
-                        if (res_success.equalsIgnoreCase("")) {
+                        if (res_success.equalsIgnoreCase("success")) {
                             Event_Date = my_task_res.get(i).getEventDate();
                             Event_Name = my_task_res.get(i).getEventName();
                             Description = my_task_res.get(i).getEventDescription();
                             id = my_task_res.get(i).getId();
                             db_Time = my_task_res.get(i).getDBTime();
-                            S_No = my_task_res.get(i).getSno();
-
+                           String UserId = my_task_res.get(i).getSno();
+                            String venue = my_task_res.get(i).getVenue();
+                            String organiser = my_task_res.get(i).getOrganiser();
+                            String location = my_task_res.get(i).getLocation();
 
                             model.setResponse(res_success);
                             model.setEventName(Event_Name);
@@ -144,7 +149,12 @@ public class AddShowEventFragment extends Fragment implements View.OnClickListen
                             model.setEventDescription(Description);
                             model.setId(id);
                             model.setDBTime(db_Time);
-                            model.setSno(S_No);
+                            model.setSno(UserId);
+                            model.setVenue(venue);
+                            model.setOrganiser(organiser);
+                            model.setLocation(location);
+
+
                             event_list.add(model);
 
                         }

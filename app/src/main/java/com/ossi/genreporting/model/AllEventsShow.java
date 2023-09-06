@@ -75,4 +75,37 @@ public class AllEventsShow {
     private String EventDescription;
     @SerializedName("DBTime")
     private String DBTime;
+
+    @SerializedName("Organiser")
+    private String Organiser;
+
+    @SerializedName("Location")
+    private String Location;
+
+    public String getOrganiser() {
+        return Organiser;
+    }
+
+    public void setOrganiser(String organiser) {
+        Organiser = organiser;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public void setLocation(String location) {
+        Location = location;
+    }
+
+    public String getVenue() {
+        return Venue;
+    }
+
+    public void setVenue(String venue) {
+        Venue = venue;
+    }
+
+    @SerializedName("Venue")
+    private String Venue;
 }

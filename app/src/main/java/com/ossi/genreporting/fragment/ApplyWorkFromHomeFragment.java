@@ -53,6 +53,7 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
     Button aply_wfh_submit;
     private String res;
     private String wfh_date_from, wfh_date_to, wfh_leave_purpose;
+    String month_first,day_first,month_last,day_last;
     int day;
     int month;
     int year;
@@ -123,15 +124,12 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.aply_wfh_submit:
-                // wfh_date_from = date_from_wfh.getText().toString();
-                // wfh_date_to = date_to_wfh.getText().toString();
+
                 Log.i("date", "selectedDate::" + range.getSelectedDates().toString());
                 wfh_leave_purpose = wfh_purpose.getText().toString();
                 int reamin_Leave = Integer.parseInt(Remaining_WFH_leave);
                 if (reamin_Leave != 0) {
-//                    if (wfh_date_from == null) {
-//                        Toast.makeText(getActivity(), "Please Enter Date From", Toast.LENGTH_SHORT).show();
- //                   } else
+
                         if (range.getSelectedDates().size()==0) {
                      Toast.makeText(getActivity(), "Please Select Date", Toast.LENGTH_SHORT).show();
                  } else if (wfh_leave_purpose.equalsIgnoreCase("")) {
@@ -139,21 +137,38 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
                     } else {
 
                         if (Util.isNetworkAvailable(getActivity())) {
-                           // Log.e("start", wfh_date_from);
-                           // Log.e("end", wfh_date_to);
+
                             if (range.getSelectedDates().size() > 1) {
                                 CalendarDay cal1=range.getSelectedDates().get(0);
-                                wfh_date_from = cal1.getYear() + "-" + cal1.getMonth() + "-" + cal1.getDay();
+                                if(cal1.getMonth()<10){
+                                    month_first ="0"+cal1.getMonth();
+                                }
+                                if(cal1.getDay()<10){
+                                    day_first ="0"+cal1.getDay();
+                                }
+                                wfh_date_from = cal1.getYear() + "-" + month_first + "-" + day_first;
 
                                 CalendarDay cal2=range.getSelectedDates().get(range.getSelectedDates().size()-1);
-                                wfh_date_to=cal2.getYear() + "-" + cal2.getMonth() + "-" + cal2.getDay();
+                                if(cal2.getMonth()<10){
+                                    month_last ="0"+cal2.getMonth();
+                                }
+                                if(cal2.getDay()<10){
+                                    day_last ="0"+cal2.getDay();
+                                }
+                                wfh_date_to=cal2.getYear() + "-" + month_last + "-" + day_last;
 
                                 Log.i("date::", "wfh_date_from::" +wfh_date_from);
                                 Log.i("date2::", "wfh_date_to::" +wfh_date_to);
                                 Apply_WFH_leave_method(user_id, wfh_date_from, wfh_date_to, wfh_leave_purpose);
                             } else if (range.getSelectedDates().size() > 0 && range.getSelectedDates().size() == 1) {
                                 CalendarDay cal1=range.getSelectedDates().get(0);
-                                wfh_date_from=cal1.getYear() + "-" + cal1.getMonth() + "-" + cal1.getDay();
+                                if(cal1.getMonth()<10){
+                                    month_first ="0"+cal1.getMonth();
+                                }
+                                if(cal1.getDay()<10){
+                                    day_first ="0"+cal1.getDay();
+                                }
+                                wfh_date_from=cal1.getYear() + "-" + month_first + "-" + day_first;
                                 Log.i("date::", "wfh_date_from::" +wfh_date_from);
                                 Apply_WFH_leave_method(user_id, wfh_date_from, wfh_date_from, wfh_leave_purpose);
                             }
@@ -282,8 +297,16 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
         if (dates.size() > 0) {
             CalendarDay calendarDay = dates.get(0);
             CalendarDay calendarDay2 = dates.get(dates.size() - 1);
-            wfh_date_from = calendarDay.getYear() + "-" + calendarDay.getMonth() + "-" + calendarDay.getDay();
-            wfh_date_to = calendarDay2.getYear() + "-" + calendarDay2.getMonth() + "-" + calendarDay2.getDay();
+            if (calendarDay.getMonth() < 10) {
+                month_first = "0" + calendarDay.getMonth();
+                day_first="0"+calendarDay.getDay();
+            }
+            if(calendarDay2.getMonth()<10){
+                month_last="0"+calendarDay2.getMonth();
+                day_last="0"+calendarDay2.getDay();
+            }
+            wfh_date_from = calendarDay.getYear() + "-" + month_first + "-" + day_first;
+            wfh_date_to = calendarDay2.getYear() + "-" + month_last + "-" + day_last;
             // Toast.makeText(getActivity(), "start date:: "+wfh_date_from+" end date:: "+wfh_date_to, Toast.LENGTH_SHORT).show();
             Log.i("Datest", "start date:: " + dates.get(0));
             Log.i("Datest", "end date:: " + dates.get(dates.size() - 1));

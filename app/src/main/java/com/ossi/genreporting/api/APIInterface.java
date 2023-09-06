@@ -98,7 +98,8 @@ public interface APIInterface {
                                                          @Query("FDate") String FDate,
                                                          @Query("TDate") String TDate,
                                                          @Query("TypeLeave") String TypeLeave,
-                                                         @Query("Purpose") String Purpose);
+                                                         @Query("Purpose") String Purpose,
+                                                         @Query("LeaveTime")String LeaveTime);
 
 
     @GET("ApplyWFH")
@@ -219,7 +220,7 @@ public interface APIInterface {
                                                                     @Query("status_type") String status_type);
 
     @GET("add_Event")
-    Call<List<ApplyLeaveResponseItem>> submit_event(@Query("user_id") String user_id,
+    Call<List<AllEventsShow>> submit_event(@Query("user_id") String user_id,
                                                     @Query("Heading") String Heading,
                                                     @Query("EventDate") String EventDate,
                                                     @Query("Description") String Description,
@@ -229,7 +230,19 @@ public interface APIInterface {
 
 
     @GET("view_Event_list")
-    Call<List<AllEventsShow>> get_all_events_lists();
+    Call<List<AllEventsShow>> get_all_events_lists(@Query("User_id") String User_id);
+
+    @GET("delete_Event")
+    Call<List<AllEventsShow>> delete_events_lists(@Query("id") String event_id);
+
+    @GET("edit_Event")
+    Call<List<AllEventsShow>> edit_events_lists(@Query("id") String event_id,
+                                                @Query("Heading") String Heading,
+                                                @Query("EventDate") String EventDate,
+                                                @Query("Description") String Description,
+                                                @Query("Venue") String Venue,
+                                                @Query("Organiser") String Organiser,
+                                                @Query("Location") String Location);
 
     @GET("DepartementEmpolyee")
     Call<List<DepartmentEmployeeListResponse>> employee_list_department_wise(@Query("Department") String Heading);
@@ -238,7 +251,7 @@ public interface APIInterface {
     Call<List<DepartmentEmployeeListResponse>> department_list();
 
     @GET("add_Meeting")
-    Call<List<ApplyLeaveResponseItem>> add_meeting(@Query("user_id") String user_id,
+    Call<List<ShowMeetingListResponse>> add_meeting(@Query("user_id") String user_id,
                                                    @Query("MeetingHeading") String MeetingHeading,
                                                    @Query("MeetingDate") String MeetingDate,
                                                    @Query("MeetingTime") String MeetingTime,
@@ -247,6 +260,23 @@ public interface APIInterface {
                                                    @Query("employees") String employees,
                                                    @Query("meetingDetails") String meetingDetails,
                                                    @Query("description") String description);
+
+    @GET("Edit_Meeting")
+    Call<List<ShowMeetingListResponse>> edit_meeting(@Query("user_id") String user_id,
+                                                     @Query("MeetingId") String meeting_id,
+                                                    @Query("MeetingHeading") String MeetingHeading,
+                                                    @Query("MeetingDate") String MeetingDate,
+                                                    @Query("MeetingTime") String MeetingTime,
+                                                    @Query("Department") String Department,
+                                                    @Query("MetType") String MetType,
+                                                    @Query("employees") String employees,
+                                                    @Query("meetingDetails") String meetingDetails,
+                                                    @Query("description") String description);
+
+    //delete_meeting
+    @GET("Delete_MeetingData")
+    Call<List<ShowMeetingListResponse>> delete_meeting(@Query("user_id") String user_id,
+                                                    @Query("MeetingId") String meeting_id);
 
 
     @GET("AttendanceApprovalShow")

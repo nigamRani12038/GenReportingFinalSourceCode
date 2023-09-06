@@ -71,6 +71,50 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
         prof_img = pref.getString("img_url", null);
         find_view_by_id();
         setOnClick();
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Expenses"));
+
+        PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
+        tabPager1.setAdapter(pagerAdapter);
+        //   tabPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(fragmentTabLayout));
+
+
+
+        new TabLayoutMediator(fragmentTabLayout, tabPager1, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Employees");
+                    break;
+                case 1:
+                    tab.setText("Leaves");
+                    break;
+                case 2:
+                    tab.setText("WFH");
+                    break;
+                case 3:
+                    tab.setText("Expenses");
+                    break;
+
+            }
+        }).attach();
+
+        fragmentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabPager1.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         if (Util.isNetworkAvailable(getActivity())) {
             get_all_detail(user_id);
@@ -88,8 +132,7 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
-       /* fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Project"));*/
+       /* fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Expenses"));
@@ -132,7 +175,7 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
-        });
+        });*/
         // tabPager1.setCurrentItem(1);
     }
 
@@ -227,11 +270,23 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
                         if (mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
 
-                        Emp_Name = EventResponseItem.get(i).getEmpName();
-                        Emp_Event = EventResponseItem.get(i).getEvent();
+                        String Emp_Name = EventResponseItem.get(i).getEmpName();
+                        String eventType = EventResponseItem.get(i).getEventType();
+                        String organiser = EventResponseItem.get(i).getOrganiser();
+                        String eventDescription = EventResponseItem.get(i).getEventDescription();
+                        String eventVenu = EventResponseItem.get(i).getVenue();
+                        String eventLocation = EventResponseItem.get(i).getLocation();
+                        String res=EventResponseItem.get(i).getResponse();
+
                         EventResponse model = new EventResponse();
                         model.setEmpName(Emp_Name);
-                        model.setEvent(Emp_Event);
+                        model.setEventType(eventType);
+                        model.setEventDescription(eventDescription);
+                        model.setVenue(eventVenu);
+                        model.setLocation(eventLocation);
+                        model.setOrganiser(organiser);
+                        model.setResponse(res);
+
                         event_list.add(model);
 
                     }

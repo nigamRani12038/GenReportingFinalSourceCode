@@ -61,11 +61,7 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
     String Total_Expense_bill, Expense_Approved, Expense_Decline, Expense_Pending, WFH_Used, WFH_Approved, WFH_Decline, WFH_Pending, Loan_Ammoun, Loan_Status, EL, CL, SL, Remaining_WFH_leave;
     private SharedPreferences.Editor editor;
     private String apply_leave, aply_leave_status;
-    RecyclerView my_task_list;
-    private ArrayList<MyTaskListResponse> task_list;
-    MyTaskAdapter task_adapter;
-    private String Project_Name, Task_Name, Approve_status, Deadline, Submit_Date, Task_Detail, Status, Emp_Name1;
-    RoundedImageView img_profile;
+   RoundedImageView img_profile;
     String Leave_Approved,Leave_Decline,Leave_Pending;
     String total_el,total_cl,total_sl,total_all;
     @Nullable
@@ -85,6 +81,50 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
             Glide.with(this).load(img_profile1).into(img_profile);
         }
 */
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Projects"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
+        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Expenses"));
+
+        PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
+        tabPager1.setAdapter(pagerAdapter);
+        //   tabPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(fragmentTabLayout));
+
+
+
+        new TabLayoutMediator(fragmentTabLayout, tabPager1, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Projects");
+                    break;
+                case 1:
+                    tab.setText("Leaves");
+                    break;
+                case 2:
+                    tab.setText("WFH");
+                    break;
+                case 3:
+                    tab.setText("Expenses");
+                    break;
+
+            }
+        }).attach();
+
+        fragmentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tabPager1.setCurrentItem(tab.getPosition());
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         if (Util.isNetworkAvailable(getActivity())) {
            // get_event();
@@ -102,7 +142,7 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onStart() {
         super.onStart();
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Projects"));
+       /* fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Projects"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Expenses"));
@@ -145,7 +185,7 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
-        });
+        });*/
         // tabPager1.setCurrentItem(1);
     }
 
@@ -242,11 +282,22 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
                         if (mProgressDialog.isShowing())
                             mProgressDialog.dismiss();
 
-                        Emp_Name = EventResponseItem.get(i).getEmpName();
-                        Emp_Event = EventResponseItem.get(i).getEvent();
+                        String Emp_Name = EventResponseItem.get(i).getEmpName();
+                        String eventType = EventResponseItem.get(i).getEventType();
+                        String organiser = EventResponseItem.get(i).getOrganiser();
+                        String eventDescription = EventResponseItem.get(i).getEventDescription();
+                        String eventVenu = EventResponseItem.get(i).getVenue();
+                        String eventLocation = EventResponseItem.get(i).getLocation();
+                        String res=EventResponseItem.get(i).getResponse();
+
                         EventResponse model = new EventResponse();
                         model.setEmpName(Emp_Name);
-                        model.setEvent(Emp_Event);
+                        model.setEventType(eventType);
+                        model.setEventDescription(eventDescription);
+                        model.setVenue(eventVenu);
+                        model.setLocation(eventLocation);
+                        model.setOrganiser(organiser);
+                        model.setResponse(res);
 
                         event_list.add(model);
 

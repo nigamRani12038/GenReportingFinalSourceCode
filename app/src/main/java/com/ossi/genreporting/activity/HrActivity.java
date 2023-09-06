@@ -396,6 +396,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
                 }
                 break;
             case R.id.aply_loan:
+                Toast.makeText(this, "Under Construction", Toast.LENGTH_SHORT).show();
                 if (isAllFabsVisible) {
                     apply_leve.hide();
                     apply_wfm_float.hide();
@@ -463,7 +464,7 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
     public void onBackPressed() {
         int fragments = getSupportFragmentManager().getBackStackEntryCount();
         if (fragments == 1) {
-
+            mDrawerLayout.closeDrawer(Gravity.RIGHT);
 
             Button button1=new Button(this);
             button1.setText("No");

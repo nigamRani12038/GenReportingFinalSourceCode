@@ -14,6 +14,28 @@ public class HistoryRequestResponse {
     @SerializedName("EmpName")
     private String EmpName;
 
+    @SerializedName("TypeLeave")
+    private String TypeLeave;
+
+    public String getTypeLeave() {
+        return TypeLeave;
+    }
+
+    public void setTypeLeave(String typeLeave) {
+        TypeLeave = typeLeave;
+    }
+
+    public String getLeaveTime() {
+        return LeaveTime;
+    }
+
+    public void setLeaveTime(String leaveTime) {
+        LeaveTime = leaveTime;
+    }
+
+    @SerializedName("LeaveTime")
+    private String LeaveTime;
+
 
   public String getPurpose() {
         return Purpose;

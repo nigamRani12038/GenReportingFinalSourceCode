@@ -86,7 +86,7 @@ public class EventFragment extends Fragment {
                             mProgressDialog.dismiss();
 
                         Event_Name = EventResponseItem.get(i).getEmpName();
-                         Emp_Event = EventResponseItem.get(i).getEvent();
+                         Emp_Event = EventResponseItem.get(i).getEventType();
 
 
                     }

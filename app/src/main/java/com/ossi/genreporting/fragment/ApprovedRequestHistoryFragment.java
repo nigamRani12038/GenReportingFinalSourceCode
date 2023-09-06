@@ -294,6 +294,8 @@ public class ApprovedRequestHistoryFragment extends Fragment {
                            model=new HistoryRequestResponse();
                         String res=my_req_res.get(i).getResponse();
                         if(!res.equalsIgnoreCase("Fail")) {
+
+
                             String emp_name = my_req_res.get(i).getEmpName();
                             String total_days = my_req_res.get(i).getTotalDay();
                             String fdate = my_req_res.get(i).getFromDate();
@@ -313,6 +315,13 @@ public class ApprovedRequestHistoryFragment extends Fragment {
                             model.setStatus(status_approved_reject);
                             model.setPurpose(purpose);
                             model.setId(id);
+
+                            if(res.equalsIgnoreCase("Leave")){
+                                String TypeLeave = my_req_res.get(i).getTypeLeave();
+                                String LeaveTime = my_req_res.get(i).getLeaveTime();
+                                model.setTypeLeave(TypeLeave);
+                                model.setLeaveTime(LeaveTime);
+                            }
                             //model.setDepartment("HR");
 
 

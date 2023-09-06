@@ -29,6 +29,7 @@ import com.ossi.genreporting.R;
 import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
+import com.ossi.genreporting.model.AllEventsShow;
 import com.ossi.genreporting.model.ApplyLeaveResponseItem;
 
 import java.util.ArrayList;
@@ -41,19 +42,21 @@ import retrofit2.Response;
 
 public class AddEventFragment extends Fragment implements View.OnClickListener {
     View view;
-    EditText header_event, description_event,locationEvent,organiserName;
+    EditText header_event, description_event, locationEvent, organiserName;
     TextView date_event;
     Button add_event_btn;
     private APIInterface apiInterface;
     private ProgressDialog mProgressDialog;
-    String heading, description, date, res,organiser,eventLocation,venueEvent;
-    TextView text_header1, employee_name,text_for_select;
+    String heading, description, date, res, organiser, eventLocation, venueEvent;
+    TextView text_header1, employee_name, text_for_select;
     TextView login_time;
     RecyclerView event_list_rv;
     private String user_id;
-    private String day_,month_;
+    private String day_, month_;
     RoundedImageView img_profile;
     Spinner venue;
+    String Edit_event;
+    String event_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +78,31 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
             Glide.with(this).load(img_profile1).into(img_profile);
         }
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+             Edit_event = bundle.getString("Edit_event");
+            if(Edit_event.equalsIgnoreCase("Edit_event")) {
+                String event_name = bundle.getString("event_name");
+                String event_date = bundle.getString("event_date");
+                String event_description = bundle.getString("event_description");
+                String organiser = bundle.getString("organiser");
+                String venue = bundle.getString("venue");
+                String location = bundle.getString("location");
+                 event_id = bundle.getString("event_id");
+
+                header_event.setText(event_name);
+                date_event.setText(event_date);
+                description_event.setText(event_description);
+                organiserName.setText(organiser);
+                //venue.setText(venue);
+                locationEvent.setText(location);
+                add_event_btn.setText("Edit Event");
+            }else if(Edit_event.equalsIgnoreCase("Add_event")){
+
+                add_event_btn.setText("Create New Event");
+            }
+        }
+
         employee_name.setText(Employee_Name);
         login_time.setText("Login Time: " + login_Time);
 
@@ -93,11 +121,11 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         venue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(venue.getSelectedItem().equals("Office")){
+                if (venue.getSelectedItem().equals("Office")) {
                     locationEvent.setVisibility(View.VISIBLE);
                     locationEvent.setHint("Enter Room No");
 
-                }else if(venue.getSelectedItem().equals("Outside")){
+                } else if (venue.getSelectedItem().equals("Outside")) {
                     locationEvent.setHint("Enter Location");
                     locationEvent.setVisibility(View.VISIBLE);
                 }
@@ -124,10 +152,10 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         login_time = view.findViewById(R.id.login_time);
         text_header1 = view.findViewById(R.id.text_header1);
         img_profile = view.findViewById(R.id.img_profile);
-        text_for_select=view.findViewById(R.id.text_for_select);
-        venue=view.findViewById(R.id.venue);
-        locationEvent=view.findViewById(R.id.locationEvent);
-        organiserName=view.findViewById(R.id.organiserName);
+        text_for_select = view.findViewById(R.id.text_for_select);
+        venue = view.findViewById(R.id.venue);
+        locationEvent = view.findViewById(R.id.locationEvent);
+        organiserName = view.findViewById(R.id.organiserName);
 
     }
 
@@ -142,22 +170,21 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
-       // date="04/05/2023";
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.submit_event(user_id,heading, date, description,venueEvent,organiser,eventLocation);
-        call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
+        Call<List<AllEventsShow>> call1 = apiInterface.submit_event(user_id, heading, date, description, venueEvent, organiser, eventLocation);
+        call1.enqueue(new Callback<List<AllEventsShow>>() {
             @Override
-            public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
-                List<ApplyLeaveResponseItem> applyLeaveResponseItem = response.body();
+            public void onResponse(Call<List<AllEventsShow>> call, Response<List<AllEventsShow>> response) {
+                List<AllEventsShow> allEventsShow = response.body();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
 
 
-                if (applyLeaveResponseItem != null && applyLeaveResponseItem.size() > 0) {
+                if (allEventsShow != null && allEventsShow.size() > 0) {
                     if (mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
 
-                    for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
-                        res = applyLeaveResponseItem.get(i).getResponse();
+                    for (int i = 0; i < allEventsShow.size(); i++) {
+                        res = allEventsShow.get(i).getResponse();
 
                         if (res.equalsIgnoreCase("success")) {
                             Toast.makeText(getActivity(), "Event Created SuccessFully", Toast.LENGTH_SHORT).show();
@@ -180,7 +207,7 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onFailure(Call<List<ApplyLeaveResponseItem>> call, Throwable t) {
+            public void onFailure(Call<List<AllEventsShow>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
                 call.cancel();
                 if (mProgressDialog.isShowing())
@@ -188,6 +215,60 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
+
+    private void edit_event() {
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Please wait...");
+        mProgressDialog.show();
+        Call<List<AllEventsShow>> call1 = apiInterface.edit_events_lists(event_id, heading, date, description, venueEvent, organiser, eventLocation);
+        call1.enqueue(new Callback<List<AllEventsShow>>() {
+            @Override
+            public void onResponse(Call<List<AllEventsShow>> call, Response<List<AllEventsShow>> response) {
+                List<AllEventsShow> allEventsShow = response.body();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+
+
+                if (allEventsShow != null && allEventsShow.size() > 0) {
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                    for (int i = 0; i < allEventsShow.size(); i++) {
+                        res = allEventsShow.get(i).getResponse();
+
+                        if (res.equalsIgnoreCase("success")) {
+                            Toast.makeText(getActivity(), "Event Created SuccessFully", Toast.LENGTH_SHORT).show();
+                            AddShowEventFragment addShowEventFragment = new AddShowEventFragment();
+                            openFragment(addShowEventFragment);
+                        } else {
+                            Toast.makeText(getActivity(), "" + res, Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+
+
+                    if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<AllEventsShow>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
+                call.cancel();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
+
 
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -197,7 +278,6 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
     }
 
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -205,26 +285,29 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                 heading = header_event.getText().toString();
                 description = description_event.getText().toString();
                 date = date_event.getText().toString();
-                venueEvent=venue.getSelectedItem().toString();
-                organiser=organiserName.getText().toString();
-                eventLocation=locationEvent.getText().toString();
+                venueEvent = venue.getSelectedItem().toString();
+                organiser = organiserName.getText().toString();
+                eventLocation = locationEvent.getText().toString();
 
                 if (heading.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Event Heading", Toast.LENGTH_SHORT).show();
                 } else if (description.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Description", Toast.LENGTH_SHORT).show();
-                }else if (organiser.equalsIgnoreCase("")) {
+                } else if (organiser.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter Description", Toast.LENGTH_SHORT).show();
-                }
-                else if (date.equalsIgnoreCase("")) {
+                } else if (date.equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Select Date", Toast.LENGTH_SHORT).show();
                 } else if (venue.getSelectedItem().toString().equalsIgnoreCase("Select Venue")) {
                     Toast.makeText(getActivity(), "Please Select Venue", Toast.LENGTH_SHORT).show();
-                }else if (locationEvent.getText().toString().equalsIgnoreCase("")) {
+                } else if (locationEvent.getText().toString().equalsIgnoreCase("")) {
                     Toast.makeText(getActivity(), "Please Enter location / Room No", Toast.LENGTH_SHORT).show();
                 } else {
                     if (Util.isNetworkAvailable(getActivity())) {
-                        add_new_event();
+                        if(Edit_event.equalsIgnoreCase("Edit_event")) {
+                           edit_event();
+                        }else {
+                            add_new_event();
+                        }
                     } else {
                         Toast.makeText(getActivity(), "Please Check Your Internet Connection", Toast.LENGTH_SHORT).show();
                     }
@@ -247,15 +330,15 @@ public class AddEventFragment extends Fragment implements View.OnClickListener {
                         // on below line we are setting date to our edit text.
 
                         day_ = "" + dayOfMonth;
-                        month_=""+monthOfYear;
+                        month_ = "" + monthOfYear;
                         if (dayOfMonth < 10) {
                             day_ = "0" + dayOfMonth;
                         }
                         if (monthOfYear < 10) {
-                            int i=monthOfYear+1;
-                            month_ = "0" + i ;
+                            int i = monthOfYear + 1;
+                            month_ = "0" + i;
                         }
-                        date_event.setText(day_ + "-" + (month_) + "-" + year);
+                        date_event.setText(year + "-" + (month_) + "-" + day_);
                         // date_from.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
 

@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ractangle_bg_old"
     android:layout_gravity="center"
-    android:background="@drawable/drawer_back"
     android:orientation="vertical">
+     <!--android:fontFamily="@font/kollektif"
+    android:background="@drawable/drawer_back"-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -46,7 +48,6 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="GenReporting"
-                android:fontFamily="@font/kollektif"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -79,9 +80,7 @@
             android:text="Home"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/baseline_home_24"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -97,14 +96,12 @@
             android:id="@+id/applyLeave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/kollektif"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="Leave"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/leave"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -124,9 +121,7 @@
             android:paddingBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/baseline_home_24"
             android:text="Work From Home"
             android:textColor="#ffffff"
             android:textSize="20sp" />
@@ -181,12 +176,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:fontFamily="@font/kollektif"
             android:paddingBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/expense"
             android:text="Expense"
             android:textColor="#ffffff"
             android:textSize="20sp" />
@@ -204,7 +197,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:fontFamily="@font/kollektif"
             android:paddingBottom="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
@@ -228,7 +220,6 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:fontFamily="@font/kollektif"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="Request for Approval WFH"
@@ -252,7 +243,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="Request for Approval Leave"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -273,7 +263,6 @@
             android:text="Tender"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -294,8 +283,6 @@
             android:layout_marginEnd="20dp"
             android:text="My Profile"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/baseline_person_outline_24"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -315,7 +302,6 @@
             android:text="Meetings"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -335,9 +321,7 @@
             android:text="Salary Slip"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/salaryslip"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -354,9 +338,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
+            android:visibility="gone"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/kollektif"
             android:text="Product Planner"
             android:textColor="#ffffff"
             android:textSize="20sp" />
@@ -378,8 +362,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/baseline_exit_to_app_24"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -401,8 +383,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:drawablePadding="5dp"
-            android:drawableStart="@drawable/baseline_info_24"
-            android:fontFamily="@font/kollektif"
             android:textColor="#ffffff"
             android:textSize="20sp" />
 
@@ -425,7 +405,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:gravity="center"
-        android:fontFamily="@font/kollektif"
         android:text="POWERED BY"
         android:textColor="@color/white"
         android:textSize="15dp" />
