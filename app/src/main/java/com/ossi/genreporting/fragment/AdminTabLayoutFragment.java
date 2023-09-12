@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -64,6 +65,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
     private SharedPreferences.Editor editor;
     private ArrayList<PresentStatusItem> total_week_hour_list;
     PreviousWeekHourAdapter previousWeekHourAdapter;
+    CardView previuousWeekHour;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -225,6 +227,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
         open_holidaylist = mView.findViewById(R.id.open_holidaylist);
         event_get_horizon = mView.findViewById(R.id.event_get_horizon);
         rv_total_weekly_hour_ = mView.findViewById(R.id.rv_total_weekly_hour_);
+        previuousWeekHour=mView.findViewById(R.id.previuousWeekHour);
 
     }
 
@@ -321,6 +324,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
 
                         if (res.equalsIgnoreCase("success")) {
+                            previuousWeekHour.setVisibility(View.VISIBLE);
                             PresentStatusItem model = new PresentStatusItem();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
@@ -335,6 +339,8 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
                             total_week_hour_list.add(model);
 
+                        }else {
+                            previuousWeekHour.setVisibility(View.GONE);
                         }
                     }
                     previousWeekHourAdapter = new PreviousWeekHourAdapter(total_week_hour_list, getActivity());

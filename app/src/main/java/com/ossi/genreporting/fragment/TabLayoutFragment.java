@@ -142,50 +142,6 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onStart() {
         super.onStart();
-       /* fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Projects"));
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
-        fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Expenses"));
-
-      PagerAdapter pagerAdapter = new PagerAdapter(getActivity(), fragmentTabLayout.getTabCount());
-        tabPager1.setAdapter(pagerAdapter);
-        //   tabPager1.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(fragmentTabLayout));
-
-
-
-        new TabLayoutMediator(fragmentTabLayout, tabPager1, (tab, position) -> {
-            switch (position) {
-                case 0:
-                    tab.setText("Projects");
-                    break;
-                case 1:
-                    tab.setText("Leaves");
-                    break;
-                case 2:
-                    tab.setText("WFH");
-                    break;
-                case 3:
-                    tab.setText("Expenses");
-                    break;
-
-            }
-        }).attach();
-
-        fragmentTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tabPager1.setCurrentItem(tab.getPosition());
-
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });*/
         // tabPager1.setCurrentItem(1);
     }
 
@@ -215,7 +171,6 @@ public class TabLayoutFragment extends Fragment implements View.OnClickListener 
 
             switch (position) {
                 case 0:
-                   // MyTaskFragment myTaskFragment = new MyTaskFragment();
                     AllMyProjectFragment allMyProjectFragment=new AllMyProjectFragment();
                     return allMyProjectFragment;
 

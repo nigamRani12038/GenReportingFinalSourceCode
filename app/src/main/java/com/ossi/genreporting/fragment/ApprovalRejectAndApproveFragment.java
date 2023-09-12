@@ -43,7 +43,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
     RoundedImageView img_profile;
     TextView emp_name, request_type, req_reason, from_date, to_date, total_day;
     //Spinner status;
-    private String status_type;
+    private String status_type,Emp_count;
     Button submit_status, submit_status_reject;
     String id, type;
     private APIInterface apiInterface;
@@ -78,16 +78,23 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
 
             String Emp_Name = bundle.getString("Emp_Name");
             type = bundle.getString("type");
-            String Emp_count = bundle.getString("Emp_count");
+            Emp_count = bundle.getString("Emp_count");
             id = bundle.getString("id");
             String purpose = bundle.getString("purpose");
             String fdate = bundle.getString("fdate");
             String tdate = bundle.getString("tdate");
             String department = bundle.getString("department");
             String reporting_manager=bundle.getString("reporting_manager");
+            String leaveType = bundle.getString("leaveType");
+            String timeLeave=bundle.getString("timeLeave");
 
             emp_name.setText(Emp_Name);
-            request_type.setText("Reuest Type: " + type);
+            if (type.equalsIgnoreCase("Leave")) {
+                request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType + "\n" + "Time of Leave: " + timeLeave);
+            }else {
+                request_type.setText("Reuest Type: " + type);
+
+            }
             total_day.setText("Total Days: " + Emp_count);
             req_reason.setText("Purpose: " + purpose);
             from_date.setText("From: " + fdate);
@@ -200,7 +207,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.req_submit(id, user_id, type, status_type);
+        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.req_submit(id, user_id, type, status_type,Emp_count);
         call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
             @Override
             public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
@@ -256,8 +263,8 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
     private void openFragment1Tab(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment, "Tablayout"); // give your fragment container id in first parameter
-        transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-        transaction.isAddToBackStackAllowed();
+       // transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+        //transaction.isAddToBackStackAllowed();
         transaction.commit();
     }
 

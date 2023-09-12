@@ -129,11 +129,6 @@ public class ExpenseViewFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-           /* case R.id.apply_expense_:
-                ApplyExpenseFragment expenseFragment = new ApplyExpenseFragment();
-                openFragment(expenseFragment);
-
-                break;*/
         }
     }
 
@@ -183,14 +178,6 @@ public class ExpenseViewFragment extends Fragment implements View.OnClickListene
                             Toast.makeText(getActivity(), "No Any Expense", Toast.LENGTH_SHORT).show();
                         }
 
-                       /* if (res.equalsIgnoreCase("success")) {
-                            Toast.makeText(getActivity(), "Expense Apply Success", Toast.LENGTH_SHORT).show();
-                            TabLayoutFragment TabLayoutFragment = new TabLayoutFragment();
-                            openFragment(TabLayoutFragment);
-                        }else {
-                            Toast.makeText(getActivity(), "Server Not Responde", Toast.LENGTH_SHORT).show();
-                        }
-*/
 
                     }
 

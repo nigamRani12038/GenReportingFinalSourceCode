@@ -108,6 +108,7 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putString("heading", heading);
                 bundle.putString("meeting_id", "");
+                bundle.putString("current_meeting", "");
                 submitMeetingFragment.setArguments(bundle);
                 openFragment(submitMeetingFragment);
 
@@ -165,6 +166,7 @@ public class AddShowMeeting extends Fragment implements View.OnClickListener {
                            model.setMettime(time);
                            model.setAssign_By_Name(assign_by);
                            model.setMeetingID(meeting_id);
+                           model.setCurrent_meet("");
 
                            meeting_list.add(model);
 

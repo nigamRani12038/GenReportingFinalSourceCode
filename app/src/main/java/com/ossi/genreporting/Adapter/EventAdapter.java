@@ -95,7 +95,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.MyViewHolder
                 holder.event.setText("You have a Holiday on the " + description);
                 holder.wish.setText("Today your Enjoy day");
             } else {
-                //holder.event.setText("Event Name: " + eventType);
                 holder.event.setText("Event Name: " + eventType + "\n" + "Event Details: " + description + "\n" + "Venue: " + venue + "\n" + "Location: " + location);
                 holder.wish.setText("  Organiser: " + organiser);
 

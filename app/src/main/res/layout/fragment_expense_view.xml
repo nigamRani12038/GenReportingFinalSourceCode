@@ -18,12 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_40sdp"
-
+            android:layout_marginBottom="@dimen/_50sdp"
             android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -51,38 +52,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_60sdp" />
+                     />
 
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
-    <!--<RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_20sdp">
-
-
-        <Button
-            android:id="@+id/apply_expense_"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/edittext_background1"
-            android:gravity="center"
-            android:padding="@dimen/_8sdp"
-            android:text="Apply for Expense"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16sdp" />
-    </RelativeLayout>-->
 
 
 </FrameLayout>

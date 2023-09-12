@@ -127,6 +127,10 @@ public class LeaveApprovalFragment extends Fragment {
                             String tdate = my_req_res.get(i).getTDate();
                             String fdate = my_req_res.get(i).getFDate();
                             String reason = my_req_res.get(i).getPurpose();
+                            String leaveType = my_req_res.get(i).getTypeLeave();
+                            String timeLeave = my_req_res.get(i).getLeaveTime();
+                            model.setTypeLeave(leaveType);
+                            model.setLeaveTime(timeLeave);
 
                             model.setResponse(resPonse);
                             model.setEmpName(emp_name);

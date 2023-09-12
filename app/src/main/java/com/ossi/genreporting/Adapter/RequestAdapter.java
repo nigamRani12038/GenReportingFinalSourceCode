@@ -69,7 +69,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
         String tdate = exp.getTDate();
         String department=exp.getDepartment();
         String reporting_manager=exp.getReportingManagers();
-
+        String leaveType=exp.getTypeLeave();
+        String timeLeave=exp.getLeaveTime();
 
         holder.emp_name_req.setText(Emp_Name);
         holder.req_type.setText(type);
@@ -90,6 +91,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
                 bundle.putString("tdate", tdate);
                 bundle.putString("department", department);
                 bundle.putString("reporting_manager", reporting_manager);
+                bundle.putString("leaveType", leaveType);
+                bundle.putString("timeLeave", timeLeave);
                 approvalRejectAndApproveFragment.setArguments(bundle);
                 openFragment1(approvalRejectAndApproveFragment);
             }
@@ -112,6 +115,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
         FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_layout, fragment); // give your fragment container id in first parameter
         transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+        transaction.isAddToBackStackAllowed();
         transaction.commit();
     }
 }

@@ -54,8 +54,9 @@ public class WfhViewAdapter extends RecyclerView.Adapter<WfhViewAdapter.MyViewHo
         exp = object.get(position);
         String name1 = exp.getResponse();
         holder.purpuse_wfh.setText("Purpose: "+exp.getPurpose());
-        holder.status_wfh.setText("Status: "+exp.getLeaveStatus());
         holder.date_wfh.setText("Date: "+exp.getFDate());
+        holder.status_wfh.setText("Status: "+exp.getLeaveStatus()+"\n"+" By:   "+exp.getApprovedName());
+
     }
 
     @Override

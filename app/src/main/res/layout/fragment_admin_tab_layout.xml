@@ -114,6 +114,7 @@
 
               <!--<include layout="@layout/fragment_event"/>-->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/previuousWeekHour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                       android:layout_margin="@dimen/_15sdp"

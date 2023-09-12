@@ -70,6 +70,28 @@ public class AllRequestResponse {
     @SerializedName("response")
     private String response;
 
+    public String getTypeLeave() {
+        return TypeLeave;
+    }
+
+    public void setTypeLeave(String typeLeave) {
+        TypeLeave = typeLeave;
+    }
+
+    public String getLeaveTime() {
+        return LeaveTime;
+    }
+
+    public void setLeaveTime(String leaveTime) {
+        LeaveTime = leaveTime;
+    }
+
+    @SerializedName("TypeLeave")
+    private String TypeLeave;
+
+    @SerializedName("LeaveTime")
+    private String LeaveTime;
+
     @SerializedName("Type")
     private String Type;
 

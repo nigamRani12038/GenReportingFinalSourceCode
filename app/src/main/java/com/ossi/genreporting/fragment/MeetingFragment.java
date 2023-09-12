@@ -140,6 +140,7 @@ public class MeetingFragment extends Fragment {
                             model.setMetEmp(emp);
                             model.setMettime(time);
                             model.setAssign_By_Name(assign_by);
+                            model.setCurrent_meet("yes");
                             meeting_list.add(model);
                         }else {
                             Toast.makeText(getActivity(), "Today is not Any Meeting", Toast.LENGTH_SHORT).show();

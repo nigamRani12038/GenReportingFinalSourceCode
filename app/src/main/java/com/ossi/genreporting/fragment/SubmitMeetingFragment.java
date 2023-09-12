@@ -75,7 +75,7 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
     String name_employe, employee_id;
     private String day_, month_;
     RelativeLayout nameSpinLayout;
-    String time_edit,date_edit;
+    String time_edit,date_edit,sno;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,13 +102,43 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
             detail = bundle.getString("details");
             meeting_mode = bundle.getString("mode");
             assign_by = bundle.getString("assign_by");
+            String current_meet=bundle.getString("current_meet");
             meeting_id = bundle.getString("meeting_id");
+
             if (heading.equalsIgnoreCase("")) {
                 create_meet_btn.setVisibility(View.VISIBLE);
                 deleteMeeting.setVisibility(View.GONE);
                 create_meet_btn.setText("Create New Meeting");
 
-            } else {
+            } else if (current_meet.equalsIgnoreCase("yes")){
+                create_meet_btn.setVisibility(View.GONE);
+                deleteMeeting.setVisibility(View.GONE);
+                //create_meet_btn.setText("Edit Meeting");
+                meet_detail.setText(name);
+                meet_heading.setText("Heading: " + heading);
+                meet_time.setText("Time: " + time_edit);
+                meet_date.setText("Date: " + date_edit);
+                meet_url_description.setText("Meeting Room:" + detail);
+                //department_spin.setPrompt(department);
+                //  meeting_mod_spin.setSelection(meeting_mode);
+                String[] items = new String[]{department};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+                department_spin.setAdapter(adapter);
+                /*ArrayList<String> arrayList1 = new ArrayList<>();
+                arrayList1.add(department);
+                ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
+                arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                department_spin.setAdapter(arrayAdapter1);*/
+
+
+                ArrayList<String> arrayList2 = new ArrayList<>();
+                arrayList2.add(meeting_mode);
+                ArrayAdapter<String> arrayAdapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList2);
+                arrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                meeting_mod_spin.setAdapter(arrayAdapter2);
+
+
+            }else {
                 // create_meet_btn.setVisibility(View.GONE);
                 //nameSpinLayout.setVisibility(View.GONE);
                 create_meet_btn.setVisibility(View.VISIBLE);
@@ -278,8 +308,6 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                 break;
             case R.id.meet_time:
-
-
                 final Calendar cldr = Calendar.getInstance();
                 int hour = cldr.get(Calendar.HOUR_OF_DAY);
                 int minutes = cldr.get(Calendar.MINUTE);
@@ -306,6 +334,8 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
                             }
                         }, hour, minutes, false);
+
+
                 picker.show();
 
 
@@ -342,12 +372,13 @@ public class SubmitMeetingFragment extends Fragment implements View.OnClickListe
 
 
                             }
+
                         },
                         // on below line we are passing year,
                         // month and day for selected date in our date picker.
                         year, month, day);
-                // at last we are calling show to
-                // display our date picker dialog.
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+
                 datePickerDialog.show();
                 break;
             case R.id.deleteMeeting:

@@ -54,10 +54,10 @@ public class ViewLeaveAdapter extends RecyclerView.Adapter<ViewLeaveAdapter.MyVi
     public void onBindViewHolder(ViewLeaveAdapter.MyViewHolder holder, int position) {
         exp = object.get(position);
         String name1 = exp.getResponse();
-        holder.date_leave.setText(exp.getFromDate());
-        holder.purpose_leave_s.setText(exp.getPurpose());
-        holder.leave_staus_s.setText(exp.getStatus());
-        holder.leave_type_.setText(exp.getTypeLeave());
+        holder.date_leave.setText("Date:   "+exp.getFromDate());
+        holder.purpose_leave_s.setText("Purpose:   "+exp.getPurpose());
+        holder.leave_staus_s.setText("Status:   "+exp.getStatus());
+        holder.leave_type_.setText("Leave Type:   "+exp.getTypeLeave()+"\n"+"By:   "+exp.getApprove_name());
     }
 
     @Override

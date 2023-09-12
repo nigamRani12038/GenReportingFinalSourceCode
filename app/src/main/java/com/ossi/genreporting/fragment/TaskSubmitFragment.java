@@ -262,6 +262,7 @@ public class TaskSubmitFragment extends Fragment implements View.OnClickListener
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment); // give your fragment container id in first parameter
          transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+
         transaction.commit();
     }
 

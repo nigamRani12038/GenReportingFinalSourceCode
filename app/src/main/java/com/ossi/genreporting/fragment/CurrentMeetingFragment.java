@@ -135,6 +135,7 @@ View view;
                             String emp = my_task_res.get(i).getMetEmp();
                             String time = my_task_res.get(i).getMettime();
                             String assign_by = my_task_res.get(i).getAssign_By_Name();
+                           // String current_meet=my_task_res.get(i).getCurrent_meet();
 
 
                             model.setResponse(res);
@@ -147,6 +148,7 @@ View view;
                             model.setMetEmp(emp);
                             model.setMettime(time);
                             model.setAssign_By_Name(assign_by);
+                            model.setCurrent_meet("yes");
                             meeting_list.add(model);
                         }else {
                             Toast.makeText(getActivity(), "Today is not Any Meeting", Toast.LENGTH_SHORT).show();

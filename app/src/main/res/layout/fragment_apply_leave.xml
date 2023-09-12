@@ -51,6 +51,7 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     app:mcv_selectionMode="range"
+
             />
                 <ImageView
                     android:layout_width="match_parent"

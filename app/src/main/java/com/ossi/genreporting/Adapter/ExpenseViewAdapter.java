@@ -40,32 +40,6 @@ public class ExpenseViewAdapter extends RecyclerView.Adapter<ExpenseViewAdapter.
             rs = view.findViewById(R.id.rs);
             purpuse_expense =view.findViewById(R.id.purpuse_expense);
             date_expense =view.findViewById(R.id.date_expense);
-/*
-            name1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Name = object.get(getAdapterPosition()).getGroupName();
-                    Id = object.get(getAdapterPosition()).getID();
-                    creater_name = object.get(getAdapterPosition()).getGroupCreaterName();
-                    total_member = object.get(getAdapterPosition()).getTotalMember();
-                    duration = object.get(getAdapterPosition()).getDuration();
-                    ammount = object.get(getAdapterPosition()).getAmmount();
-
-
-                    AfterGroupListActivity afterGroupListActivity=new AfterGroupListActivity();
-                    Bundle bundle=new Bundle();
-                    bundle.putString("Group_id", Id);
-                    bundle.putString("Name", Name);
-                    bundle.putString("Creater_Name", creater_name);
-                    bundle.putString("Total_member", total_member);
-                    bundle.putString("duration",duration);
-                    bundle.putString("ammount",ammount);
-                    afterGroupListActivity.setArguments(bundle);
-                    openFragment(afterGroupListActivity);
-                }
-            });
-*/
 
         }
     }

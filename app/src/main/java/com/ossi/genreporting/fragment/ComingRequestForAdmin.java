@@ -78,6 +78,8 @@ public class ComingRequestForAdmin extends Fragment {
         return view;
     }
 
+
+
     public void find_view_by_id() {
         comimg_req_admin=view.findViewById(R.id.comimg_req_admin);
         view_all_req=view.findViewById(R.id.view_all_req);
@@ -126,6 +128,13 @@ public class ComingRequestForAdmin extends Fragment {
                             String tdate = my_req_res.get(i).getTDate();
                             String fdate = my_req_res.get(i).getFDate();
                             String reason = my_req_res.get(i).getPurpose();
+
+                            if(type.equalsIgnoreCase("Leave")) {
+                                String leaveType =my_req_res.get(i).getTypeLeave();
+                                String timeLeave = my_req_res.get(i).getLeaveTime();
+                                model.setTypeLeave(leaveType);
+                                model.setLeaveTime(timeLeave);
+                            }
 
                             model.setResponse(resPonse);
                             model.setEmpName(emp_name);

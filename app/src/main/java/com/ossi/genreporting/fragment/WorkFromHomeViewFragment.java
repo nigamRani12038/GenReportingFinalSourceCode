@@ -84,34 +84,6 @@ public class WorkFromHomeViewFragment extends Fragment implements View.OnClickLi
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             date_spin.setAdapter(arrayAdapter);
 
-            /*ArrayList<String> arrayList = new ArrayList<>();
-            arrayList.add("1");
-            arrayList.add("2");
-            arrayList.add("3");
-            arrayList.add("4");
-            arrayList.add("5");
-            arrayList.add("6");
-            arrayList.add("7");
-            arrayList.add("8");
-            arrayList.add("9");
-            arrayList.add("10");
-            arrayList.add("11");
-            arrayList.add("12");
-
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            date_spin.setAdapter(arrayAdapter);
-            date_spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    month1 = date_spin.getSelectedItem().toString();
-                        }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-*/
 
             ArrayList<String> arrayList1 = new ArrayList<>();
             arrayList1.add(approved_type);

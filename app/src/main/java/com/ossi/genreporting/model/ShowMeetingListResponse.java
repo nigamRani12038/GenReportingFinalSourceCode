@@ -125,6 +125,17 @@ public class ShowMeetingListResponse {
     @SerializedName("Metmode")
     private String Metmode;
 
+    public String getCurrent_meet() {
+        return current_meet;
+    }
+
+    public void setCurrent_meet(String current_meet) {
+        this.current_meet = current_meet;
+    }
+
+    @SerializedName("current_meet")
+    private String current_meet;
+
     public String getMetType() {
         return MetType;
     }

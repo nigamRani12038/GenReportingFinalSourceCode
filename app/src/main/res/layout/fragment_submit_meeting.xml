@@ -57,10 +57,9 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/spineer_background"
                                 android:hint="Meeting Headline"
-                                android:textColor="@color/txtcolor"
-                                android:textColorHint="@color/txtcolor"
-                                android:textSize="@dimen/_15sdp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/gray_color"
+                                android:textSize="@dimen/_13sdp"
+                                 />
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -76,7 +75,7 @@
                                     android:background="@null"
                                     android:text="Department"
                                     android:textColor="@color/gray_color"
-                                    android:textSize="@dimen/_14sdp" />
+                                    android:textSize="@dimen/_13sdp" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -102,7 +101,7 @@
                                     android:background="@null"
                                     android:text="Department"
                                     android:textColor="@color/gray_color"
-                                    android:textSize="@dimen/_14sdp" />
+                                    android:textSize="@dimen/_13sdp" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
@@ -119,8 +118,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:background="@drawable/rctanglegrayline"
+                                android:background="@drawable/spineer_background"
                                 android:hint="Meeting Details"
+                                android:textSize="@dimen/_13sdp"
                                 android:padding="@dimen/_10sdp"
                                 android:textColor="@color/gray_color"
                                 android:textColorHint="@color/gray_color" />
@@ -138,7 +138,7 @@
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
                                     android:hint="Select Meeting date"
-                                    android:textSize="@dimen/_12sdp" />
+                                    android:textSize="@dimen/_13sdp" />
 
                                 <TextView
                                     android:id="@+id/meet_time"
@@ -147,7 +147,7 @@
                                     android:gravity="end"
                                     android:hint="Select Time"
                                     android:textColor="@color/red"
-                                    android:textSize="@dimen/_12sdp" />
+                                    android:textSize="@dimen/_13sdp" />
 
                             </LinearLayout>
 
@@ -185,7 +185,7 @@
                     android:background="@drawable/ractangleshape"
                     android:hint="Enter Meeting room/url "
                     android:textColorHint="@color/txtcolor"
-                    android:textSize="@dimen/_15sdp" />
+                    android:textSize="@dimen/_13sdp" />
                 />
 
 
