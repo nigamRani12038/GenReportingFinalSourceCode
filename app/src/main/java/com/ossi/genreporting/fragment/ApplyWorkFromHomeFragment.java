@@ -28,6 +28,7 @@ import com.ossi.genreporting.R;
 import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
+import com.ossi.genreporting.decorators.DayEnableDecorator;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
 import com.ossi.genreporting.model.ApplyWFHResponseItem;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -89,8 +90,9 @@ public class ApplyWorkFromHomeFragment extends Fragment implements View.OnClickL
         }
 
         decorator = new RangeDayDecorator(getActivity());
+        range.addDecorator(new DayEnableDecorator());
         text_header1.setText("Apply WFH");
-        remain_wfh.setText("Remaining WFH Leaves :" + Remaining_WFH_leave);
+        remain_wfh.setText("Remaining WFH :" + Remaining_WFH_leave);
         employee_name.setText(Employee_Name);
         login_time.setText("Login Time: " + login_Time);
 

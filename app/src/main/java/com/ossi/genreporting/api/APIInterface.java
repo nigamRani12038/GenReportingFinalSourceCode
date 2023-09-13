@@ -174,8 +174,7 @@ public interface APIInterface {
     Call<List<ApplyLeaveResponseItem>> req_submit(@Query("id") String id,
                                                   @Query("User_id") String User_id,
                                                   @Query("Type") String Type,
-                                                  @Query("Status") String Status,
-                                                  @Query("days")String days);
+                                                  @Query("Status") String Status);
 
 
     @GET("Currentprojecttask")

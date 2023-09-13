@@ -160,6 +160,9 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
                 } else if (Spin_Name.equalsIgnoreCase("Halfday Leave")) {
                     halfDaySelect.setVisibility(View.VISIBLE);
                     shortLeaveSelect.setVisibility(View.GONE);
+                }else {
+                    halfDaySelect.setVisibility(View.GONE);
+                    shortLeaveSelect.setVisibility(View.GONE);
                 }
 
 
@@ -272,7 +275,13 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
 
                             Log.i("date::", "date_from::" + date_from);
                             Log.i("date::", "date_to::" + date_to);
-                            Apply_leave_method(user_id, date_from, date_to, type_leave, leave_purpose, shortOrHalfType);
+                            if (type_leave.equalsIgnoreCase("Short Leave") || type_leave.equalsIgnoreCase("Halfday Leave")) {
+                                Apply_leave_method(user_id, date_from, date_from, type_leave, leave_purpose, shortOrHalfType);
+                               // Toast.makeText(getActivity(), "taost"+type_leave, Toast.LENGTH_SHORT).show();
+                            } else {
+                               // Toast.makeText(getActivity(), "taost"+type_leave, Toast.LENGTH_SHORT).show();
+                                 Apply_leave_method(user_id, date_from, date_to, type_leave, leave_purpose, shortOrHalfType);
+                            }
                         } else if (range.getSelectedDates().size() > 0 && range.getSelectedDates().size() == 1) {
                             CalendarDay cal1 = range.getSelectedDates().get(0);
                             if (cal1.getDay() < 10) {
@@ -424,6 +433,6 @@ public class ApplyLeaveFragment extends Fragment implements View.OnClickListener
             range.invalidateDecorators();
 
 
+        }
     }
-}
 }

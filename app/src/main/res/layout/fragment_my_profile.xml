@@ -89,7 +89,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:text="Faher Name"
+                        android:text="Father Name"
                         android:textColor="@color/txtcolor"
                         android:textSize="@dimen/_12sdp" />
 

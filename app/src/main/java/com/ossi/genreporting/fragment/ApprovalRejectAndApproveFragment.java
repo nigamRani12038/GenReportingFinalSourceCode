@@ -90,7 +90,12 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
 
             emp_name.setText(Emp_Name);
             if (type.equalsIgnoreCase("Leave")) {
-                request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType + "\n" + "Time of Leave: " + timeLeave);
+                if(leaveType.equalsIgnoreCase("Short Leave") || leaveType.equalsIgnoreCase("Halfday Leave")) {
+                    request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType + "\n" + "Time of Leave: " + timeLeave);
+                }else {
+                    request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType);
+
+                }
             }else {
                 request_type.setText("Reuest Type: " + type);
 
@@ -207,7 +212,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.req_submit(id, user_id, type, status_type,Emp_count);
+        Call<List<ApplyLeaveResponseItem>> call1 = apiInterface.req_submit(id, user_id, type, status_type);
         call1.enqueue(new Callback<List<ApplyLeaveResponseItem>>() {
             @Override
             public void onResponse(Call<List<ApplyLeaveResponseItem>> call, Response<List<ApplyLeaveResponseItem>> response) {
