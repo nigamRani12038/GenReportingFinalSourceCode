@@ -41,7 +41,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
     TextView login_time;
     private String user_id, login_type;
     RoundedImageView img_profile;
-    TextView emp_name, request_type, req_reason, from_date, to_date, total_day;
+    TextView emp_name, request_type, req_reason, from_date, to_date, total_day,available_emp_leave;
     //Spinner status;
     private String status_type,Emp_count;
     Button submit_status, submit_status_reject;
@@ -156,6 +156,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
 
         submit_status = view.findViewById(R.id.submit_status);
         submit_status_reject = view.findViewById(R.id.submit_status_reject);
+        available_emp_leave=view.findViewById(R.id.available_emp_leave);
     }
 
     public void set_on_click_litioner() {
@@ -229,7 +230,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
                         res = applyLeaveResponseItem.get(i).getResponse();
 
                         if (res.equalsIgnoreCase("success")) {
-                            Toast.makeText(getActivity(), "Request Accept Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Request "+ status_type +" Successfully", Toast.LENGTH_SHORT).show();
                             login_type = pref.getString("login_type", " ");
                             if (login_type.equalsIgnoreCase("1")) {
                                 AdminTabLayoutFragment tabLayoutFragment = new AdminTabLayoutFragment();

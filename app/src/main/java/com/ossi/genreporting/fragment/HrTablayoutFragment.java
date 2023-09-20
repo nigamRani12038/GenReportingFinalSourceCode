@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -28,12 +29,14 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.ossi.genreporting.Adapter.EventAdapter;
+import com.ossi.genreporting.Adapter.PreviousWeekHourAdapter;
 import com.ossi.genreporting.R;
 import com.ossi.genreporting.Util;
 import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.DetailsResponseItem;
 import com.ossi.genreporting.model.EventResponse;
+import com.ossi.genreporting.model.PresentStatusItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +51,7 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
     private ViewPager2 tabPager1;
     private String user_id, prof_img;
     ImageView open_holidaylist;
-    RecyclerView event_get_horizon;
+    RecyclerView event_get_horizon,rv_total_weekly_hour_;
     private EventAdapter event_adapter;
     private ArrayList<EventResponse> event_list;
     String Leave_Approved,Leave_Decline,Leave_Pending;
@@ -59,6 +62,9 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
     private SharedPreferences.Editor editor;
     private String apply_leave, aply_leave_status;
     String total_all,total_cl,total_el,total_sl;
+    private ArrayList<PresentStatusItem> total_week_hour_list;
+    PreviousWeekHourAdapter previousWeekHourAdapter;
+    CardView previuousWeekHour;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +77,8 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
         prof_img = pref.getString("img_url", null);
         find_view_by_id();
         setOnClick();
+
+        previuousWeekHour.setVisibility(View.GONE);
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Leaves"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("WFH"));
@@ -237,6 +245,8 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
         tabPager1 = mView.findViewById(R.id.tabPager);
         open_holidaylist = mView.findViewById(R.id.open_holidaylist);
         event_get_horizon = mView.findViewById(R.id.event_get_horizon);
+        rv_total_weekly_hour_=mView.findViewById(R.id.rv_total_weekly_hour_);
+        previuousWeekHour=mView.findViewById(R.id.previuousWeekHour);
 
     }
 
@@ -411,6 +421,7 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
                     }
 
                     get_event();
+                    get_total_previous_week_hour();
                     if (mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
 
@@ -428,6 +439,58 @@ public class HrTablayoutFragment extends Fragment implements View.OnClickListene
         });
     }
 
+    private void get_total_previous_week_hour() {
+        apiInterface = APIClient.getClient().create(APIInterface.class);
+
+
+        Call<List<PresentStatusItem>> call1 = apiInterface.get_previous_week_hour_list(user_id);
+        call1.enqueue(new Callback<List<PresentStatusItem>>() {
+            @Override
+            public void onResponse(Call<List<PresentStatusItem>> call, Response<List<PresentStatusItem>> response) {
+                List<PresentStatusItem> applyLeaveResponseItem = response.body();
+                if (applyLeaveResponseItem != null && applyLeaveResponseItem.size() > 0) {
+
+                    total_week_hour_list = new ArrayList<>();
+                    for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
+                        String res = applyLeaveResponseItem.get(i).getResponse();
+
+
+                        if (res.equalsIgnoreCase("success")) {
+                            previuousWeekHour.setVisibility(View.VISIBLE);
+                            PresentStatusItem model = new PresentStatusItem();
+                            String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
+                            String Response = applyLeaveResponseItem.get(i).getResponse();
+                            String Employee_image = applyLeaveResponseItem.get(i).getImage();
+                            String count_previous_week_hour = applyLeaveResponseItem.get(i).getPreviousWeekHours();
+
+                            model.setEmpname(Emp_Name);
+                            model.setResponse(Response);
+                            model.setImage(Employee_image);
+                            model.setPreviousWeekHours(count_previous_week_hour);
+
+
+                            total_week_hour_list.add(model);
+
+                        }else {
+                            previuousWeekHour.setVisibility(View.GONE);
+                        }
+                    }
+                    previousWeekHourAdapter = new PreviousWeekHourAdapter(total_week_hour_list, getActivity());
+                    rv_total_weekly_hour_.setAdapter(previousWeekHourAdapter);
+                    rv_total_weekly_hour_.setLayoutManager(new LinearLayoutManager(getActivity()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<PresentStatusItem>> call, Throwable t) {
+              //  Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
+                call.cancel();
+                if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();
+            }
+        });
+    }
 
 
     private void openFragment1(Fragment fragment) {

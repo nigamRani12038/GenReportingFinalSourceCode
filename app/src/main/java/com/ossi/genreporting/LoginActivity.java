@@ -1,14 +1,20 @@
 package com.ossi.genreporting;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -30,6 +36,10 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.ossi.genreporting.activity.AdminActivity;
 import com.ossi.genreporting.activity.FinanceActivity;
 import com.ossi.genreporting.activity.ForgotPassword;
@@ -103,6 +113,69 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        AppUpdateManager appUpdateManager;
+
+
+        // Creates instance of the manager.
+        appUpdateManager = AppUpdateManagerFactory.create(LoginActivity.this);
+
+        // Don't need to do this here anymore
+        // Returns an intent object that you use to check for an update.
+        //Task<AppUpdateInfo> appUpdateInfo = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+
+                            // Checks that the platform will allow the specified type of update.
+                            if ((appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE)
+                                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE))
+                            {
+                                // Request the update.
+                                try {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            AppUpdateType.IMMEDIATE,
+                                            this,
+                                            11);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 11) {
+            if (resultCode != RESULT_OK) {
+                Log.e(TAG, "onActivityResult: app download failed");
+            }
+            else{
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                int mPendingIntentId = 1;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, intent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(LoginActivity.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                System.exit(0);
+
+            }
+        }
     }
 
     public void find_view_by_id() {

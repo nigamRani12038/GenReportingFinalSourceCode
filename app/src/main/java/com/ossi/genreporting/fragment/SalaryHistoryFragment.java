@@ -4,12 +4,14 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +29,11 @@ import com.ossi.genreporting.api.APIClient;
 import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.model.PayrollSalaryHistoryResponse;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,7 +61,6 @@ View view;
 
         user_id = pref.getString("user_id", null);
 
-
         ArrayList<String> arrayList1 = new ArrayList<>();
         arrayList1.add("Select Year");
         arrayList1.add("2022");
@@ -69,6 +73,7 @@ View view;
 
 
         ArrayList<String> arrayList = new ArrayList<>();
+
         arrayList.add("Select Months");
         arrayList.add("1");
         arrayList.add("2");
@@ -204,5 +209,14 @@ View view;
         });
     }
 
+  /*  public static List<YearMonth> getMonthsOfCurrentYear() {
+        YearMonth currentMonth = YearMonth.now();
+        List<YearMonth> yearMonths = new ArrayList<>();
 
+        for (int month = 1; month <= currentMonth.getMonthValue(); month++) {
+            yearMonths.add(YearMonth.of(currentMonth.getYear(), month));
+        }
+
+        return yearMonths;
+    }*/
 }

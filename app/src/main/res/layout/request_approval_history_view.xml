@@ -93,18 +93,36 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_13sdp"
             android:textStyle="bold" />
+        <LinearLayout
 
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:weightSum="1"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/approved_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:gravity="start"
+            android:layout_weight=".8"
             android:layout_marginLeft="@dimen/_10sdp"
             android:text="By: Anup Srivastav"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/_13sdp"
             android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/deleteRequest"
+                android:layout_weight=".2"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:visibility="gone"
+                android:background="@drawable/close"
+                android:layout_height="@dimen/_20sdp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

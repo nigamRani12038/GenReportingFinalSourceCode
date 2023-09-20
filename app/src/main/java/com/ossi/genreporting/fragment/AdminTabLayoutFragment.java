@@ -79,6 +79,8 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
         prof_img = pref.getString("img_url", null);
         find_view_by_id();
         setOnClick();
+
+        previuousWeekHour.setVisibility(View.GONE);
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Employees"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Request"));
         fragmentTabLayout.addTab(fragmentTabLayout.newTab().setText("Meeting"));
@@ -298,7 +300,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
             @Override
             public void onFailure(Call<List<EventResponse>> call, Throwable t) {
-                Toast.makeText(getActivity(), " Please Try again Server Not Responds", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), " Please Try again Server Not Responds:", Toast.LENGTH_SHORT).show();
                 call.cancel();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
@@ -352,7 +354,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
             @Override
             public void onFailure(Call<List<PresentStatusItem>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), "Please Try Again Server Not Responds", Toast.LENGTH_SHORT).show();
                 call.cancel();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();

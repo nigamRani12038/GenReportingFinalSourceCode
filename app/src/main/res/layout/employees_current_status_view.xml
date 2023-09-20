@@ -117,11 +117,23 @@
 
         </LinearLayout>
         <LinearLayout
-            android:background="@color/gray_color"
             android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/bgcolor"
+            android:weightSum="2"
+            android:layout_margin="@dimen/_5sdp"
             android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/working_type"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:background="@drawable/ractangleshape"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_height="match_parent"/>
         <EditText
             android:id="@+id/search"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:background="@drawable/ractangleshape"
             android:layout_width="match_parent"
 

@@ -319,6 +319,11 @@ public interface APIInterface {
     @GET("api/GetAllProduct")
     Call<List<AllProductResponseItem>> get_all_products(@Query("emp_id") String user_id);
 
+    @GET("RequestCancelAfterApproved")
+    Call<List<AdjustResponse>> cancel_req_after_approve(@Query("userId") String userId,
+                                               @Query("id") String id,
+                                               @Query("days") String days,
+                                                        @Query("type") String type);
 
    /* @FormUrlEncoded
     @POST("api/addproduct")

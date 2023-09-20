@@ -1,6 +1,9 @@
 package com.ossi.genreporting.activity;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,9 +12,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -32,6 +38,10 @@ import com.github.siyamed.shapeimageview.RoundedImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.ossi.genreporting.LoginActivity;
 import com.ossi.genreporting.R;
 import com.ossi.genreporting.api.APIClient;
@@ -116,6 +126,68 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+        AppUpdateManager appUpdateManager;
+
+
+        // Creates instance of the manager.
+        appUpdateManager = AppUpdateManagerFactory.create(AdminActivity.this);
+
+        // Don't need to do this here anymore
+        // Returns an intent object that you use to check for an update.
+        //Task<AppUpdateInfo> appUpdateInfo = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateManager
+                .getAppUpdateInfo()
+                .addOnSuccessListener(
+                        appUpdateInfo -> {
+
+                            // Checks that the platform will allow the specified type of update.
+                            if ((appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE)
+                                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE))
+                            {
+                                // Request the update.
+                                try {
+                                    appUpdateManager.startUpdateFlowForResult(
+                                            appUpdateInfo,
+                                            AppUpdateType.IMMEDIATE,
+                                            this,
+                                            11);
+                                } catch (IntentSender.SendIntentException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 11) {
+            if (resultCode != RESULT_OK) {
+                Log.e(TAG, "onActivityResult: app download failed");
+            }
+            else{
+
+                Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
+                int mPendingIntentId = 1;
+                PendingIntent mPendingIntent = PendingIntent.getActivity(getApplicationContext(), mPendingIntentId, intent, PendingIntent.FLAG_IMMUTABLE);
+                AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(LoginActivity.ALARM_SERVICE);
+                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                System.exit(0);
+
+            }
+        }
     }
 
     @Override

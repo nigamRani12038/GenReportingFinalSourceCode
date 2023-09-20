@@ -142,7 +142,16 @@ public class ViewAllCommingRequestAdmin extends Fragment {
                         String reason=my_req_res.get(i).getPurpose();
                         String reporting_manager=my_req_res.get(i).getReportingManagers();
 
-                        model.setResponse(resPonse);
+                            if(type.equalsIgnoreCase("Leave")) {
+
+                                String leaveType =my_req_res.get(i).getTypeLeave();
+                                String timeLeave = my_req_res.get(i).getLeaveTime();
+                                model.setTypeLeave(leaveType);
+                                model.setLeaveTime(timeLeave);
+                            }
+
+
+                            model.setResponse(resPonse);
                         model.setEmpName(emp_name);
                         model.setType(type);
 

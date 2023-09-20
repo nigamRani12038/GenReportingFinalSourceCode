@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,12 @@ import com.ossi.genreporting.api.APIInterface;
 import com.ossi.genreporting.decorators.RangeDayDecorator;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SalaryFragment extends Fragment implements View.OnClickListener {
@@ -52,6 +57,9 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
     RoundedImageView img_profile;
     WebView web;
     private String myUrl;
+    ArrayList<String> month_List;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,78 +77,51 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         String Employee_Name = pref.getString("User_name", " ");
         String img_profile1 = pref.getString("img_url", " ");
 
+
         if (img_profile1 != null) {
             Glide.with(this).load(img_profile1).into(img_profile);
         }
 
         employee_name.setText(Employee_Name);
         login_time.setText("Login Time: " + login_Time);
-
+       // getMonthNamesOfCurrentYear();
 
 
         text_header1.setText("Salary Slip");
         text_for_select.setText("");
 
-        ArrayList<String> month_List = new ArrayList<>();
-        month_List.add("Select Month");
-        month_List.add("01");
-        month_List.add("02");
-        month_List.add("03");
-        month_List.add("04");
-        month_List.add("05");
-        month_List.add("06");
-        month_List.add("07");
-        month_List.add("08");
-        month_List.add("09");
-        month_List.add("10");
-        month_List.add("11");
-        month_List.add("12");
-        /*month_List.add("January");
-        month_List.add("February");
-        month_List.add("March");
-        month_List.add("April");
-        month_List.add("May");
-        month_List.add("June");
-        month_List.add("July");
-        month_List.add("August");
-        month_List.add("September");
-        month_List.add("October");
-        month_List.add("November");
-        month_List.add("December");*/
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, month_List);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        select_month.setAdapter(arrayAdapter);
-        select_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Month_str = select_month.getSelectedItem().toString();
 
-                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+
         ArrayList<String> year_List = new ArrayList<>();
         year_List.add("Select Year");
         year_List.add("2022");
         year_List.add("2023");
 
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, year_List);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         select_year.setAdapter(arrayAdapter1);
         select_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 year_str = select_year.getSelectedItem().toString();
+
+                if(year_str.equalsIgnoreCase("2023")){
+                    getMonthNamesOfCurrentYear();
+                }else {
+                    getallmonths();
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
 
         return view;
     }
@@ -186,6 +167,71 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         }
 
     }
+    public ArrayList<String> getMonthNamesOfCurrentYear() {
+        YearMonth currentMonth = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            currentMonth = YearMonth.now();
+        }
+         month_List = new ArrayList<>();
+        month_List.add("Select Month");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            for (int month = 1; month <= currentMonth.getMonthValue()-1; month++) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    month_List.add(String.valueOf("0"+month));
+                }
+            }
+        }
+        Log.e("months: ", String.valueOf(month_List));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, month_List);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        select_month.setAdapter(arrayAdapter);
+        select_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Month_str = select_month.getSelectedItem().toString();
 
+                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        return month_List;
+    }
+
+    public void getallmonths(){
+        month_List = new ArrayList<>();
+        month_List.add("Select Month");
+        month_List.add("01");
+        month_List.add("02");
+        month_List.add("03");
+        month_List.add("04");
+        month_List.add("05");
+        month_List.add("06");
+        month_List.add("07");
+        month_List.add("08");
+        month_List.add("09");
+        month_List.add("10");
+        month_List.add("11");
+        month_List.add("12");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, month_List);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        select_month.setAdapter(arrayAdapter);
+        select_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Month_str = select_month.getSelectedItem().toString();
+
+                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
 
 }

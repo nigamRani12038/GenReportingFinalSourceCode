@@ -51,6 +51,8 @@ public class LeaveStatusForAdmin extends Fragment implements View.OnClickListene
         view = inflater.inflate(R.layout.fragment_leave_status_for_admin, container, false);
         find_view_by_id();
         set_on_click_litioner();
+
+
          if(Util.isNetworkAvailable(getActivity())) {
              get_attendance_list();
          }else {
@@ -199,7 +201,6 @@ public void set_on_click_litioner(){
 
                     for (int i = 0; i < applyLeaveResponseItem.size(); i++) {
                         res = applyLeaveResponseItem.get(i).getResponse();
-
 
                         if (res.equalsIgnoreCase("success")) {
                             leave = Integer.parseInt(applyLeaveResponseItem.get(i).getLeave());

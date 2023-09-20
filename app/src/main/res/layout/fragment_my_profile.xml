@@ -306,7 +306,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
-                        android:text="official Mail Id"
+                        android:text="Official Mail Id"
                         android:textColor="@color/txt"
                         android:textSize="@dimen/_12sdp" />
 
@@ -314,7 +314,7 @@
                         android:id="@+id/official_mail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="official Mail Id"
+                        android:text="Official Mail Id"
                         android:textColor="@color/txtcolor"
                         android:textSize="@dimen/_11sdp" />
 

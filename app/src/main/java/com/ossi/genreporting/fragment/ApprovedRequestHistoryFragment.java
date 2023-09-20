@@ -187,13 +187,14 @@ public class ApprovedRequestHistoryFragment extends Fragment {
                                          int monthOfYear, int dayOfMonth) {
                        // on below line we are setting date to our edit text.
                         day_ = "" + dayOfMonth;
-                        month_=""+monthOfYear;
+                       int i=monthOfYear+1;
                        if (dayOfMonth < 10) {
                            day_ = "0" + dayOfMonth;
                        }
-                       if (monthOfYear < 10) {
-                           int i=monthOfYear+1;
+                       if (i < 10) {
                            month_ = "0" + i ;
+                       }else {
+                           month_= String.valueOf(i);
                        }
                        date_from.setText(day_ + "-" + (month_) + "-" + year);
                        // date_from.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
@@ -227,16 +228,17 @@ public class ApprovedRequestHistoryFragment extends Fragment {
                                           int monthOfYear, int dayOfMonth) {
 
                         day_ = "" + dayOfMonth;
-                        month_=""+monthOfYear;
+                        int i=monthOfYear+1;
                         if (dayOfMonth < 10) {
                             day_ = "0" + dayOfMonth;
                         }
-                        if (monthOfYear < 10) {
-                            int i = monthOfYear+1;
-                            month_ = "0" + i;
+                        if (i < 10) {
+                            month_ = "0" + i ;
+                        }else {
+                            month_= String.valueOf(i);
                         }
                         date_to.setText(day_ + "-" + (month_) + "-" + year);
-                        selected_date = year + "-" + (month_) + "-" + day_;
+                        selected_date1 = year + "-" + (month_) + "-" + day_;
                         get_my_request_history_list();
                     }
                 },
@@ -285,8 +287,7 @@ public class ApprovedRequestHistoryFragment extends Fragment {
                     mProgressDialog.dismiss();
 
                 if (my_req_res != null && my_req_res.size() > 0) {
-                    if (mProgressDialog.isShowing())
-                        mProgressDialog.dismiss();
+
                     request_history_list = new ArrayList<>();
                     for (int i = 0; i < my_req_res.size(); i++) {
                         if (mProgressDialog.isShowing())

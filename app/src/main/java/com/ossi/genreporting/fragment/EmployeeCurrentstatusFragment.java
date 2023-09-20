@@ -12,7 +12,9 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +47,7 @@ import retrofit2.Response;
 public class EmployeeCurrentstatusFragment extends Fragment {
     View view;
     TextView type, ofc_count, wfh_count, working_from_reason;
-    String type_status,totalpresent,biometric,wfh,absent,leave,field;
+    String type_status, totalpresent, biometric, wfh, absent, leave, field;
     private APIInterface apiInterface;
     private ProgressDialog mProgressDialog;
     private String res;
@@ -62,7 +64,8 @@ public class EmployeeCurrentstatusFragment extends Fragment {
 
     private ArrayList<WFHStatusResponse> wfh_list;
     EmployeeWFHAdapter employeeWFHAdapter;
-EditText search;
+    EditText search;
+    Spinner working_type;
 
 
     @Override
@@ -72,6 +75,16 @@ EditText search;
         view = inflater.inflate(R.layout.employees_current_status_view, container, false);
         find_view_by_id();
         set_on_click_litioner();
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Office");
+        arrayList.add("Field");
+        arrayList.add("All");
+
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        working_type.setAdapter(arrayAdapter);
         Bundle bundle = getArguments();
         if (bundle != null) {
             type_status = bundle.getString("type");
@@ -80,14 +93,14 @@ EditText search;
             wfh = bundle.getString("wfh");
             absent = bundle.getString("absent");
             leave = bundle.getString("leave");
-            field=bundle.getString("field");
+            field = bundle.getString("field");
 
             //Toast.makeText(getActivity(), ""+approve_type_exp, Toast.LENGTH_SHORT).show();
             if (Util.isNetworkAvailable(getActivity())) {
                 if (type_status.equalsIgnoreCase("present")) {
                     get_Total_present_list();
-                    ofc_count.setText("Office: "+biometric +", Field: "+field);
-                    wfh_count.setText("WFH: "+wfh);
+                    ofc_count.setText("Office: " + biometric + ", Field: " + field);
+                    wfh_count.setText("WFH: " + wfh);
                 } else if (type_status.equalsIgnoreCase("absent")) {
                     type.setText("Absent");
                     ofc_count.setText("");
@@ -96,7 +109,7 @@ EditText search;
                     get_allabsent_list();
                 } else if (type_status.equalsIgnoreCase("wfh")) {
                     type.setText("WFH");
-                    wfh_count.setText("WFH: "+wfh);
+                    wfh_count.setText("WFH: " + wfh);
                     ofc_count.setText("");
                     working_from_reason.setText("Reason");
                     get_wfh_list();
@@ -117,14 +130,14 @@ EditText search;
     }
 
 
-
     public void find_view_by_id() {
         type = view.findViewById(R.id.type);
         ofc_count = view.findViewById(R.id.ofc_count);
         wfh_count = view.findViewById(R.id.wfh_count);
         working_from_reason = view.findViewById(R.id.working_from_reason);
-        employee_status_rv=view.findViewById(R.id.employee_status_rv);
-        search=view.findViewById(R.id.search);
+        employee_status_rv = view.findViewById(R.id.employee_status_rv);
+        search = view.findViewById(R.id.search);
+        working_type = view.findViewById(R.id.working_type);
     }
 
     public void set_on_click_litioner() {
@@ -157,7 +170,7 @@ EditText search;
 
 
                         if (res.equalsIgnoreCase("success")) {
-                            PresentStatusItem   model=new PresentStatusItem();
+                            PresentStatusItem model = new PresentStatusItem();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
                             String Employee_image = applyLeaveResponseItem.get(i).getImage();
@@ -240,7 +253,7 @@ EditText search;
 
 
                         if (res.equalsIgnoreCase("success")) {
-                            AbsentStatusResponse   model=new AbsentStatusResponse();
+                            AbsentStatusResponse model = new AbsentStatusResponse();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
                             String Employee_image = applyLeaveResponseItem.get(i).getImage();
@@ -293,6 +306,7 @@ EditText search;
             }
         });
     }
+
     private void get_allleave_list() {
         apiInterface = APIClient.getClient().create(APIInterface.class);
         mProgressDialog = new ProgressDialog(getActivity());
@@ -318,7 +332,7 @@ EditText search;
 
 
                         if (res.equalsIgnoreCase("success")) {
-                            LeaveStatusREsponse   model=new LeaveStatusREsponse();
+                            LeaveStatusREsponse model = new LeaveStatusREsponse();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
                             String Employee_image = applyLeaveResponseItem.get(i).getImage();
@@ -398,7 +412,7 @@ EditText search;
 
 
                         if (res.equalsIgnoreCase("success")) {
-                            WFHStatusResponse   model=new WFHStatusResponse();
+                            WFHStatusResponse model = new WFHStatusResponse();
                             String Emp_Name = applyLeaveResponseItem.get(i).getEmpname();
                             String Response = applyLeaveResponseItem.get(i).getResponse();
                             String Employee_image = applyLeaveResponseItem.get(i).getImage();
@@ -450,11 +464,12 @@ EditText search;
             }
         });
     }
+
     private void filter(String text) {
         // creating a new array list to filter our data.
-        ArrayList<AbsentStatusResponse> filteredlist= new ArrayList();
+        ArrayList<AbsentStatusResponse> filteredlist = new ArrayList();
         // running a for loop to compare elements.
-        for (int i=0;i<absent_list.size();i++) {
+        for (int i = 0; i < absent_list.size(); i++) {
             // checking if the entered string matched with any item of our recycler view.
             if (absent_list.get(i).getEmpname().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
@@ -470,11 +485,12 @@ EditText search;
             employeeAbsentAdapter.updateList(filteredlist);
         }
     }
+
     private void filter_leave(String text) {
         // creating a new array list to filter our data.
-        ArrayList<LeaveStatusREsponse> filteredlist= new ArrayList();
+        ArrayList<LeaveStatusREsponse> filteredlist = new ArrayList();
         // running a for loop to compare elements.
-        for (int i=0;i<leaves_list.size();i++) {
+        for (int i = 0; i < leaves_list.size(); i++) {
             // checking if the entered string matched with any item of our recycler view.
             if (leaves_list.get(i).getEmpname().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
@@ -493,9 +509,9 @@ EditText search;
 
     private void filter_present(String text) {
         // creating a new array list to filter our data.
-        ArrayList<PresentStatusItem> filteredlist= new ArrayList();
+        ArrayList<PresentStatusItem> filteredlist = new ArrayList();
         // running a for loop to compare elements.
-        for (int i=0;i<present_list.size();i++) {
+        for (int i = 0; i < present_list.size(); i++) {
             // checking if the entered string matched with any item of our recycler view.
             if (present_list.get(i).getEmpname().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
@@ -514,9 +530,9 @@ EditText search;
 
     private void filter_wfh(String text) {
         // creating a new array list to filter our data.
-        ArrayList<WFHStatusResponse> filteredlist= new ArrayList();
+        ArrayList<WFHStatusResponse> filteredlist = new ArrayList();
         // running a for loop to compare elements.
-        for (int i=0;i<wfh_list.size();i++) {
+        for (int i = 0; i < wfh_list.size(); i++) {
             // checking if the entered string matched with any item of our recycler view.
             if (wfh_list.get(i).getEmpname().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
