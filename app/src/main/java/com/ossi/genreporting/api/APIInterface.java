@@ -197,13 +197,13 @@ public interface APIInterface {
     Call<List<AttendanceStatusResponse>> get_attendance_status();
 
     @GET("ShowAllAbsentEmployeeList")
-    Call<List<AbsentStatusResponse>> get_absent_list();
+    Call<List<AbsentStatusResponse>> get_absent_list(@Query("Type") String Type);
 
     @GET("ShowAllLeaveEmployeeList")
-    Call<List<LeaveStatusREsponse>> get_leave_list();
+    Call<List<LeaveStatusREsponse>> get_leave_list(@Query("Type") String Type);
 
     @GET("ShowAllPresentEmployeeList")
-    Call<List<PresentStatusItem>> get_present_list();
+    Call<List<PresentStatusItem>> get_present_list(@Query("Type") String Type);
 
     @GET("ShowAllWFHEmployeeList")
     Call<List<WFHStatusResponse>> get_wfh_list();

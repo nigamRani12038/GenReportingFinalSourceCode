@@ -129,6 +129,10 @@ public class LeaveApprovalFragment extends Fragment {
                             String reason = my_req_res.get(i).getPurpose();
                             String leaveType = my_req_res.get(i).getTypeLeave();
                             String timeLeave = my_req_res.get(i).getLeaveTime();
+                            String availCl = my_req_res.get(i).getAvailableCL();
+                            String avaiEl = my_req_res.get(i).getAvailableEL();
+                            String avaiSl = my_req_res.get(i).getAvailableSL();
+                            String avaiWfh = my_req_res.get(i).getAvailableWFH();
                             model.setTypeLeave(leaveType);
                             model.setLeaveTime(timeLeave);
 
@@ -141,6 +145,11 @@ public class LeaveApprovalFragment extends Fragment {
                             model.setTDate(tdate);
                             model.setFDate(fdate);
                             model.setPurpose(reason);
+                            model.setAvailableCL(availCl);
+                            model.setDepartment("");
+                            model.setAvailableEL(avaiEl);
+                            model.setAvailableSL(avaiSl);
+                            model.setAvailableWFH(avaiWfh);
 
                             request_list.add(model);
                         } else if(resPonse.equalsIgnoreCase("Fail")){

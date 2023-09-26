@@ -128,6 +128,10 @@ public class ComingRequestForAdmin extends Fragment {
                             String tdate = my_req_res.get(i).getTDate();
                             String fdate = my_req_res.get(i).getFDate();
                             String reason = my_req_res.get(i).getPurpose();
+                            String availCl = my_req_res.get(i).getAvailableCL();
+                            String avaiEl = my_req_res.get(i).getAvailableEL();
+                            String avaiSl = my_req_res.get(i).getAvailableSL();
+                            String avaiWfh = my_req_res.get(i).getAvailableWFH();
 
                             if(type.equalsIgnoreCase("Leave")) {
 
@@ -147,6 +151,10 @@ public class ComingRequestForAdmin extends Fragment {
                             model.setFDate(fdate);
                             model.setPurpose(reason);
                             model.setDepartment("Managment");
+                            model.setAvailableCL(availCl);
+                            model.setAvailableEL(avaiEl);
+                            model.setAvailableSL(avaiSl);
+                            model.setAvailableWFH(avaiWfh);
 
                             request_list.add(model);
                         }else if(resPonse.equalsIgnoreCase("Fail")){

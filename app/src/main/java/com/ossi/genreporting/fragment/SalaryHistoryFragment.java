@@ -51,6 +51,7 @@ View view;
     private SalaryHistoryAdapter salaryHistoryAdapter ;
     String month1,year,user_id;
     LinearLayout waiting_hide;
+    ArrayList<String> arrayList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,52 +70,27 @@ View view;
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         year_select.setAdapter(arrayAdapter1);
-
-
-
-        ArrayList<String> arrayList = new ArrayList<>();
-
-        arrayList.add("Select Months");
-        arrayList.add("1");
-        arrayList.add("2");
-        arrayList.add("3");
-        arrayList.add("4");
-        arrayList.add("5");
-        arrayList.add("6");
-        arrayList.add("7");
-        arrayList.add("8");
-        arrayList.add("9");
-        arrayList.add("10");
-        arrayList.add("11");
-        arrayList.add("12");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        month_select.setAdapter(arrayAdapter);
-        month_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        year_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                month1 = month_select.getSelectedItem().toString();
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 year=year_select.getSelectedItem().toString();
-                 if (year_select.getSelectedItem().equals("Select Year")) {
-                    Toast.makeText(getActivity(), "Please Select Year", Toast.LENGTH_SHORT).show();
-                } else if (month_select.getSelectedItem().equals("Select Months")) {
-                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                waiting_hide.setVisibility(View.VISIBLE);
+                if (year.equalsIgnoreCase("2023")){
+                    getMonthNamesOfCurrentYear();
+                }else {
+                    get_monthList();
                 }
-                 else {
-                    if(Util.isNetworkAvailable(getActivity())) {
-                        Request_approval_show_salary();
-                    }else {
-                        Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
+
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
+
+
+
 
 
         return view;
@@ -184,6 +160,10 @@ View view;
 
                             salary_list.add(model);
 
+                        }else if(res.equalsIgnoreCase("Fail")){
+                            waiting_hide.setVisibility(View.GONE);
+                            data_not_available.setVisibility(View.VISIBLE);
+                            ll_show_data.setVisibility(View.GONE);
                         }
 
 
@@ -219,4 +199,96 @@ View view;
 
         return yearMonths;
     }*/
+
+    public void get_monthList(){
+        arrayList = new ArrayList<>();
+
+        arrayList.add("Select Months");
+        arrayList.add("1");
+        arrayList.add("2");
+        arrayList.add("3");
+        arrayList.add("4");
+        arrayList.add("5");
+        arrayList.add("6");
+        arrayList.add("7");
+        arrayList.add("8");
+        arrayList.add("9");
+        arrayList.add("10");
+        arrayList.add("11");
+        arrayList.add("12");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        month_select.setAdapter(arrayAdapter);
+        month_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                month1 = month_select.getSelectedItem().toString();
+                year=year_select.getSelectedItem().toString();
+                if (year_select.getSelectedItem().equals("Select Year")) {
+                    Toast.makeText(getActivity(), "Please Select Year", Toast.LENGTH_SHORT).show();
+                } else if (month_select.getSelectedItem().equals("Select Months")) {
+                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(Util.isNetworkAvailable(getActivity())) {
+                        waiting_hide.setVisibility(View.VISIBLE);
+                        Request_approval_show_salary();
+                    }else {
+                        Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+    public ArrayList<String> getMonthNamesOfCurrentYear() {
+        YearMonth currentMonth = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            currentMonth = YearMonth.now();
+        }
+        arrayList = new ArrayList<>();
+        arrayList.add("Select Month");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            for (int month = 1; month <= currentMonth.getMonthValue()-1; month++) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    arrayList.add(String.valueOf("0"+month));
+                }
+            }
+        }
+        Log.e("months: ", String.valueOf(arrayList));
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        month_select.setAdapter(arrayAdapter);
+        month_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                month1 = month_select.getSelectedItem().toString();
+                year=year_select.getSelectedItem().toString();
+                if (year_select.getSelectedItem().equals("Select Year")) {
+                    Toast.makeText(getActivity(), "Please Select Year", Toast.LENGTH_SHORT).show();
+                } else if (month_select.getSelectedItem().equals("Select Months")) {
+                    Toast.makeText(getActivity(), "Please Select Months", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if(Util.isNetworkAvailable(getActivity())) {
+                        waiting_hide.setVisibility(View.VISIBLE);
+                        Request_approval_show_salary();
+                    }else {
+                        Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
+                }            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        return arrayList;
+    }
+
 }

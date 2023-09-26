@@ -62,7 +62,7 @@
                                 android:id="@+id/available_emp_leave"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Availbale Leave: "
+                                android:text=""
                                 android:textColor="@color/txtcolor"
                                 android:textSize="@dimen/_15sdp"
                                 />

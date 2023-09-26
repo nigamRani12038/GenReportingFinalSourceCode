@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -66,6 +67,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
     EmployeeWFHAdapter employeeWFHAdapter;
     EditText search;
     Spinner working_type;
+    String workType;
 
 
     @Override
@@ -76,15 +78,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
         find_view_by_id();
         set_on_click_litioner();
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("Office");
-        arrayList.add("Field");
-        arrayList.add("All");
 
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        working_type.setAdapter(arrayAdapter);
         Bundle bundle = getArguments();
         if (bundle != null) {
             type_status = bundle.getString("type");
@@ -98,7 +92,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
             //Toast.makeText(getActivity(), ""+approve_type_exp, Toast.LENGTH_SHORT).show();
             if (Util.isNetworkAvailable(getActivity())) {
                 if (type_status.equalsIgnoreCase("present")) {
-                    get_Total_present_list();
+                    filterEmploye();
                     ofc_count.setText("Office: " + biometric + ", Field: " + field);
                     wfh_count.setText("WFH: " + wfh);
                 } else if (type_status.equalsIgnoreCase("absent")) {
@@ -106,19 +100,25 @@ public class EmployeeCurrentstatusFragment extends Fragment {
                     ofc_count.setText("");
                     wfh_count.setText(absent);
                     working_from_reason.setText("");
-                    get_allabsent_list();
+                   // working_type.setVisibility(View.GONE);
+                    filterEmploye();
+                    // get_allabsent_list();
                 } else if (type_status.equalsIgnoreCase("wfh")) {
                     type.setText("WFH");
                     wfh_count.setText("WFH: " + wfh);
                     ofc_count.setText("");
                     working_from_reason.setText("Reason");
+                    working_type.setVisibility(View.GONE);
+
                     get_wfh_list();
                 } else if (type_status.equalsIgnoreCase("onleave")) {
                     type.setText("Leave");
                     ofc_count.setText("");
                     wfh_count.setText(leave);
                     working_from_reason.setText("Leave Type");
-                    get_allleave_list();
+                    //working_type.setVisibility(View.GONE);
+                    filterEmploye();
+                    //get_allleave_list();
                 }
             } else {
                 Toast.makeText(getActivity(), "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
@@ -152,7 +152,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<PresentStatusItem>> call1 = apiInterface.get_present_list();
+        Call<List<PresentStatusItem>> call1 = apiInterface.get_present_list(workType);
         call1.enqueue(new Callback<List<PresentStatusItem>>() {
             @Override
             public void onResponse(Call<List<PresentStatusItem>> call, Response<List<PresentStatusItem>> response) {
@@ -235,7 +235,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<AbsentStatusResponse>> call1 = apiInterface.get_absent_list();
+        Call<List<AbsentStatusResponse>> call1 = apiInterface.get_absent_list(workType);
         call1.enqueue(new Callback<List<AbsentStatusResponse>>() {
             @Override
             public void onResponse(Call<List<AbsentStatusResponse>> call, Response<List<AbsentStatusResponse>> response) {
@@ -314,7 +314,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
 
-        Call<List<LeaveStatusREsponse>> call1 = apiInterface.get_leave_list();
+        Call<List<LeaveStatusREsponse>> call1 = apiInterface.get_leave_list(workType);
         call1.enqueue(new Callback<List<LeaveStatusREsponse>>() {
             @Override
             public void onResponse(Call<List<LeaveStatusREsponse>> call, Response<List<LeaveStatusREsponse>> response) {
@@ -340,7 +340,7 @@ public class EmployeeCurrentstatusFragment extends Fragment {
                             model.setEmpname(Emp_Name);
                             model.setResponse(Response);
                             model.setImage(Employee_image);
-                            model.setTypeAttendance("");
+                            model.setTypeAttendance(attendance_type);
 
                             leaves_list.add(model);
 
@@ -547,6 +547,40 @@ public class EmployeeCurrentstatusFragment extends Fragment {
         } else {
             employeeWFHAdapter.updateList(filteredlist);
         }
+    }
+
+    public void filterEmploye() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Office");
+        arrayList.add("Field");
+        arrayList.add("All");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        working_type.setAdapter(arrayAdapter);
+
+        working_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                workType = working_type.getSelectedItem().toString();
+                if (type_status.equalsIgnoreCase("present")) {
+                    get_Total_present_list();
+                } else if (type_status.equalsIgnoreCase("absent")) {
+                    get_allabsent_list();
+                } else if (type_status.equalsIgnoreCase("onleave")) {
+                    get_allleave_list();
+                } /*else if (type_status.equalsIgnoreCase("wfh")) {
+                    get_wfh_list();
+                }*/
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
 }

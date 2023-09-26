@@ -72,6 +72,12 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
         String leaveType=exp.getTypeLeave();
         String timeLeave=exp.getLeaveTime();
 
+        String el=exp.getAvailableEL();
+        String cl=exp.getAvailableCL();
+        String sl=exp.getAvailableSL();
+        String available_wfh=exp.getAvailableWFH();
+        String availableLeave="EL:"+el+" CL:"+cl+" SL:"+sl;
+
         holder.emp_name_req.setText(Emp_Name);
         holder.req_type.setText(type);
 
@@ -93,6 +99,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
                 bundle.putString("reporting_manager", reporting_manager);
                 bundle.putString("leaveType", leaveType);
                 bundle.putString("timeLeave", timeLeave);
+                bundle.putString("availableLeave", availableLeave);
+                bundle.putString("available_wfh", available_wfh);
                 approvalRejectAndApproveFragment.setArguments(bundle);
                 openFragment1(approvalRejectAndApproveFragment);
             }

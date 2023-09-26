@@ -134,4 +134,46 @@ public class AllRequestResponse {
 
     @SerializedName("ReportingManagers")
     private String ReportingManagers;
+
+
+    public String getAvailableWFH() {
+        return AvailableWFH;
+    }
+
+    public void setAvailableWFH(String availableWFH) {
+        AvailableWFH = availableWFH;
+    }
+
+    public String getAvailableCL() {
+        return AvailableCL;
+    }
+
+    public void setAvailableCL(String availableCL) {
+        AvailableCL = availableCL;
+    }
+
+    public String getAvailableSL() {
+        return AvailableSL;
+    }
+
+    public void setAvailableSL(String availableSL) {
+        AvailableSL = availableSL;
+    }
+
+    public String getAvailableEL() {
+        return AvailableEL;
+    }
+
+    public void setAvailableEL(String availableEL) {
+        AvailableEL = availableEL;
+    }
+
+    @SerializedName("AvailableWFH")
+    private String AvailableWFH;
+    @SerializedName("AvailableCL")
+    private String AvailableCL;
+    @SerializedName("AvailableSL")
+    private String AvailableSL;
+    @SerializedName("AvailableEL")
+    private String AvailableEL;
 }

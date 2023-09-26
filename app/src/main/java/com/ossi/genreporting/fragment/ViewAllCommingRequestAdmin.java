@@ -141,6 +141,10 @@ public class ViewAllCommingRequestAdmin extends Fragment {
                         String fdate=my_req_res.get(i).getFDate();
                         String reason=my_req_res.get(i).getPurpose();
                         String reporting_manager=my_req_res.get(i).getReportingManagers();
+                            String availCl = my_req_res.get(i).getAvailableCL();
+                            String avaiEl = my_req_res.get(i).getAvailableEL();
+                            String avaiSl = my_req_res.get(i).getAvailableSL();
+                            String avaiWfh = my_req_res.get(i).getAvailableWFH();
 
                             if(type.equalsIgnoreCase("Leave")) {
 
@@ -162,6 +166,10 @@ public class ViewAllCommingRequestAdmin extends Fragment {
                         model.setPurpose(reason);
                         model.setDepartment(department);
                         model.setReportingManagers(reporting_manager);
+                            model.setAvailableCL(availCl);
+                            model.setAvailableEL(avaiEl);
+                            model.setAvailableSL(avaiSl);
+                            model.setAvailableWFH(avaiWfh);
 
                         request_list.add(model);
                         } else if(resPonse.equalsIgnoreCase("Fail")){

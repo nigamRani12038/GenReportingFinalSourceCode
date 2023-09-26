@@ -127,6 +127,10 @@ View view;
                             String tdate = my_req_res.get(i).getTDate();
                             String fdate = my_req_res.get(i).getFDate();
                             String reason = my_req_res.get(i).getPurpose();
+                            String availCl = my_req_res.get(i).getAvailableCL();
+                            String avaiEl = my_req_res.get(i).getAvailableEL();
+                            String avaiSl = my_req_res.get(i).getAvailableSL();
+                            String avaiWfh = my_req_res.get(i).getAvailableWFH();
 
                             model.setResponse(resPonse);
                             model.setEmpName(emp_name);
@@ -137,6 +141,11 @@ View view;
                             model.setTDate(tdate);
                             model.setFDate(fdate);
                             model.setPurpose(reason);
+                            model.setAvailableCL(availCl);
+                            model.setAvailableEL(avaiEl);
+                            model.setAvailableSL(avaiSl);
+                            model.setAvailableWFH(avaiWfh);
+                            model.setDepartment("");
 
                             request_list.add(model);
 

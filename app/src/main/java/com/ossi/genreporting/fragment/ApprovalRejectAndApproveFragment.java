@@ -87,17 +87,23 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
             String reporting_manager=bundle.getString("reporting_manager");
             String leaveType = bundle.getString("leaveType");
             String timeLeave=bundle.getString("timeLeave");
+            String available_wfh=bundle.getString("available_wfh");
+            String availableLeave=bundle.getString("availableLeave");
 
             emp_name.setText(Emp_Name);
             if (type.equalsIgnoreCase("Leave")) {
+                available_emp_leave.setText("Available Leave : "+availableLeave);
+
                 if(leaveType.equalsIgnoreCase("Short Leave") || leaveType.equalsIgnoreCase("Halfday Leave")) {
-                    request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType + "\n" + "Time of Leave: " + timeLeave);
+                    request_type.setText("Request Type: " + type + "\n" + "Leave Type:  " + leaveType + "\n" + "Time of Leave: " + timeLeave);
                 }else {
-                    request_type.setText("Reuest Type: " + type + "\n" + "Leave Type:  " + leaveType);
+                    request_type.setText("Request Type: " + type + "\n" + "Leave Type:  " + leaveType);
 
                 }
             }else {
-                request_type.setText("Reuest Type: " + type);
+                available_emp_leave.setText("Available WFH : "+available_wfh);
+
+                request_type.setText("Request Type: " + type);
 
             }
             total_day.setText("Total Days: " + Emp_count);
@@ -109,6 +115,7 @@ public class ApprovalRejectAndApproveFragment extends Fragment implements View.O
                 from_date.setText("Ammount: " + tdate);
                 to_date.setText(" " );
                 total_day.setText("Link : " + Emp_count);
+                available_emp_leave.setVisibility(View.GONE);
             }
 
             if (department.equalsIgnoreCase("Managment")) {
