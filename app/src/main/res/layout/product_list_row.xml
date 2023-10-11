@@ -49,13 +49,17 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_50sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/eye"
-                        android:drawableLeft="@drawable/toggleactive"
+                        android:background="#00FFFFFF"
+                        android:drawableLeft="@drawable/toggleinactive"
                         android:textAllCaps="false"
                         android:textColor="@color/txtcolor"
                         android:textOff="In Active"
                         android:textOn="Active"
                         android:textSize="@dimen/_9sdp" />
+
+
+
+
 
                     <TextView
                         android:layout_width="wrap_content"

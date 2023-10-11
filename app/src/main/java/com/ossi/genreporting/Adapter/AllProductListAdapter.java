@@ -1,12 +1,14 @@
 package com.ossi.genreporting.Adapter;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -34,6 +36,7 @@ public class AllProductListAdapter extends RecyclerView.Adapter<AllProductListAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView product_name,emp_name_product,module_count,doc_count,assign_count,not_assign_count;
+        ToggleButton active_inactive;
 
 
         public MyViewHolder(View view) {
@@ -44,6 +47,7 @@ public class AllProductListAdapter extends RecyclerView.Adapter<AllProductListAd
             doc_count = view.findViewById(R.id.doc_count);
             assign_count=view.findViewById(R.id.assign_count);
             not_assign_count=view.findViewById(R.id.not_assign_count);
+            active_inactive=view.findViewById(R.id.active_inactive);
 
         }
     }
@@ -77,7 +81,19 @@ public class AllProductListAdapter extends RecyclerView.Adapter<AllProductListAd
         holder.doc_count.setText(Doc_count);
 
 
+       holder.active_inactive.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(holder.active_inactive.isChecked()){
+                   holder.active_inactive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.toggleactive, 0, 0,0);
+               }else {
+                   holder.active_inactive.setCompoundDrawablesWithIntrinsicBounds(R.drawable.toggleinactive, 0, 0,0);
 
+
+               }
+
+           }
+       });
 
     }
 
@@ -90,6 +106,8 @@ public class AllProductListAdapter extends RecyclerView.Adapter<AllProductListAd
         object.add(s);
         //notifyDataSetChanged();
     }
+
+
     private void openFragment1(Fragment fragment) {
         FragmentTransaction transaction = context.getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.frame_layout, fragment); // give your fragment container id in first parameter
