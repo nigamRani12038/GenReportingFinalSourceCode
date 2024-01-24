@@ -100,6 +100,7 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         year_List.add("Select Year");
         year_List.add("2022");
         year_List.add("2023");
+        year_List.add("2024");
 
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, year_List);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -109,7 +110,7 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 year_str = select_year.getSelectedItem().toString();
 
-                if(year_str.equalsIgnoreCase("2023")){
+                if(year_str.equalsIgnoreCase("2024")){
                     getMonthNamesOfCurrentYear();
                 }else {
                     getallmonths();
@@ -171,13 +172,51 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         YearMonth currentMonth = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             currentMonth = YearMonth.now();
+            Log.e("current month",currentMonth.toString());
         }
          month_List = new ArrayList<>();
         month_List.add("Select Month");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             for (int month = 1; month <= currentMonth.getMonthValue()-1; month++) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    month_List.add(String.valueOf("0"+month));
+                    String mon="0"+month;
+                    if (mon.equalsIgnoreCase("01")) {
+                        month_List.add(String.valueOf("January"));
+                    }
+                    if (mon.equalsIgnoreCase("02")) {
+                        month_List.add(String.valueOf("February"));
+                    }
+                    if (mon.equalsIgnoreCase("03")) {
+                        month_List.add(String.valueOf("March"));
+                    }
+                    if (mon.equalsIgnoreCase("04")) {
+                        month_List.add(String.valueOf("April"));
+                    }
+                    if (mon.equalsIgnoreCase("05")) {
+                        month_List.add(String.valueOf("May"));
+                    }
+                    if (mon.equalsIgnoreCase("06")) {
+                        month_List.add(String.valueOf("June"));
+                    }
+                    if (mon.equalsIgnoreCase("07")) {
+                        month_List.add(String.valueOf("July"));
+                    }
+                    if (mon.equalsIgnoreCase("08")) {
+                        month_List.add(String.valueOf("August"));
+                    }
+                    if (mon.equalsIgnoreCase("09")) {
+                        month_List.add(String.valueOf("September"));
+                    }
+                    if (mon.equalsIgnoreCase("10")) {
+                        month_List.add(String.valueOf("October"));
+                    }
+                    if (mon.equalsIgnoreCase("11")) {
+                        month_List.add(String.valueOf("November"));
+                    }
+                    if (mon.equalsIgnoreCase("12")) {
+                        month_List.add(String.valueOf("December"));
+                    }
+
                 }
             }
         }
@@ -188,7 +227,45 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         select_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Month_str = select_month.getSelectedItem().toString();
+               String mon = select_month.getSelectedItem().toString();
+                if (mon.equalsIgnoreCase("January")) {
+                    Month_str="01";
+
+                }
+                if (mon.equalsIgnoreCase("February")) {
+                    Month_str="02";
+                }
+                if (mon.equalsIgnoreCase("March")) {
+                    Month_str="03";
+                }
+                if (mon.equalsIgnoreCase("April")) {
+                    Month_str="04";
+                }
+                if (mon.equalsIgnoreCase("May")) {
+                    Month_str="05";
+                }
+                if (mon.equalsIgnoreCase("June")) {
+                    Month_str="06";
+                }
+                if (mon.equalsIgnoreCase("July")) {
+                    Month_str="07";
+                }
+                if (mon.equalsIgnoreCase("August")) {
+                    Month_str="08";
+                }
+                if (mon.equalsIgnoreCase("September")) {
+                    Month_str="09";
+                }
+                if (mon.equalsIgnoreCase("October")) {
+                    Month_str="10";
+                }
+                if (mon.equalsIgnoreCase("November")) {
+                    Month_str="11";
+                }
+                if (mon.equalsIgnoreCase("December")) {
+                    Month_str="12";
+                }
+
 
                 //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
             }
@@ -203,18 +280,18 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
     public void getallmonths(){
         month_List = new ArrayList<>();
         month_List.add("Select Month");
-        month_List.add("01");
-        month_List.add("02");
-        month_List.add("03");
-        month_List.add("04");
-        month_List.add("05");
-        month_List.add("06");
-        month_List.add("07");
-        month_List.add("08");
-        month_List.add("09");
-        month_List.add("10");
-        month_List.add("11");
-        month_List.add("12");
+        month_List.add("January");
+        month_List.add("February");
+        month_List.add("March");
+        month_List.add("April");
+        month_List.add("May");
+        month_List.add("June");
+        month_List.add("July");
+        month_List.add("August");
+        month_List.add("September");
+        month_List.add("October");
+        month_List.add("November");
+        month_List.add("December");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, month_List);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -222,7 +299,46 @@ public class SalaryFragment extends Fragment implements View.OnClickListener {
         select_month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Month_str = select_month.getSelectedItem().toString();
+               String mon = select_month.getSelectedItem().toString();
+
+                if (mon.equalsIgnoreCase("January")) {
+                    Month_str="01";
+
+                }
+                if (mon.equalsIgnoreCase("February")) {
+                    Month_str="02";
+                }
+                if (mon.equalsIgnoreCase("March")) {
+                    Month_str="03";
+                }
+                if (mon.equalsIgnoreCase("April")) {
+                    Month_str="04";
+                }
+                if (mon.equalsIgnoreCase("May")) {
+                    Month_str="05";
+                }
+                if (mon.equalsIgnoreCase("June")) {
+                    Month_str="06";
+                }
+                if (mon.equalsIgnoreCase("July")) {
+                    Month_str="07";
+                }
+                if (mon.equalsIgnoreCase("August")) {
+                    Month_str="08";
+                }
+                if (mon.equalsIgnoreCase("September")) {
+                    Month_str="09";
+                }
+                if (mon.equalsIgnoreCase("October")) {
+                    Month_str="10";
+                }
+                if (mon.equalsIgnoreCase("November")) {
+                    Month_str="11";
+                }
+                if (mon.equalsIgnoreCase("December")) {
+                    Month_str="12";
+                }
+
 
                 //Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,          Toast.LENGTH_LONG).show();
             }

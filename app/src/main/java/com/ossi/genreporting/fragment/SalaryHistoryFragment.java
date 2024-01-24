@@ -66,7 +66,7 @@ View view;
         arrayList1.add("Select Year");
         arrayList1.add("2022");
         arrayList1.add("2023");
-
+        arrayList1.add("2024");
         ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList1);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         year_select.setAdapter(arrayAdapter1);
@@ -75,7 +75,7 @@ View view;
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 year=year_select.getSelectedItem().toString();
                 waiting_hide.setVisibility(View.VISIBLE);
-                if (year.equalsIgnoreCase("2023")){
+                if (year.equalsIgnoreCase("2024")){
                     getMonthNamesOfCurrentYear();
                 }else {
                     get_monthList();
@@ -204,18 +204,18 @@ View view;
         arrayList = new ArrayList<>();
 
         arrayList.add("Select Months");
-        arrayList.add("1");
-        arrayList.add("2");
-        arrayList.add("3");
-        arrayList.add("4");
-        arrayList.add("5");
-        arrayList.add("6");
-        arrayList.add("7");
-        arrayList.add("8");
-        arrayList.add("9");
-        arrayList.add("10");
-        arrayList.add("11");
-        arrayList.add("12");
+        arrayList.add("January");
+        arrayList.add("February");
+        arrayList.add("March");
+        arrayList.add("April");
+        arrayList.add("May");
+        arrayList.add("June");
+        arrayList.add("July");
+        arrayList.add("August");
+        arrayList.add("September");
+        arrayList.add("October");
+        arrayList.add("November");
+        arrayList.add("December");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -223,7 +223,47 @@ View view;
         month_select.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                month1 = month_select.getSelectedItem().toString();
+               String mon = month_select.getSelectedItem().toString();
+                if (mon.equalsIgnoreCase("January")) {
+                    month1="01";
+
+                }
+                if (mon.equalsIgnoreCase("February")) {
+                    month1="02";
+                }
+                if (mon.equalsIgnoreCase("March")) {
+                    month1="03";
+                }
+                if (mon.equalsIgnoreCase("April")) {
+                    month1="04";
+                }
+                if (mon.equalsIgnoreCase("May")) {
+                    month1="05";
+                }
+                if (mon.equalsIgnoreCase("June")) {
+                    month1="06";
+                }
+                if (mon.equalsIgnoreCase("July")) {
+                    month1="07";
+                }
+                if (mon.equalsIgnoreCase("August")) {
+                    month1="08";
+                }
+                if (mon.equalsIgnoreCase("September")) {
+                    month1="09";
+                }
+                if (mon.equalsIgnoreCase("October")) {
+                    month1="10";
+                }
+                if (mon.equalsIgnoreCase("November")) {
+                    month1="11";
+                }
+                if (mon.equalsIgnoreCase("December")) {
+                    month1="12";
+                }
+
+
+
                 year=year_select.getSelectedItem().toString();
                 if (year_select.getSelectedItem().equals("Select Year")) {
                     Toast.makeText(getActivity(), "Please Select Year", Toast.LENGTH_SHORT).show();
@@ -257,7 +297,46 @@ View view;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             for (int month = 1; month <= currentMonth.getMonthValue()-1; month++) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    arrayList.add(String.valueOf("0"+month));
+                    //arrayList.add(String.valueOf("0"+month));
+
+                    String mon="0"+month;
+                    if (mon.equalsIgnoreCase("01")) {
+                        arrayList.add(String.valueOf("January"));
+                    }
+                    if (mon.equalsIgnoreCase("02")) {
+                        arrayList.add(String.valueOf("February"));
+                    }
+                    if (mon.equalsIgnoreCase("03")) {
+                        arrayList.add(String.valueOf("March"));
+                    }
+                    if (mon.equalsIgnoreCase("04")) {
+                        arrayList.add(String.valueOf("April"));
+                    }
+                    if (mon.equalsIgnoreCase("05")) {
+                        arrayList.add(String.valueOf("May"));
+                    }
+                    if (mon.equalsIgnoreCase("06")) {
+                        arrayList.add(String.valueOf("June"));
+                    }
+                    if (mon.equalsIgnoreCase("07")) {
+                        arrayList.add(String.valueOf("July"));
+                    }
+                    if (mon.equalsIgnoreCase("08")) {
+                        arrayList.add(String.valueOf("August"));
+                    }
+                    if (mon.equalsIgnoreCase("09")) {
+                        arrayList.add(String.valueOf("September"));
+                    }
+                    if (mon.equalsIgnoreCase("10")) {
+                        arrayList.add(String.valueOf("October"));
+                    }
+                    if (mon.equalsIgnoreCase("11")) {
+                        arrayList.add(String.valueOf("November"));
+                    }
+                    if (mon.equalsIgnoreCase("12")) {
+                        arrayList.add(String.valueOf("December"));
+                    }
+
                 }
             }
         }

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -69,6 +70,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@TargetApi(Build.VERSION_CODES.DONUT)
 public class HrActivity extends AppCompatActivity implements View.OnClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
     private ImageView img_slide_gen;
     private DrawerLayout mDrawerLayout;
@@ -483,6 +485,8 @@ public class HrActivity extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+
+    @SuppressLint("NewApi")
     public void get_logout_method() {
 
 
