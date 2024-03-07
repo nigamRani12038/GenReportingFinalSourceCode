@@ -240,28 +240,27 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
     private void get_event() {
         apiInterface = APIClient.getClient().create(APIInterface.class);
-        mProgressDialog = new ProgressDialog(getActivity());
+       /* mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Please wait...");
         mProgressDialog.show();
-
+*/
         Call<List<EventResponse>> call1 = apiInterface.get_event_details();
         call1.enqueue(new Callback<List<EventResponse>>() {
             @Override
             public void onResponse(Call<List<EventResponse>> call, Response<List<EventResponse>> response) {
                 List<EventResponse> EventResponseItem = response.body();
-                if (mProgressDialog.isShowing())
+                /*if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
-
-
+*/
                 if (EventResponseItem != null && EventResponseItem.size() > 0) {
-                    if (mProgressDialog.isShowing())
+                   /* if (mProgressDialog.isShowing())
                         mProgressDialog.dismiss();
-
+*/
                     event_list = new ArrayList<>();
                     for (int i = 0; i < EventResponseItem.size(); i++) {
-                        if (mProgressDialog.isShowing())
-                            mProgressDialog.dismiss();
+                      /*  if (mProgressDialog.isShowing())
+                            mProgressDialog.dismiss();*/
 
                         String Emp_Name = EventResponseItem.get(i).getEmpName();
                         String eventType = EventResponseItem.get(i).getEventType();
@@ -290,20 +289,22 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
                             false));
 
 
-                    if (mProgressDialog.isShowing())
-                        mProgressDialog.dismiss();
+                   /* if (mProgressDialog.isShowing())
+                        mProgressDialog.dismiss();*/
 
                 }
-                if (mProgressDialog.isShowing())
-                    mProgressDialog.dismiss();
+               /* if (mProgressDialog.isShowing())
+                    mProgressDialog.dismiss();*/
             }
 
             @Override
             public void onFailure(Call<List<EventResponse>> call, Throwable t) {
-                Toast.makeText(getActivity(), " Please Try again Server Not Responds:", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(getActivity(), " Please Try again Server Not Responds:", Toast.LENGTH_SHORT).show();
                 call.cancel();
-                if (mProgressDialog.isShowing())
+               /* if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();
+
+                */
             }
         });
     }
@@ -465,7 +466,7 @@ public class AdminTabLayoutFragment extends Fragment implements View.OnClickList
 
             @Override
             public void onFailure(Call<List<DetailsResponseItem>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Server Not Responde", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Server Not Responde Please Try Again", Toast.LENGTH_SHORT).show();
                 call.cancel();
                 if (mProgressDialog.isShowing())
                     mProgressDialog.dismiss();

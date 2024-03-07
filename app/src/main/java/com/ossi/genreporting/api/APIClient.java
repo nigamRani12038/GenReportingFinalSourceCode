@@ -13,7 +13,7 @@ public class APIClient {
     private static final String BASE_URL ="https://genesiscloudapps.com/GenPayAPI/MobileService.asmx/";
 
     //testing url
-  // private static final String BASE_URL = "http://122.161.198.131//GenPayAPI/MobileService.asmx/";
+   //private static final String BASE_URL = "http://122.161.198.131//GenPayAPI/MobileService.asmx/";
 
     private static Retrofit retrofit = null;
 
